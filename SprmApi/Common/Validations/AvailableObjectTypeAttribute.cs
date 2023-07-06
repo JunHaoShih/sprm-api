@@ -6,7 +6,7 @@ namespace SprmApi.Common.Validations
     /// <summary>
     /// Check is input SprmObjectType is available
     /// </summary>
-    public class AvailableSPRMObjectTypeAttribute : ValidationAttribute
+    public class AvailableObjectTypeAttribute : ValidationAttribute
     {
         private readonly SprmObjectType[] _sprmObjectTypes;
 
@@ -14,7 +14,7 @@ namespace SprmApi.Common.Validations
         /// Constructor
         /// </summary>
         /// <param name="args"></param>
-        public AvailableSPRMObjectTypeAttribute(params SprmObjectType[] args)
+        public AvailableObjectTypeAttribute(params SprmObjectType[] args)
         {
             _sprmObjectTypes = args;
         }
