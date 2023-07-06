@@ -9,7 +9,7 @@
         /// <summary>
         /// Error code message
         /// </summary>
-        public string Message { get; private set; } = null!;
+        public string Message { get; private set; }
 
         /// <summary>
         /// Set error message attribute
