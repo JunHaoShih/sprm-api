@@ -16,7 +16,7 @@ namespace SprmApi.Core.Routings.Dto
         /// 自訂屬性值
         /// </summary>
         [JsonRequired]
-        public Dictionary<string, string> CustomValues = new();
+        public Dictionary<string, string> CustomValues { get; set; } = new();
 
         /// <summary>
         /// 更新entity資料
