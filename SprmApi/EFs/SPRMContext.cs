@@ -9,7 +9,6 @@ using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
 using SprmApi.Core.Routings;
 using SprmApi.Core.RoutingUsages;
-using SprmApi.Settings;
 
 namespace SprmApi.EFs
 {
@@ -22,7 +21,6 @@ namespace SprmApi.EFs
         /// Constructor, 一定要去base(options)
         /// </summary>
         /// <param name="options"></param>
-        /// <param name="apiSettings"></param>
         public SprmContext(DbContextOptions<SprmContext> options) : base(options)
         { }
 
