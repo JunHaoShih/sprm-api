@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.Customs.DTOs;
+﻿using SprmApi.Core.Customs.Dto;
 
 namespace SprmApi.Core.Customs
 {

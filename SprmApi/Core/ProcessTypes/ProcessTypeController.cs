@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.ProcessTypes.DTOs;
+using SprmApi.Core.ProcessTypes.Dto;
 
 namespace SprmApi.Core.ProcessTypes
 {

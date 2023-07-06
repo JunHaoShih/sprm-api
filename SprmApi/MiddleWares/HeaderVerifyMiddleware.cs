@@ -27,7 +27,7 @@ namespace SprmApi.MiddleWares
         /// <param name="httpHeader"></param>
         /// <param name="jWTService"></param>
         /// <returns></returns>
-        public async Task InvokeAsync(HttpContext context, HeaderData httpHeader, JWTService jWTService)
+        public async Task InvokeAsync(HttpContext context, HeaderData httpHeader, JwtService jWTService)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace SprmApi.MiddleWares
                 {
                     httpHeader.Bearer = bearerToken.Split(' ')[1];
                 }
-                JWTPayload payload = jWTService.DecryptToken(httpHeader.Bearer);
+                JwtPayload payload = jWTService.DecryptToken(httpHeader.Bearer);
                 httpHeader.JWTPayload = payload;
             }
             catch (SprmAuthException e)

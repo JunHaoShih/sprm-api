@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
-using SprmApi.Core.Processes.DTOs;
+using SprmApi.Core.Processes.Dto;
 using SprmApi.MiddleWares;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

@@ -1,6 +1,6 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.Customs.DTOs;
+using SprmApi.Core.Customs.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.Customs
@@ -10,12 +10,12 @@ namespace SprmApi.Core.Customs
     /// </summary>
     public class CustomAttributeService : ICustomAttributeService
     {
-        private readonly ICustomAttributeDAO _attributeDAO;
+        private readonly ICustomAttributeDao _attributeDAO;
 
         private readonly HeaderData _headerData;
 
         /// Constructor
-        public CustomAttributeService(ICustomAttributeDAO attributeDAO, HeaderData headerData)
+        public CustomAttributeService(ICustomAttributeDao attributeDAO, HeaderData headerData)
         {
             _attributeDAO = attributeDAO;
             _headerData = headerData;

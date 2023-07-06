@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.MakeTypes.DTOs;
+﻿using SprmApi.Core.MakeTypes.Dto;
 
 namespace SprmApi.Core.MakeTypes
 {

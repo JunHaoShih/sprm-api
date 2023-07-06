@@ -1,5 +1,5 @@
 ﻿using SprmApi.Common.Paginations;
-using SprmApi.Core.Processes.DTOs;
+using SprmApi.Core.Processes.Dto;
 
 namespace SprmApi.Core.Processes
 {

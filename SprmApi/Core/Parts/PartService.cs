@@ -1,9 +1,9 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Parts.DTOs;
+using SprmApi.Core.Parts.Dto;
 using SprmApi.Core.PartUsages;
-using SprmApi.Core.PartUsages.DTOs;
+using SprmApi.Core.PartUsages.Dto;
 using SprmApi.MiddleWares;
 using System.Transactions;
 
@@ -14,11 +14,11 @@ namespace SprmApi.Core.Parts
     /// </summary>
     public class PartService : IPartService
     {
-        private readonly IPartDAO _partDAO;
+        private readonly IPartDao _partDAO;
 
-        private readonly IPartVersionDAO _partVersionDAO;
+        private readonly IPartVersionDao _partVersionDAO;
 
-        private readonly IPartUsageDAO _partUsageDAO;
+        private readonly IPartUsageDao _partUsageDAO;
 
         private readonly HeaderData _headerData;
 
@@ -33,9 +33,9 @@ namespace SprmApi.Core.Parts
         /// <param name="headerData"></param>
         /// <param name="paginationData"></param>
         public PartService(
-            IPartDAO partDAO,
-            IPartVersionDAO partVersionDAO,
-            IPartUsageDAO partUsageDAO,
+            IPartDao partDAO,
+            IPartVersionDao partVersionDAO,
+            IPartUsageDao partUsageDAO,
             HeaderData headerData,
             PaginationData paginationData)
         {

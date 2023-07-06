@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.PartUsages.DTOs;
+using SprmApi.Core.PartUsages.Dto;
 
 namespace SprmApi.Core.PartUsages
 {

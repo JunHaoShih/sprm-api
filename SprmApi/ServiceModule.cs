@@ -44,56 +44,56 @@ namespace SprmApi
             builder.RegisterType<HeaderData>().InstancePerLifetimeScope();
             builder.RegisterType<PaginationData>().InstancePerLifetimeScope();
 
-            builder.RegisterType<JWTService>();
+            builder.RegisterType<JwtService>();
 
             // Register AppUser related
-            builder.RegisterType<AppUserDAO>().As<IAppUserDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<AppUserDao>().As<IAppUserDao>().InstancePerLifetimeScope();
             builder.RegisterType<AppUserService>().As<IAppUserService>().InstancePerLifetimeScope();
 
             builder.RegisterType<AuthenticationService>().As<IAuthenticationService>().InstancePerLifetimeScope();
 
             // Register Part related
-            builder.RegisterType<PartDAO>().As<IPartDAO>().InstancePerLifetimeScope();
-            builder.RegisterType<PartVersionDAO>().As<IPartVersionDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<PartDao>().As<IPartDao>().InstancePerLifetimeScope();
+            builder.RegisterType<PartVersionDao>().As<IPartVersionDao>().InstancePerLifetimeScope();
             builder.RegisterType<PartService>().As<IPartService>().InstancePerLifetimeScope();
             builder.RegisterType<PartVersionService>().As<IPartVersionService>().InstancePerLifetimeScope();
 
             // Custom attributes
-            builder.RegisterType<CustomAttributeDAO>().As<ICustomAttributeDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomAttributeDao>().As<ICustomAttributeDao>().InstancePerLifetimeScope();
             builder.RegisterType<CustomAttributeService>().As<ICustomAttributeService>().InstancePerLifetimeScope();
 
             // Object types
-            builder.RegisterType<ObjectTypeDAO>().As<IObjectTypeDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<ObjectTypeDao>().As<IObjectTypeDao>().InstancePerLifetimeScope();
             builder.RegisterType<ObjectTypeService>().As<IObjectTypeService>().InstancePerLifetimeScope();
 
             // Attribute links
-            builder.RegisterType<AttributeLinkDAO>().As<IAttributeLinkDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<AttributeLinkDao>().As<IAttributeLinkDao>().InstancePerLifetimeScope();
             builder.RegisterType<AttributeLinkService>().As<IAttributeLinkService>().InstancePerLifetimeScope();
 
             // Part usages
-            builder.RegisterType<PartUsageDAO>().As<IPartUsageDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<PartUsageDao>().As<IPartUsageDao>().InstancePerLifetimeScope();
             builder.RegisterType<PartUsageService>().As<IPartUsageService>().InstancePerLifetimeScope();
 
             // Routing
-            builder.RegisterType<RoutingDAO>().As<IRoutingDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<RoutingDao>().As<IRoutingDao>().InstancePerLifetimeScope();
             builder.RegisterType<RoutingService>().As<IRoutingService>().InstancePerLifetimeScope();
-            builder.RegisterType<RoutingVersionDAO>().As<IRoutingVersionDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<RoutingVersionDao>().As<IRoutingVersionDao>().InstancePerLifetimeScope();
             builder.RegisterType<RoutingVersionService>().As<IRoutingVersionService>().InstancePerLifetimeScope();
 
             // Process
-            builder.RegisterType<ProcessDAO>().As<IProcessDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<ProcessDao>().As<IProcessDao>().InstancePerLifetimeScope();
             builder.RegisterType<ProcessService>().As<IProcessService>().InstancePerLifetimeScope();
 
             // Process type
-            builder.RegisterType<ProcessTypeDAO>().As<IProcessTypeDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<ProcessTypeDao>().As<IProcessTypeDao>().InstancePerLifetimeScope();
             builder.RegisterType<ProcessTypeService>().As<IProcessTypeService>().InstancePerLifetimeScope();
 
             // Make type
-            builder.RegisterType<MakeTypeDAO>().As<IMakeTypeDAO>().InstancePerLifetimeScope();
+            builder.RegisterType<MakeTypeDao>().As<IMakeTypeDao>().InstancePerLifetimeScope();
             builder.RegisterType<MakeTypeService>().As<IMakeTypeService>().InstancePerLifetimeScope();
 
             // Routing usage
-            builder.RegisterType<RoutingUsageDAO>().As<IRoutingUsageDAO>();
+            builder.RegisterType<RoutingUsageDao>().As<IRoutingUsageDao>();
             builder.RegisterType<RoutingUsageService>().As<IRoutingUsageService>();
         }
     }

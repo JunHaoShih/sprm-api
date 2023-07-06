@@ -1,6 +1,6 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.Customs.DTOs;
+using SprmApi.Core.Customs.Dto;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.MiddleWares;
 using System;
@@ -13,11 +13,11 @@ namespace SprmApi.Core.Customs
     /// </summary>
     public class AttributeLinkService : IAttributeLinkService
     {
-        private readonly IAttributeLinkDAO _attributeLinkDAO;
+        private readonly IAttributeLinkDao _attributeLinkDAO;
 
-        private readonly IObjectTypeDAO _objectTypeDAO;
+        private readonly IObjectTypeDao _objectTypeDAO;
 
-        private readonly ICustomAttributeDAO _attributeDAO;
+        private readonly ICustomAttributeDao _attributeDAO;
 
         private readonly HeaderData _headerData;
 
@@ -29,9 +29,9 @@ namespace SprmApi.Core.Customs
         /// <param name="attributeDAO"></param>
         /// <param name="headerData"></param>
         public AttributeLinkService(
-            IAttributeLinkDAO attributeLinkDAO,
-            IObjectTypeDAO objectTypeDAO,
-            ICustomAttributeDAO attributeDAO,
+            IAttributeLinkDao attributeLinkDAO,
+            IObjectTypeDao objectTypeDAO,
+            ICustomAttributeDao attributeDAO,
             HeaderData headerData)
         {
             _attributeLinkDAO = attributeLinkDAO;

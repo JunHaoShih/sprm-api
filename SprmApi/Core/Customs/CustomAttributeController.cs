@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.Customs.DTOs;
+using SprmApi.Core.Customs.Dto;
 
 namespace SprmApi.Core.Customs
 {

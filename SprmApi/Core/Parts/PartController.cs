@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
-using SprmApi.Core.Parts.DTOs;
+using SprmApi.Core.Parts.Dto;
 
 namespace SprmApi.Core.Parts
 {

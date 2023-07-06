@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.ObjectTypes.DTOs;
+using SprmApi.Core.ObjectTypes.Dto;
 
 namespace SprmApi.Core.ObjectTypes
 {

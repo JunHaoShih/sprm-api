@@ -1,7 +1,7 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Core.AppUsers;
-using SprmApi.Core.Auth.DTOs;
+using SprmApi.Core.Auth.Dto;
 
 namespace SprmApi.Core.Auth
 {

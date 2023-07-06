@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Response;
 using SprmApi.Core.AppUsers;
-using SprmApi.Core.Auth.DTOs;
+using SprmApi.Core.Auth.Dto;
 
 namespace SprmApi.Core.Auth
 {
@@ -16,14 +16,14 @@ namespace SprmApi.Core.Auth
     {
         private readonly IAuthenticationService _authenticationService;
 
-        private readonly JWTService _jwtService;
+        private readonly JwtService _jwtService;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="jwtService"></param>
         /// <param name="authenticationService"></param>
-        public AuthenticationController(JWTService jwtService, IAuthenticationService authenticationService)
+        public AuthenticationController(JwtService jwtService, IAuthenticationService authenticationService)
         {
             _jwtService = jwtService;
             _authenticationService = authenticationService;

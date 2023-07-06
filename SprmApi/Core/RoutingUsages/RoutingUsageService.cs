@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.RoutingUsages.DTOs;
+using SprmApi.Core.RoutingUsages.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.RoutingUsages
@@ -11,7 +11,7 @@ namespace SprmApi.Core.RoutingUsages
     /// </summary>
     public class RoutingUsageService : IRoutingUsageService
     {
-        private readonly IRoutingUsageDAO _routingUsageDAO;
+        private readonly IRoutingUsageDao _routingUsageDAO;
 
         private readonly HeaderData _headerData;
 
@@ -20,7 +20,7 @@ namespace SprmApi.Core.RoutingUsages
         /// </summary>
         /// <param name="routingUsageDAO"></param>
         /// <param name="headerData"></param>
-        public RoutingUsageService(IRoutingUsageDAO routingUsageDAO, HeaderData headerData)
+        public RoutingUsageService(IRoutingUsageDao routingUsageDAO, HeaderData headerData)
         {
             _routingUsageDAO = routingUsageDAO;
             _headerData = headerData;

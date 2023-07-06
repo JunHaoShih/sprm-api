@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.Customs.DTOs;
+﻿using SprmApi.Core.Customs.Dto;
 using SprmApi.Core.ObjectTypes;
 
 namespace SprmApi.Core.Customs

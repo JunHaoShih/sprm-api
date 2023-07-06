@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.RoutingUsages.DTOs;
+﻿using SprmApi.Core.RoutingUsages.Dto;
 
 namespace SprmApi.Core.RoutingUsages
 {

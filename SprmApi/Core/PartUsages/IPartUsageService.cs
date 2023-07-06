@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.PartUsages.DTOs;
+﻿using SprmApi.Core.PartUsages.Dto;
 
 namespace SprmApi.Core.PartUsages
 {

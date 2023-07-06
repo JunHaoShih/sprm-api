@@ -1,7 +1,7 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Processes.DTOs;
+using SprmApi.Core.Processes.Dto;
 using SprmApi.MiddleWares;
 using System.Transactions;
 
@@ -12,7 +12,7 @@ namespace SprmApi.Core.Processes
     /// </summary>
     public class ProcessService : IProcessService
     {
-        private readonly IProcessDAO _processDAO;
+        private readonly IProcessDao _processDAO;
 
         private readonly HeaderData _headerData;
 
@@ -22,7 +22,7 @@ namespace SprmApi.Core.Processes
         /// <param name="processDAO"></param>
         /// <param name="headerData"></param>
         public ProcessService(
-            IProcessDAO processDAO,
+            IProcessDao processDAO,
             HeaderData headerData)
         {
             _processDAO = processDAO;

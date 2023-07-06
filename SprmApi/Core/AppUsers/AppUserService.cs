@@ -2,7 +2,7 @@
 using System.Text;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.AppUsers.DTOs;
+using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
 using SprmApi.Settings;
 
@@ -13,7 +13,7 @@ namespace SprmApi.Core.AppUsers
     /// </summary>
     public class AppUserService : IAppUserService
     {
-        private readonly IAppUserDAO _appUserDAO;
+        private readonly IAppUserDao _appUserDAO;
 
         private readonly ApiSettings _apiSettings;
 
@@ -25,7 +25,7 @@ namespace SprmApi.Core.AppUsers
         /// <param name="appUserDAO"></param>
         /// <param name="apiSettings"></param>
         /// <param name="headerData"></param>
-        public AppUserService(IAppUserDAO appUserDAO, ApiSettings apiSettings, HeaderData headerData)
+        public AppUserService(IAppUserDao appUserDAO, ApiSettings apiSettings, HeaderData headerData)
         {
             _appUserDAO = appUserDAO;
             _apiSettings = apiSettings;

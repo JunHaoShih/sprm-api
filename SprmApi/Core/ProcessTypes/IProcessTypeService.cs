@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.ProcessTypes.DTOs;
+﻿using SprmApi.Core.ProcessTypes.Dto;
 
 namespace SprmApi.Core.ProcessTypes
 {

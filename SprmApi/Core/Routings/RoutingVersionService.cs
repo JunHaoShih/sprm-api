@@ -1,6 +1,6 @@
 ﻿using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Routings.DTOs;
+using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.Routings
@@ -10,9 +10,9 @@ namespace SprmApi.Core.Routings
     /// </summary>
     public class RoutingVersionService : IRoutingVersionService
     {
-        private readonly IRoutingDAO _routingDAO;
+        private readonly IRoutingDao _routingDAO;
 
-        private readonly IRoutingVersionDAO _routingVersionDAO;
+        private readonly IRoutingVersionDao _routingVersionDAO;
 
         private readonly HeaderData _headerData;
 
@@ -23,8 +23,8 @@ namespace SprmApi.Core.Routings
         /// <param name="routingVersionDAO"></param>
         /// <param name="headerData"></param>
         public RoutingVersionService(
-            IRoutingDAO routingDAO,
-            IRoutingVersionDAO routingVersionDAO,
+            IRoutingDao routingDAO,
+            IRoutingVersionDao routingVersionDAO,
             HeaderData headerData
             )
         {

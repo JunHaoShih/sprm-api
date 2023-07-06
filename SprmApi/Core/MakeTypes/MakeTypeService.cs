@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.MakeTypes.DTOs;
+﻿using SprmApi.Core.MakeTypes.Dto;
 
 namespace SprmApi.Core.MakeTypes
 {
@@ -7,13 +7,13 @@ namespace SprmApi.Core.MakeTypes
     /// </summary>
     public class MakeTypeService : IMakeTypeService
     {
-        private readonly IMakeTypeDAO _makeTypeDAO;
+        private readonly IMakeTypeDao _makeTypeDAO;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="makeTypeDAO"></param>
-        public MakeTypeService(IMakeTypeDAO makeTypeDAO) => _makeTypeDAO = makeTypeDAO;
+        public MakeTypeService(IMakeTypeDao makeTypeDAO) => _makeTypeDAO = makeTypeDAO;
 
         /// <inheritdoc/>
         public IQueryable<MakeTypeDto> GetAll()

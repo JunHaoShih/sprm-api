@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
 using SprmApi.Common.Validations;
-using SprmApi.Core.Customs.DTOs;
+using SprmApi.Core.Customs.Dto;
 using SprmApi.Core.ObjectTypes;
 
 namespace SprmApi.Core.Customs

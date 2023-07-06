@@ -3,7 +3,7 @@ using NSwag.Annotations;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Response;
-using SprmApi.Core.AppUsers.DTOs;
+using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.AppUsers

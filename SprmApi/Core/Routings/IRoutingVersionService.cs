@@ -1,5 +1,5 @@
 ﻿using SprmApi.Common.Paginations;
-using SprmApi.Core.Routings.DTOs;
+using SprmApi.Core.Routings.Dto;
 
 namespace SprmApi.Core.Routings
 {

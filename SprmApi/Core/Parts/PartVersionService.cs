@@ -1,7 +1,7 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Parts.DTOs;
+using SprmApi.Core.Parts.Dto;
 using SprmApi.MiddleWares;
 using System;
 
@@ -12,7 +12,7 @@ namespace SprmApi.Core.Parts
     /// </summary>
     public class PartVersionService : IPartVersionService
     {
-        private readonly IPartVersionDAO _partVersionDAO;
+        private readonly IPartVersionDao _partVersionDAO;
 
         private readonly HeaderData _headerData;
 
@@ -25,7 +25,7 @@ namespace SprmApi.Core.Parts
         /// <param name="headerData"></param>
         /// <param name="paginationData"></param>
         public PartVersionService(
-            IPartVersionDAO partVersionDAO,
+            IPartVersionDao partVersionDAO,
             HeaderData headerData,
             PaginationData paginationData)
         {

@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
-using SprmApi.Core.Routings.DTOs;
+using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.Routings

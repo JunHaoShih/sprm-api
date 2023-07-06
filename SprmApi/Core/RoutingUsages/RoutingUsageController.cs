@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.RoutingUsages.DTOs;
+using SprmApi.Core.RoutingUsages.Dto;
 
 namespace SprmApi.Core.RoutingUsages
 {

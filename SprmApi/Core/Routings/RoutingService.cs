@@ -2,9 +2,9 @@
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Routings.DTOs;
+using SprmApi.Core.Routings.Dto;
 using SprmApi.Core.RoutingUsages;
-using SprmApi.Core.RoutingUsages.DTOs;
+using SprmApi.Core.RoutingUsages.Dto;
 using SprmApi.MiddleWares;
 using System.Transactions;
 
@@ -15,11 +15,11 @@ namespace SprmApi.Core.Routings
     /// </summary>
     public class RoutingService : IRoutingService
     {
-        private readonly IRoutingDAO _routingDAO;
+        private readonly IRoutingDao _routingDAO;
 
-        private readonly IRoutingVersionDAO _routingVersionDAO;
+        private readonly IRoutingVersionDao _routingVersionDAO;
 
-        private readonly IRoutingUsageDAO _routingUsageDAO;
+        private readonly IRoutingUsageDao _routingUsageDAO;
 
         private readonly HeaderData _headerData;
 
@@ -31,9 +31,9 @@ namespace SprmApi.Core.Routings
         /// <param name="routingUsageDAO"></param>
         /// <param name="headerData"></param>
         public RoutingService(
-            IRoutingDAO routingDAO,
-            IRoutingVersionDAO routingVersionDAO,
-            IRoutingUsageDAO routingUsageDAO,
+            IRoutingDao routingDAO,
+            IRoutingVersionDao routingVersionDAO,
+            IRoutingUsageDao routingUsageDAO,
             HeaderData headerData)
         {
             _routingDAO = routingDAO;

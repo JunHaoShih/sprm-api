@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.AppUsers.DTOs;
+﻿using SprmApi.Core.AppUsers.Dto;
 
 namespace SprmApi.Core.AppUsers
 {
