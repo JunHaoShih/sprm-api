@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SprmApi.Common.Validations;
-using SprmApi.Core.PartUsages;
 
 namespace SprmApi.Core.RoutingUsages.DTOs
 {

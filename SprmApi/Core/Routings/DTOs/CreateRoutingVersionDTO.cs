@@ -1,7 +1,5 @@
 ﻿
 using System.Text.Json;
-using SprmApi.Core.Parts.DTOs;
-using SprmApi.Core.Parts;
 
 namespace SprmApi.Core.Routings.DTOs
 {
