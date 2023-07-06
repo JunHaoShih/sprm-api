@@ -67,7 +67,7 @@ namespace SprmApi.Error
                     Content = exception.Message
                 };
             }
-            _logger.LogError(exception, "Error catched by error handler: {Message}", exception.Message);
+            _logger.LogError(exception, "Error catched by error handler");
 
             return StatusCode(statusCode, apiErrorMessage);
         }
