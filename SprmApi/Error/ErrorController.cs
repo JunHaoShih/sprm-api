@@ -15,13 +15,13 @@ namespace SprmApi.Error
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : ControllerBase
     {
-        private readonly ILogger logger;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="logger"></param>
-        public ErrorController(ILogger<ErrorController> logger) => this.logger = logger;
+        public ErrorController(ILogger<ErrorController> logger) => _logger = logger;
 
         /// <summary>
         /// Where all the errors handled
@@ -29,11 +29,11 @@ namespace SprmApi.Error
         /// <returns></returns>
         public ActionResult<GenericResponse<string>> Error()
         {
-            var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            var exception = context!.Error;
+            IExceptionHandlerFeature? context = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            Exception exception = context!.Error;
             int statusCode = StatusCodes.Status500InternalServerError;
 
-            GenericResponse<string> apiErrorMessage = new GenericResponse<string>();
+            GenericResponse<string> apiErrorMessage;
 
             if (exception is SprmAuthException authException)
             {
@@ -67,7 +67,7 @@ namespace SprmApi.Error
                     Content = exception.Message
                 };
             }
-            logger.LogError(exception, exception.Message);
+            _logger.LogError(exception, "Error catched by error handler: {Message}", exception.Message);
 
             return StatusCode(statusCode, apiErrorMessage);
         }
@@ -79,7 +79,7 @@ namespace SprmApi.Error
 		/// <returns></returns>
 		private static GenericResponse<string> HandlePostgresException(PostgresException exception)
         {
-            GenericResponse<string> apiErrorMessage = new GenericResponse<string>();
+            GenericResponse<string> apiErrorMessage;
 
             if (exception.SqlState == "23505")
             {
