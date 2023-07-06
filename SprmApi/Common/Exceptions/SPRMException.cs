@@ -6,6 +6,7 @@ namespace SprmApi.Common.Exceptions
     /// <summary>
     /// Custom generic exception
     /// </summary>
+    [Serializable]
     public class SprmException : Exception
     {
         /// <summary>
