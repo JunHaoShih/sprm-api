@@ -126,7 +126,7 @@ namespace SprmApi.Core.Parts
                 PartVersion draftVersion = await _partVersionDAO.InsertAsync(createVersionDto.ToEntity(), _headerData.JWTPayload.Subject);
                 foreach (var usage in usages)
                 {
-                    CreatePartUsageChildDTO createDto = CreatePartUsageChildDTO.Parse(usage);
+                    CreatePartUsageChildDto createDto = CreatePartUsageChildDto.Parse(usage);
                     await _partUsageDAO.InsertAsync(draftVersion.Id, createDto, _headerData.JWTPayload.Subject);
                 }
 

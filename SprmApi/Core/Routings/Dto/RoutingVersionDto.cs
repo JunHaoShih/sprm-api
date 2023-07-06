@@ -33,7 +33,7 @@ namespace SprmApi.Core.Routings.Dto
         /// <summary>
         /// 自訂屬性值
         /// </summary>
-        public Dictionary<string, string> CustomValues = new();
+        public Dictionary<string, string> CustomValues { get; set; } = new();
 
         /// <summary>
         /// Parse entity to DTO

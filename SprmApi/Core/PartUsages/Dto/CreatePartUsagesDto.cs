@@ -18,13 +18,13 @@ namespace SprmApi.Core.PartUsages.Dto
         /// Child part ids
         /// </summary>
         [JsonRequired]
-        public IEnumerable<CreatePartUsageChildDTO> Children { get; set; } = Enumerable.Empty<CreatePartUsageChildDTO>();
+        public IEnumerable<CreatePartUsageChildDto> Children { get; set; } = Enumerable.Empty<CreatePartUsageChildDto>();
     }
 
     /// <summary>
     /// Child part and quantity
     /// </summary>
-    public class CreatePartUsageChildDTO
+    public class CreatePartUsageChildDto
     {
         /// <summary>
         /// Child part id
@@ -54,9 +54,9 @@ namespace SprmApi.Core.PartUsages.Dto
         /// </summary>
         /// <param name="partUsage"></param>
         /// <returns></returns>
-        public static CreatePartUsageChildDTO Parse(PartUsage partUsage)
+        public static CreatePartUsageChildDto Parse(PartUsage partUsage)
         {
-            return new CreatePartUsageChildDTO
+            return new CreatePartUsageChildDto
             {
                 PartId = partUsage.ChildId,
                 Quantity = partUsage.Quantity,

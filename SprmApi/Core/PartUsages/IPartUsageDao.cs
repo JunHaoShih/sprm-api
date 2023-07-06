@@ -14,7 +14,7 @@ namespace SprmApi.Core.PartUsages
         /// <param name="childDTO">Child part</param>
         /// <param name="creator">Who create this usage</param>
         /// <returns></returns>
-        Task<PartUsage> InsertAsync(long parentPartVersionId, CreatePartUsageChildDTO childDTO, string creator);
+        Task<PartUsage> InsertAsync(long parentPartVersionId, CreatePartUsageChildDto childDTO, string creator);
 
         /// <summary>
         /// Get part usage by parent part version id and child part id

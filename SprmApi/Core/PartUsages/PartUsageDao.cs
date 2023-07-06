@@ -57,7 +57,7 @@ namespace SprmApi.Core.PartUsages
         }
 
         /// <inheritdoc/>
-        public async Task<PartUsage> InsertAsync(long parentPartVersionId, CreatePartUsageChildDTO childDTO, string creator)
+        public async Task<PartUsage> InsertAsync(long parentPartVersionId, CreatePartUsageChildDto childDTO, string creator)
         {
             var duplicateUsage = await GetAsync(parentPartVersionId, childDTO.PartId);
             if (duplicateUsage != null)

@@ -32,7 +32,6 @@ namespace SprmApi.Core.RoutingUsages
             }
             _context.RoutingUsages.Remove(targetUsage);
             await _context.SaveChangesAsync();
-            return;
         }
 
         /// <inheritdoc/>

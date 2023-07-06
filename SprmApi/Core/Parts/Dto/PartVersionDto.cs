@@ -6,7 +6,7 @@ namespace SprmApi.Core.Parts.Dto
     /// <summary>
     /// 料件版本DTO
     /// </summary>
-    public class PartVersionDTO : BaseReturnDto
+    public class PartVersionDto : BaseReturnDto
     {
         /// <summary>
         /// 零件id
@@ -36,20 +36,20 @@ namespace SprmApi.Core.Parts.Dto
         /// <summary>
         /// 自訂屬性值
         /// </summary>
-        public Dictionary<string, string> CustomValues = new();
+        public Dictionary<string, string> CustomValues { get; set; } = new();
 
         /// <summary>
         /// Parse entity to DTO
         /// </summary>
         /// <param name="partVersion"></param>
         /// <returns></returns>
-        public static PartVersionDTO? Parse(PartVersion? partVersion)
+        public static PartVersionDto? Parse(PartVersion? partVersion)
         {
             if (partVersion == null)
             {
                 return null;
             }
-            var dto = new PartVersionDTO
+            var dto = new PartVersionDto
             {
                 MasterId = partVersion.MasterId,
                 Version = partVersion.Version,
