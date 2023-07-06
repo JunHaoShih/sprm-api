@@ -55,7 +55,7 @@ namespace SprmApi.Core.Processes
             Process? duplicateProcess = await GetByNumberAsync(createDTO.Number);
             if (duplicateProcess != null)
             {
-                throw new SPRMException(ErrorCode.DbInsertDuplicate, $"{duplicateProcess.Number} already exist");
+                throw new SprmException(ErrorCode.DbInsertDuplicate, $"{duplicateProcess.Number} already exist");
             }
             Process entity = createDTO.ToEntity();
             entity.CreateUser = creator;
@@ -73,7 +73,7 @@ namespace SprmApi.Core.Processes
                 .SingleOrDefaultAsync();
             if (targetProcess == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"{id} not found");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"{id} not found");
             }
             _context.Processes.Remove(targetProcess);
             await _context.SaveChangesAsync();

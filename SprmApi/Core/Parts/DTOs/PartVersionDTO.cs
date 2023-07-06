@@ -6,7 +6,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 料件版本DTO
     /// </summary>
-    public class PartVersionDTO : BaseReturnDTO
+    public class PartVersionDTO : BaseReturnDto
     {
         /// <summary>
         /// 零件id

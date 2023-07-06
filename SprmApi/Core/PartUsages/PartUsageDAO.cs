@@ -62,7 +62,7 @@ namespace SprmApi.Core.PartUsages
             var duplicateUsage = await GetAsync(parentPartVersionId, childDTO.PartId);
             if (duplicateUsage != null)
             {
-                throw new SPRMException(ErrorCode.DbInsertDuplicate,
+                throw new SprmException(ErrorCode.DbInsertDuplicate,
                     $"PartUsage parent id: {parentPartVersionId}, child id: {childDTO.PartId} already exist");
             }
             var entity = new PartUsage
@@ -86,7 +86,7 @@ namespace SprmApi.Core.PartUsages
             var targetUsage = await GetAsync(id, false);
             if (targetUsage == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound,
+                throw new SprmException(ErrorCode.DbDataNotFound,
                     $"PartUsage id {id} does not exist");
             }
             _context.PartUsages.Remove(targetUsage);

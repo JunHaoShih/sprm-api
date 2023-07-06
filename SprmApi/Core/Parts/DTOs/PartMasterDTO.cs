@@ -5,7 +5,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 料件版本master DTO
     /// </summary>
-    public class PartMasterDTO : BaseReturnDTO
+    public class PartMasterDTO : BaseReturnDto
     {
         /// <summary>
         /// 料號

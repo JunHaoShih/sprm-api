@@ -8,7 +8,7 @@ namespace SprmApi.Core.Processes.DTOs
     /// <summary>
     /// 製程回傳DTO
     /// </summary>
-    public class ProcessDTO : BaseReturnDTO
+    public class ProcessDTO : BaseReturnDto
     {
         /// <summary>
         /// 料號

@@ -59,6 +59,11 @@ namespace SprmApi.Core.RoutingUsages.DTOs
             };
         }
 
+        /// <summary>
+        /// Parse entity to DTO
+        /// </summary>
+        /// <param name="partUsage"></param>
+        /// <returns></returns>
         public static CreateRoutingUsageDTO Parse(RoutingUsage partUsage)
         {
             return new CreateRoutingUsageDTO

@@ -13,7 +13,7 @@ namespace SprmApi.Core.Routings
         /// </summary>
         /// <param name="createDTO"></param>
         /// <returns></returns>
-        Task<RoutingDTO> InsertAsync(CreateRoutingDTO createDTO);
+        Task<RoutingDto> InsertAsync(CreateRoutingDTO createDTO);
 
         /// <summary>
         /// Get routings by part id
@@ -21,21 +21,21 @@ namespace SprmApi.Core.Routings
         /// <param name="partId">Part id</param>
         /// <param name="input">Offset pagination input</param>
         /// <returns></returns>
-        OffsetPagination<RoutingDTO> GetByPartIdAsync(long partId, OffsetPaginationInput input);
+        OffsetPagination<RoutingDto> GetByPartIdAsync(long partId, OffsetPaginationInput input);
 
         /// <summary>
         /// Get routing by id
         /// </summary>
         /// <param name="routingId">Routing id</param>
         /// <returns></returns>
-        Task<RoutingDTO?> GetByIdAsync(long routingId);
+        Task<RoutingDto?> GetByIdAsync(long routingId);
 
         /// <summary>
         /// Check-in routing
         /// </summary>
         /// <param name="routingId">Routing id</param>
         /// <returns></returns>
-        Task<RoutingDTO> CheckInAsync(long routingId);
+        Task<RoutingDto> CheckInAsync(long routingId);
 
         /// <summary>
         /// Check-out routing
@@ -43,13 +43,13 @@ namespace SprmApi.Core.Routings
         /// <param name="routingId">Routing id</param>
         /// <param name="versionId"></param>
         /// <returns></returns>
-        Task<RoutingDTO> CheckOutAsync(long routingId, long? versionId = null);
+        Task<RoutingDto> CheckOutAsync(long routingId, long? versionId = null);
 
         /// <summary>
         /// Discard current checkout routing
         /// </summary>
         /// <param name="routingId"></param>
         /// <returns></returns>
-        Task<RoutingDTO> DiscardAsync(long routingId);
+        Task<RoutingDto> DiscardAsync(long routingId);
     }
 }

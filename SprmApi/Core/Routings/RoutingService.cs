@@ -43,23 +43,23 @@ namespace SprmApi.Core.Routings
         }
 
         /// <inheritdoc/>
-        public OffsetPagination<RoutingDTO> GetByPartIdAsync(long partId, OffsetPaginationInput input)
+        public OffsetPagination<RoutingDto> GetByPartIdAsync(long partId, OffsetPaginationInput input)
         {
             IQueryable<Routing> routings = _routingDAO.GetByPartId(partId, true);
-            IQueryable<RoutingDTO> dtos = routings.Select(routing => RoutingDTO.Parse(
+            IQueryable<RoutingDto> dtos = routings.Select(routing => RoutingDto.Parse(
                 routing,
                 routing.RoutingVersions!
                     .Where(version => version.IsLatest || version.IsDraft)
                     .OrderByDescending(version => version.IsLatest)
                     .First(),
-                routing.RoutingVersions!.Where(version => version.IsDraft).SingleOrDefault())
+                routing.RoutingVersions!.SingleOrDefault(version => version.IsDraft))
             );
-            OffsetPagination<RoutingDTO> offsetPagination = new OffsetPagination<RoutingDTO>(dtos, input);
+            OffsetPagination<RoutingDto> offsetPagination = new OffsetPagination<RoutingDto>(dtos, input);
             return offsetPagination;
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingDTO?> GetByIdAsync(long routingId)
+        public async Task<RoutingDto?> GetByIdAsync(long routingId)
         {
             Routing? routing = await _routingDAO.GetByIdAsync(routingId);
             if (routing == null)
@@ -73,11 +73,11 @@ namespace SprmApi.Core.Routings
             RoutingVersion? draft = _routingVersionDAO.GetByMasterId(routing.Id)
                 .Where(version => version.IsDraft)
                 .SingleOrDefault();
-            return RoutingDTO.Parse(routing, latest, draft);
+            return RoutingDto.Parse(routing, latest, draft);
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingDTO> InsertAsync(CreateRoutingDTO createDTO)
+        public async Task<RoutingDto> InsertAsync(CreateRoutingDTO createDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -97,12 +97,12 @@ namespace SprmApi.Core.Routings
                 };
                 RoutingVersion newVersion = await _routingVersionDAO.InsertAsync(firstVersion.ToEntity(), _headerData.JWTPayload.Subject);
                 scope.Complete();
-                return RoutingDTO.Parse(newRouting, newVersion, newVersion);
+                return RoutingDto.Parse(newRouting, newVersion, newVersion);
             }
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingDTO> CheckOutAsync(long routingId, long? versionId = null)
+        public async Task<RoutingDto> CheckOutAsync(long routingId, long? versionId = null)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -113,17 +113,17 @@ namespace SprmApi.Core.Routings
                 Routing? targetRouting = await _routingDAO.GetByIdAsync(routingId);
                 if (targetRouting == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
                 }
                 if (targetRouting.Checkout)
                 {
-                    throw new SPRMException(ErrorCode.DataAlreadyCheckout, $"Routing id: ${routingId} already checkout!");
+                    throw new SprmException(ErrorCode.DataAlreadyCheckout, $"Routing id: ${routingId} already checkout!");
                 }
 
                 RoutingVersion? latestVersion = await _routingVersionDAO.GetLatest(routingId);
                 if (latestVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.LatestVersionNotFound, $"Routing id: ${routingId} cannot find latest version!");
+                    throw new SprmException(ErrorCode.LatestVersionNotFound, $"Routing id: ${routingId} cannot find latest version!");
                 }
 
                 CreateRoutingVersionDTO createVersionDto = CreateRoutingVersionDTO.Parse(latestVersion);
@@ -136,7 +136,7 @@ namespace SprmApi.Core.Routings
                 targetRouting.Checkout = true;
                 Routing updatedRouting = await _routingDAO.UpdateAsync(targetRouting, _headerData.JWTPayload.Subject);
                 scope.Complete();
-                return RoutingDTO.Parse(updatedRouting, latestVersion, draftVersion);
+                return RoutingDto.Parse(updatedRouting, latestVersion, draftVersion);
             }
         }
 
@@ -156,7 +156,7 @@ namespace SprmApi.Core.Routings
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingDTO> CheckInAsync(long routingId)
+        public async Task<RoutingDto> CheckInAsync(long routingId)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -167,11 +167,11 @@ namespace SprmApi.Core.Routings
                 Routing? targetRouting = await _routingDAO.GetByIdAsync(routingId);
                 if (targetRouting == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
                 }
                 if (!targetRouting.Checkout)
                 {
-                    throw new SPRMException(ErrorCode.DataDoesNotCheckout, $"Routing id: ${routingId} does not checkout!");
+                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Routing id: ${routingId} does not checkout!");
                 }
 
                 RoutingVersion? latestVersion = await _routingVersionDAO.GetLatest(routingId);
@@ -179,7 +179,7 @@ namespace SprmApi.Core.Routings
 
                 if (draftVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.DraftVersionNotFound, $"Routing id: ${routingId} cannt find draft version!");
+                    throw new SprmException(ErrorCode.DraftVersionNotFound, $"Routing id: ${routingId} cannt find draft version!");
                 }
 
                 if (latestVersion != null)
@@ -198,12 +198,12 @@ namespace SprmApi.Core.Routings
                 Routing updatedRouting = await _routingDAO.UpdateAsync(targetRouting, _headerData.JWTPayload.Subject);
                 scope.Complete();
                 // Because draft version is our latest version, so we pass draftVersion into DTO
-                return RoutingDTO.Parse(updatedRouting, draftVersion, null);
+                return RoutingDto.Parse(updatedRouting, draftVersion, null);
             }
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingDTO> DiscardAsync(long routingId)
+        public async Task<RoutingDto> DiscardAsync(long routingId)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -214,17 +214,17 @@ namespace SprmApi.Core.Routings
                 Routing? targetRouting = await _routingDAO.GetByIdAsync(routingId);
                 if (targetRouting == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
                 }
                 if (!targetRouting.Checkout)
                 {
-                    throw new SPRMException(ErrorCode.DataDoesNotCheckout, $"Routing id: ${routingId} does not checkout!");
+                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Routing id: ${routingId} does not checkout!");
                 }
 
                 RoutingVersion? draftVersion = await _routingVersionDAO.GetDraft(routingId);
                 if (draftVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.DraftVersionNotFound, $"Routing id: ${routingId} cannt find draft version!");
+                    throw new SprmException(ErrorCode.DraftVersionNotFound, $"Routing id: ${routingId} cannt find draft version!");
                 }
 
                 await _routingVersionDAO.DeleteAsync(draftVersion);
@@ -233,7 +233,11 @@ namespace SprmApi.Core.Routings
                 Routing updatedRouting = await _routingDAO.UpdateAsync(targetRouting, _headerData.JWTPayload.Subject);
                 scope.Complete();
                 RoutingVersion? latestVersion = await _routingVersionDAO.GetLatest(routingId);
-                return RoutingDTO.Parse(updatedRouting, latestVersion, null);
+                if (latestVersion == null)
+                {
+                    throw new SprmException(ErrorCode.DbError, $"Something went wrong");
+                }
+                return RoutingDto.Parse(updatedRouting, latestVersion, null);
             }
         }
     }

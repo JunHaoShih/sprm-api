@@ -56,7 +56,7 @@ namespace SprmApi.Core.Customs
                     var targetAttributeLink = await _attributeLinkDAO.Get(deleteDTO.ObjectTypeId, attributeId);
                     if (targetAttributeLink == null)
                     {
-                        throw new SPRMException(ErrorCode.DbDataNotFound,
+                        throw new SprmException(ErrorCode.DbDataNotFound,
                             $"Attribute link [objectTypeId: {deleteDTO.ObjectTypeId}, attributeId: {attributeId}] does not exist");
                     }
                     await _attributeLinkDAO.DeleteAsync(targetAttributeLink.Id);
@@ -75,7 +75,7 @@ namespace SprmApi.Core.Customs
             var objectType = await _objectTypeDAO.GetByIdAsync(objectTypeId);
             if (objectType == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Object type id: {objectTypeId} does not exist");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Object type id: {objectTypeId} does not exist");
             }
             return await _attributeLinkDAO.GetByObjectTypeIdAsync(objectTypeId);
         }
@@ -110,20 +110,20 @@ namespace SprmApi.Core.Customs
         /// <param name="objectTypeId">物件類別id</param>
         /// <param name="attributeIds">自訂屬性id清單</param>
         /// <returns></returns>
-        /// <exception cref="SPRMException"></exception>
+        /// <exception cref="SprmException"></exception>
         private async Task ValidateLinksAsync(SprmObjectType objectTypeId, IEnumerable<long> attributeIds)
         {
             var objectType = await _objectTypeDAO.GetByIdAsync(objectTypeId);
             if (objectType == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Object type id: {objectTypeId} does not exist");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Object type id: {objectTypeId} does not exist");
             }
             foreach (var attributeId in attributeIds)
             {
                 var attribute = await _attributeDAO.GetByIdAsync(attributeId);
                 if (attribute == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Custom attribute id: {attributeId} does not exist");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Custom attribute id: {attributeId} does not exist");
                 }
             }
         }

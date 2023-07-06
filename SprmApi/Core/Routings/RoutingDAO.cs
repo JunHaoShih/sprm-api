@@ -40,7 +40,7 @@ namespace SprmApi.Core.Routings
                 .SingleOrDefault();
             if (duplicateRouting != null)
             {
-                throw new SPRMException(ErrorCode.DbInsertDuplicate, $"{duplicateRouting.Name} already exist");
+                throw new SprmException(ErrorCode.DbInsertDuplicate, $"{duplicateRouting.Name} already exist");
             }
 
             Routing entity = createDTO.ToEntity();

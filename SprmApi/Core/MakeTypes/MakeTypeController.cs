@@ -16,6 +16,10 @@ namespace SprmApi.Core.MakeTypes
     {
         private readonly IMakeTypeService _makeTypeService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="makeTypeService"></param>
         public MakeTypeController(IMakeTypeService makeTypeService) => _makeTypeService = makeTypeService;
 
         /// <summary>

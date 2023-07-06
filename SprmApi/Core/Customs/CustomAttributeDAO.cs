@@ -25,7 +25,7 @@ namespace SprmApi.Core.Customs
             var targetAttr = await GetByIdAsync(id);
             if (targetAttr == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Custom attribute id: {id} does not exist");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Custom attribute id: {id} does not exist");
             }
             _context.CustomAttributes.Remove(targetAttr);
             await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ namespace SprmApi.Core.Customs
             var duplicateAttr = await GetByNumberAsync(dto.Number);
             if (duplicateAttr != null)
             {
-                throw new SPRMException(ErrorCode.DbInsertDuplicate, $"{duplicateAttr.Number} already exist");
+                throw new SprmException(ErrorCode.DbInsertDuplicate, $"{duplicateAttr.Number} already exist");
             }
             var entity = dto.ToEntity();
             entity.CreateUser = creator;

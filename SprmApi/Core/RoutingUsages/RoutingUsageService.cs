@@ -41,7 +41,7 @@ namespace SprmApi.Core.RoutingUsages
             RoutingUsage? includedNewUsage = await _routingUsageDAO.GetAsync(newUsage.Id);
             if (includedNewUsage == null)
             {
-                throw new SPRMException(ErrorCode.DbError, "Something went wrong");
+                throw new SprmException(ErrorCode.DbError, "Something went wrong");
             }
             return RoutingUsageDTO.Parse(includedNewUsage);
         }
@@ -58,7 +58,7 @@ namespace SprmApi.Core.RoutingUsages
             var targetusage = await _routingUsageDAO.GetAsync(id);
             if (targetusage == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Part usage id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Part usage id: {id} does not exist!");
             }
             targetusage = updateData.ApplyUpdate(targetusage);
             await _routingUsageDAO.UpdateAsync(targetusage, _headerData.JWTPayload.Subject);

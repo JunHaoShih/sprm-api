@@ -6,7 +6,7 @@ namespace SprmApi.Core.MakeTypes.DTOs
     /// <summary>
     /// 製造類型DTO
     /// </summary>
-    public class MakeTypeDTO : BaseReturnDTO
+    public class MakeTypeDTO : BaseReturnDto
     {
         /// <summary>
         /// 製造類型編號

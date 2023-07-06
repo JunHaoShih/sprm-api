@@ -34,27 +34,27 @@ namespace SprmApi.Core.Routings
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingVersionDTO?> GetAsync(long id)
+        public async Task<RoutingVersionDto?> GetAsync(long id)
         {
             RoutingVersion? target = await _routingVersionDAO.GetAsync(id);
             if (target == null)
             {
                 return null;
             }
-            return RoutingVersionDTO.Parse(target);
+            return RoutingVersionDto.Parse(target);
         }
 
         /// <inheritdoc/>
-        public async Task<OffsetPagination<RoutingVersionDTO>> GetByMasterId(long masterId, OffsetPaginationInput input)
+        public async Task<OffsetPagination<RoutingVersionDto>> GetByMasterId(long masterId, OffsetPaginationInput input)
         {
             Routing? targetRouting = await _routingDAO.GetByIdAsync(masterId);
             if (targetRouting == null)
             {
-                throw new SPRMException(Common.Error.ErrorCode.DbDataNotFound, $@"Routing id: {masterId} not found!");
+                throw new SprmException(Common.Error.ErrorCode.DbDataNotFound, $@"Routing id: {masterId} not found!");
             }
             IQueryable<RoutingVersion> versions = _routingVersionDAO.GetByMasterId(masterId);
-            var dtos = versions.Select(version => RoutingVersionDTO.Parse(version));
-            OffsetPagination<RoutingVersionDTO> offsetPagination = new OffsetPagination<RoutingVersionDTO>(dtos, input);
+            var dtos = versions.Select(version => RoutingVersionDto.Parse(version));
+            OffsetPagination<RoutingVersionDto> offsetPagination = new OffsetPagination<RoutingVersionDto>(dtos, input);
             return offsetPagination;
         }
 
@@ -64,7 +64,7 @@ namespace SprmApi.Core.Routings
             RoutingVersion? targetVersion = await _routingVersionDAO.GetAsync(id);
             if (targetVersion == null)
             {
-                throw new SPRMException(Common.Error.ErrorCode.DbDataNotFound, $@"Routing version id: {id} not found!");
+                throw new SprmException(Common.Error.ErrorCode.DbDataNotFound, $@"Routing version id: {id} not found!");
             }
             RoutingVersion updatedVersion = update.ApplyUpdate(targetVersion);
             await _routingVersionDAO.UpdateAsync(updatedVersion, _headerData.JWTPayload.Subject);

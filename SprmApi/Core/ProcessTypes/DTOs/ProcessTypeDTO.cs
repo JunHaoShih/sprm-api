@@ -7,7 +7,7 @@ namespace SprmApi.Core.ProcessTypes.DTOs
     /// <summary>
     /// 製程類型DTO
     /// </summary>
-    public class ProcessTypeDTO : BaseReturnDTO
+    public class ProcessTypeDTO : BaseReturnDto
     {
         /// <summary>
         /// 製程類型編號

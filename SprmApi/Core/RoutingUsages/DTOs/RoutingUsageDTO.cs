@@ -8,7 +8,7 @@ namespace SprmApi.Core.RoutingUsages.DTOs
     /// <summary>
     /// 工藝路徑使用關係DTO
     /// </summary>
-    public class RoutingUsageDTO : BaseReturnDTO
+    public class RoutingUsageDTO : BaseReturnDto
     {
         /// <summary>
         /// 使用關係編號
@@ -54,7 +54,7 @@ namespace SprmApi.Core.RoutingUsages.DTOs
         {
             if (routingUsage.Process == null)
             {
-                throw new SPRMException(ErrorCode.Error, "Routing usage process not found!");
+                throw new SprmException(ErrorCode.Error, "Routing usage process not found!");
             }
             RoutingUsageDTO dto = new RoutingUsageDTO
             {

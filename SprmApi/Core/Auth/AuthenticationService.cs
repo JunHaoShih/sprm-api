@@ -24,7 +24,7 @@ namespace SprmApi.Core.Auth
             AppUser? appUser = await _appUserService.GetByAuthenticateAsync(authenticateDTO.Username, authenticateDTO.Password);
             if (appUser == null)
             {
-                throw new SPRMException(ErrorCode.IncorrectUsernameOrPassword, "");
+                throw new SprmException(ErrorCode.IncorrectUsernameOrPassword, "");
             }
             return appUser;
         }

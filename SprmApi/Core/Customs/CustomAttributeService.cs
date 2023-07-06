@@ -41,7 +41,7 @@ namespace SprmApi.Core.Customs
         {
             var targetAttribute = await _attributeDAO.GetByIdAsync(id);
             if (targetAttribute == null) {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Custom attribute id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Custom attribute id: {id} does not exist!");
             }
             targetAttribute = attribute.ApplyUpdate(targetAttribute);
             await _attributeDAO.UpdateAsync(targetAttribute, _headerData.JWTPayload.Subject);

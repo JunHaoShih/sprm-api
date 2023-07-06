@@ -35,9 +35,9 @@ namespace SprmApi.Error
 
             GenericResponse<string> apiErrorMessage = new GenericResponse<string>();
 
-            if (exception is SPRMAuthException)
+            if (exception is SprmAuthException)
             {
-                var apiException = (SPRMAuthException)exception;
+                var apiException = (SprmAuthException)exception;
                 apiErrorMessage = new GenericResponse<string>
                 {
                     Code = apiException.Code,
@@ -46,9 +46,9 @@ namespace SprmApi.Error
                 };
                 statusCode = StatusCodes.Status401Unauthorized;
             }
-            else if (exception is SPRMException)
+            else if (exception is SprmException)
             {
-                var apiException = (SPRMException)exception;
+                var apiException = (SprmException)exception;
                 apiErrorMessage = new GenericResponse<string>
                 {
                     Code = apiException.Code,

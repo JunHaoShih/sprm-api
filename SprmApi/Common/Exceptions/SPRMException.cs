@@ -5,7 +5,7 @@ namespace SprmApi.Common.Exceptions
     /// <summary>
     /// Custom generic exception
     /// </summary>
-    public class SPRMException : Exception
+    public class SprmException : Exception
     {
         /// <summary>
         /// Error code
@@ -20,7 +20,7 @@ namespace SprmApi.Common.Exceptions
         /// <summary>
         /// Basic exception constructor, don't use this
         /// </summary>
-        public SPRMException()
+        public SprmException()
             : base()
         {
         }
@@ -29,7 +29,7 @@ namespace SprmApi.Common.Exceptions
         /// Basic exception constructor, don't use this
         /// </summary>
         /// <param name="message"></param>
-        public SPRMException(string message)
+        public SprmException(string message)
             : base(message)
         {
         }
@@ -39,7 +39,7 @@ namespace SprmApi.Common.Exceptions
         /// </summary>
         /// <param name="message"></param>
         /// <param name="inner"></param>
-        public SPRMException(string message, Exception inner)
+        public SprmException(string message, Exception inner)
             : base(message, inner)
         {
         }
@@ -49,7 +49,7 @@ namespace SprmApi.Common.Exceptions
         /// </summary>
         /// <param name="code"></param>
         /// <param name="content"></param>
-        public SPRMException(ErrorCode code, string content)
+        public SprmException(ErrorCode code, string content)
             : base(code.GetMessage())
         {
             Code = code;

@@ -54,7 +54,7 @@ namespace SprmApi.Core.Processes
                     scope.Complete();
                     return ProcessDTO.Parse(joinedProcess);
                 }
-                throw new SPRMException(ErrorCode.DbError, "Cannot find process after insert success");
+                throw new SprmException(ErrorCode.DbError, "Cannot find process after insert success");
             }
         }
 
@@ -70,7 +70,7 @@ namespace SprmApi.Core.Processes
             var targetProcess = await _processDAO.GetAsync(id);
             if (targetProcess == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Process id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Process id: {id} does not exist!");
             }
             targetProcess = updateDTO.ApplyUpdate(targetProcess);
             await _processDAO.UpdateAsync(targetProcess, _headerData.JWTPayload.Subject);

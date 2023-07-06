@@ -21,6 +21,19 @@ namespace SprmApi.Core.Routings
         public JsonDocument CustomValues { get; set; } = null!;
 
         /// <inheritdoc/>
-        public void Dispose() => CustomValues.Dispose();
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose custom values
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            CustomValues.Dispose();
+        }
     }
 }

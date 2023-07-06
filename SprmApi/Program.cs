@@ -14,8 +14,7 @@ using SprmApi.MiddleWares;
 using SprmApi.Settings;
 using System.Text;
 
-//var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Get ASPNETCORE_ENVIRONMENT environment variable
 string? env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -151,6 +150,5 @@ catch (Exception e)
 finally
 {
     // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-    // LogManager.Shutdown();
     Log.CloseAndFlush();
 }

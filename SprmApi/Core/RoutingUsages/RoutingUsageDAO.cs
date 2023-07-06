@@ -28,7 +28,7 @@ namespace SprmApi.Core.RoutingUsages
 
             if (targetUsage == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Routing usage id: ${id} not found!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Routing usage id: ${id} not found!");
             }
             _context.RoutingUsages.Remove(targetUsage);
             await _context.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace SprmApi.Core.RoutingUsages
 
             if (duplicateUsage != null)
             {
-                throw new SPRMException(ErrorCode.DbInsertDuplicate, $"Routing usage number ${createDto.Number} already exist");
+                throw new SprmException(ErrorCode.DbInsertDuplicate, $"Routing usage number ${createDto.Number} already exist");
             }
             var entity = createDto.ToEntity();
             entity.CreateUser = creater;

@@ -25,7 +25,7 @@ namespace SprmApi.Core.Customs
             var targetLink = await _context.AttributeLinks.Where(link => link.Id == id).FirstOrDefaultAsync();
             if (targetLink == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Attribute link id: {id} does not exist");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Attribute link id: {id} does not exist");
             }
             _context.AttributeLinks.Remove(targetLink);
             await _context.SaveChangesAsync();
@@ -56,7 +56,7 @@ namespace SprmApi.Core.Customs
             var duplicateLink = await Get(objectTypeId, attributeId);
             if (duplicateLink != null)
             {
-                throw new SPRMException(ErrorCode.DbInsertDuplicate, $"link already exist");
+                throw new SprmException(ErrorCode.DbInsertDuplicate, $"link already exist");
             }
             var entity = new AttributeLink
             {

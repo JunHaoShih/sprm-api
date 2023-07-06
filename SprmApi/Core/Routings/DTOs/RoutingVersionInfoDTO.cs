@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
 using SprmApi.Common.DTOs;
 
-namespace SprmApi.Core.Parts.DTOs
+namespace SprmApi.Core.Routings.DTOs
 {
     /// <summary>
-    /// 零件版本DTO，PartDTO專用的版本DTO
+    /// 工藝路徑版本DTO，(只可以在RoutingDto使用)
     /// </summary>
-    public class PartVersionInfoDTO : BaseReturnDto
+    public class RoutingVersionInfoDTO : BaseReturnDto
     {
         /// <summary>
         /// 零件id
@@ -36,19 +36,19 @@ namespace SprmApi.Core.Parts.DTOs
         /// <summary>
         /// Parse entity to DTO
         /// </summary>
-        /// <param name="partVersion"></param>
+        /// <param name="routingVersion"></param>
         /// <returns></returns>
-        public static PartVersionInfoDTO Parse(PartVersion partVersion)
+        public static RoutingVersionInfoDTO Parse(RoutingVersion routingVersion)
         {
-            var dto = new PartVersionInfoDTO
+            var dto = new RoutingVersionInfoDTO
             {
-                MasterId = partVersion.MasterId,
-                Version = partVersion.Version,
-                IsLatest = partVersion.IsLatest,
-                IsDraft = partVersion.IsDraft,
-                CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(partVersion.CustomValues)!,
+                MasterId = routingVersion.MasterId,
+                Version = routingVersion.Version,
+                IsLatest = routingVersion.IsLatest,
+                IsDraft = routingVersion.IsDraft,
+                CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(routingVersion.CustomValues)!,
             };
-            dto.Populate(partVersion);
+            dto.Populate(routingVersion);
             return dto;
         }
     }

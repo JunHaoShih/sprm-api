@@ -16,9 +16,9 @@ namespace SprmApi.Core.AppUsers
     [OpenApiTag("AppUser", Description = "App使用者")]
     public class AppUserController : ControllerBase
     {
-        private IAppUserService _appUserService;
+        private readonly IAppUserService _appUserService;
 
-        private HeaderData _headerData;
+        private readonly HeaderData _headerData;
 
         /// <summary>
         /// Constructor
@@ -35,7 +35,7 @@ namespace SprmApi.Core.AppUsers
         /// Get current user
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="SPRMException"></exception>
+        /// <exception cref="SprmException"></exception>
         /// <response code="200">成功取得當前使用者資訊</response>
         /// <response code="500">存取發生錯誤</response>
         /// <response code="401">驗證失敗</response>
@@ -48,7 +48,7 @@ namespace SprmApi.Core.AppUsers
             AppUser? appUser = await _appUserService.GetByUsernameAsync(_headerData.JWTPayload.Subject);
             if (appUser == null)
             {
-                throw new SPRMAuthException(ErrorCode.Error, "Cannot find current user");
+                throw new SprmAuthException(ErrorCode.Error, "Cannot find current user");
             }
             return Ok(GenericResponse<AppUserDTO>.Success(AppUserDTO.Parse(appUser)));
         }

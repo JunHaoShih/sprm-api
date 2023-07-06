@@ -46,7 +46,7 @@ namespace SprmApi.Core.Parts
             var targetVersion = await _partVersionDAO.GetAsync(id, false);
             if (targetVersion == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Part version id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Part version id: {id} does not exist!");
             }
             targetVersion = versionDTO.ApplyUpdate(targetVersion);
             await _partVersionDAO.UpdateAsync(targetVersion, _headerData.JWTPayload.Subject);

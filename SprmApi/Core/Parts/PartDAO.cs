@@ -55,7 +55,7 @@ namespace SprmApi.Core.Parts
             Part? duplicatePart = await GetByNumberAsync(createPartDTO.Number);
             if (duplicatePart != null)
             {
-                throw new SPRMException(ErrorCode.DbInsertDuplicate, $"{duplicatePart.Number} already exist");
+                throw new SprmException(ErrorCode.DbInsertDuplicate, $"{duplicatePart.Number} already exist");
             }
             Part entity = createPartDTO.ToEntity();
             entity.Checkout = true;

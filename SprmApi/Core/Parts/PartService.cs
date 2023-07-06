@@ -105,17 +105,17 @@ namespace SprmApi.Core.Parts
                 Part? targetPart = await _partDAO.GetByIdAsync(partId);
                 if (targetPart == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
                 }
                 if (targetPart.Checkout)
                 {
-                    throw new SPRMException(ErrorCode.DataAlreadyCheckout, $"Part id: ${partId} already checkout!");
+                    throw new SprmException(ErrorCode.DataAlreadyCheckout, $"Part id: ${partId} already checkout!");
                 }
 
                 PartVersion? latestVersion = await _partVersionDAO.GetLatest(partId);
                 if (latestVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.LatestVersionNotFound, $"Part id: ${partId} cannot find latest version!");
+                    throw new SprmException(ErrorCode.LatestVersionNotFound, $"Part id: ${partId} cannot find latest version!");
                 }
                 IEnumerable<PartUsage> usages = await _partUsageDAO.GetByPartVersionIdAsync(latestVersion.Id, false);
 
@@ -149,11 +149,11 @@ namespace SprmApi.Core.Parts
                 Part? targetPart = await _partDAO.GetByIdAsync(partId);
                 if (targetPart == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
                 }
                 if (!targetPart.Checkout)
                 {
-                    throw new SPRMException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
+                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
                 }
 
                 PartVersion? latestVersion = await _partVersionDAO.GetLatest(partId);
@@ -161,7 +161,7 @@ namespace SprmApi.Core.Parts
 
                 if (draftVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
+                    throw new SprmException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
                 }
 
                 if (latestVersion != null)
@@ -195,17 +195,17 @@ namespace SprmApi.Core.Parts
                 Part? targetPart = await _partDAO.GetByIdAsync(partId);
                 if (targetPart == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
                 }
                 if (!targetPart.Checkout)
                 {
-                    throw new SPRMException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
+                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
                 }
 
                 PartVersion? draftVersion = await _partVersionDAO.GetDraft(partId);
                 if (draftVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
+                    throw new SprmException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
                 }
 
                 await _partVersionDAO.DeleteAsync(draftVersion);

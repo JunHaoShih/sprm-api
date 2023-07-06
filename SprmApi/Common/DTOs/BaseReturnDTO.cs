@@ -5,7 +5,7 @@ namespace SprmApi.Common.DTOs
     /// <summary>
     /// 回傳用DTO基底
     /// </summary>
-    public abstract class BaseReturnDTO
+    public abstract class BaseReturnDto
     {
         /// <summary>
         /// id
@@ -42,7 +42,7 @@ namespace SprmApi.Common.DTOs
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected BaseReturnDTO Populate(SPRMObject obj)
+        protected BaseReturnDto Populate(SPRMObject obj)
         {
             Id = obj.Id;
             CreateUser = obj.CreateUser;

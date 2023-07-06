@@ -38,7 +38,7 @@ namespace SprmApi.Core.AppUsers
             AppUser? creator = await _appUserDAO.GetByUsernameAsync(_headerData.JWTPayload!.Subject);
             if (creator == null)
             {
-                throw new SPRMException(ErrorCode.UserNotExist, $"{_headerData.JWTPayload!.Subject} does not exist");
+                throw new SprmException(ErrorCode.UserNotExist, $"{_headerData.JWTPayload!.Subject} does not exist");
             }
             createAppUserDTO.Password = EncryptPassword(createAppUserDTO.Password);
             return await _appUserDAO.InsertAsync(createAppUserDTO, creator);

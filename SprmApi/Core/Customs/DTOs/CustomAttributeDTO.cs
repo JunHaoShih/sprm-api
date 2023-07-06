@@ -5,7 +5,7 @@ namespace SprmApi.Core.Customs.DTOs
     /// <summary>
     /// 自定屬性
     /// </summary>
-    public class CustomAttributeDTO : BaseReturnDTO
+    public class CustomAttributeDTO : BaseReturnDto
     {
         /// <summary>
         /// 自定屬性編號

@@ -7,9 +7,9 @@ namespace SprmApi.Common.Paginations
     /// </summary>
     public class OffsetPagination<T>
     {
-        private IQueryable<T> _items;
+        private readonly IQueryable<T> _items;
 
-        private OffsetPaginationInput _input;
+        private readonly OffsetPaginationInput _input;
 
         /// <summary>
         /// OffsetPagination constructor

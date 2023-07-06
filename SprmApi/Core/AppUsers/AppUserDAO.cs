@@ -33,7 +33,7 @@ namespace SprmApi.Core.AppUsers
             AppUser? duplicateUser = await GetByUsernameAsync(newAppUser.Username);
             if (duplicateUser != null)
             {
-                throw new SPRMException(ErrorCode.UsernameExist, $"{newAppUser.Username}");
+                throw new SprmException(ErrorCode.UsernameExist, $"{newAppUser.Username}");
             }
             AppUser entity = newAppUser.ToEntity();
             entity.CreateUser = creator.Username;

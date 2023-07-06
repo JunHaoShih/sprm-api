@@ -5,7 +5,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 零件
     /// </summary>
-    public class PartDTO : BaseReturnDTO
+    public class PartDTO : BaseReturnDto
     {
         /// <summary>
         /// 料號
@@ -56,7 +56,7 @@ namespace SprmApi.Core.Parts.DTOs
                 Checkout = part.Checkout,
             };
             partDTO.Populate(part);
-            var draftVersion = part.PartVersions!.Where(version => version.IsDraft).SingleOrDefault();
+            var draftVersion = part.PartVersions!.SingleOrDefault(version => version.IsDraft);
             if (draftVersion != null)
             {
                 partDTO.DraftId = draftVersion.Id;

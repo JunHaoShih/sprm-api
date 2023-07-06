@@ -59,7 +59,7 @@ namespace SprmApi.Core.Auth
             long nowUnixTimestamp = DateTime.Now.GetUnixTimestamp();
             if (payload.Expiration < nowUnixTimestamp)
             {
-                throw new SPRMAuthException(ErrorCode.InvalidToken, "Token expired!");
+                throw new SprmAuthException(ErrorCode.InvalidToken, "Token expired!");
             }
             return payload;
         }

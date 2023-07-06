@@ -1,14 +1,15 @@
-﻿using SprmApi.Common.Error;
+﻿using System.Runtime.Serialization;
+using SprmApi.Common.Error;
 
 namespace SprmApi.Common.Exceptions
 {
     /// <summary>
     /// Authentication exception
     /// </summary>
-    public class SPRMAuthException : SPRMException
+    public class SprmAuthException : SprmException, ISerializable
     {
         /// <inheritdoc/>
-        public SPRMAuthException(ErrorCode code, string content)
+        public SprmAuthException(ErrorCode code, string content)
             : base(code.GetMessage())
         {
             Code = code;

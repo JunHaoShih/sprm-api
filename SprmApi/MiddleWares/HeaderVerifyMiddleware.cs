@@ -44,7 +44,7 @@ namespace SprmApi.MiddleWares
                 JWTPayload payload = jWTService.DecryptToken(httpHeader.Bearer);
                 httpHeader.JWTPayload = payload;
             }
-            catch (SPRMAuthException e)
+            catch (SprmAuthException e)
             {
                 await SetResponse(context.Response, 401, e.Code, e.Content);
                 return;
@@ -62,7 +62,7 @@ namespace SprmApi.MiddleWares
             {
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
-            response.StatusCode = 401;
+            response.StatusCode = statusCode;
             response.ContentType = "application/json";
             var responseObj = new GenericResponse<string>()
             {
