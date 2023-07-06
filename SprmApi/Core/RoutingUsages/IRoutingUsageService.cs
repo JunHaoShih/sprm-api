@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.RoutingUsages.DTOs;
+﻿using SprmApi.Core.RoutingUsages.Dto;
 
 namespace SprmApi.Core.RoutingUsages
 {
@@ -12,14 +12,14 @@ namespace SprmApi.Core.RoutingUsages
         /// </summary>
         /// <param name="rootVersionId">Root routing version id</param>
         /// <returns></returns>
-        Task<IEnumerable<RoutingUsageDTO>> GetByRootVersionIdAsync(long rootVersionId);
+        Task<IEnumerable<RoutingUsageDto>> GetByRootVersionIdAsync(long rootVersionId);
 
         /// <summary>
         /// Create a new routing usage
         /// </summary>
         /// <param name="createDto">Create data</param>
         /// <returns></returns>
-        Task<RoutingUsageDTO> InsertAsync(CreateRoutingUsageDTO createDto);
+        Task<RoutingUsageDto> InsertAsync(CreateRoutingUsageDto createDto);
 
         /// <summary>
         /// Delete routing usage by id
@@ -34,6 +34,6 @@ namespace SprmApi.Core.RoutingUsages
         /// <param name="id">Routing usage id</param>
         /// <param name="updateData">Update data</param>
         /// <returns></returns>
-        Task UpdateById(long id, UpdateRoutingUsageDTO updateData);
+        Task UpdateById(long id, UpdateRoutingUsageDto updateData);
     }
 }

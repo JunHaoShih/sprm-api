@@ -2,7 +2,7 @@
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Core.Parts;
-using SprmApi.Core.PartUsages.DTOs;
+using SprmApi.Core.PartUsages.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.PartUsages
@@ -12,11 +12,11 @@ namespace SprmApi.Core.PartUsages
     /// </summary>
     public class PartUsageService : IPartUsageService
     {
-        private readonly IPartUsageDAO _partUsageDAO;
+        private readonly IPartUsageDao _partUsageDAO;
 
-        private readonly IPartDAO _partDAO;
+        private readonly IPartDao _partDAO;
 
-        private readonly IPartVersionDAO _partVersionDAO;
+        private readonly IPartVersionDao _partVersionDAO;
 
         private readonly HeaderData _headerData;
 
@@ -28,9 +28,9 @@ namespace SprmApi.Core.PartUsages
         /// <param name="partVersionDAO"></param>
         /// <param name="headerData"></param>
         public PartUsageService(
-            IPartUsageDAO partUsageDAO,
-            IPartDAO partDAO,
-            IPartVersionDAO partVersionDAO,
+            IPartUsageDao partUsageDAO,
+            IPartDao partDAO,
+            IPartVersionDao partVersionDAO,
             HeaderData headerData)
         {
             _partUsageDAO = partUsageDAO;
@@ -46,7 +46,7 @@ namespace SprmApi.Core.PartUsages
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<PartUsage>> InsertAsync(CreatePartUsagesDTO usagesDTO)
+        public async Task<IEnumerable<PartUsage>> InsertAsync(CreatePartUsagesDto usagesDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -76,20 +76,20 @@ namespace SprmApi.Core.PartUsages
         /// <param name="parentPartVersionId">Parent part version id</param>
         /// <param name="childPartIds">Child part ids</param>
         /// <returns></returns>
-        /// <exception cref="SPRMException"></exception>
+        /// <exception cref="SprmException"></exception>
         private async Task ValidateUsagesAsync(long parentPartVersionId, IEnumerable<long> childPartIds)
         {
             var parentVersion = await _partVersionDAO.GetAsync(parentPartVersionId, false);
             if (parentVersion == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Parent part version id: {parentPartVersionId} does not exist");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Parent part version id: {parentPartVersionId} does not exist");
             }
             foreach (var childPartId in childPartIds)
             {
                 var childPart = await _partDAO.GetByIdAsync(childPartId);
                 if (childPart == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Child part id: {childPartId} does not exist");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Child part id: {childPartId} does not exist");
                 }
             }
         }
@@ -107,12 +107,12 @@ namespace SprmApi.Core.PartUsages
         }
 
         /// <inheritdoc/>
-        public async Task UpdateById(long id, UpdatePartUsageDTO updateData)
+        public async Task UpdateById(long id, UpdatePartUsageDto updateData)
         {
             var targetusage = await _partUsageDAO.GetAsync(id, false);
             if (targetusage == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Part usage id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Part usage id: {id} does not exist!");
             }
             targetusage = updateData.ApplyUpdate(targetusage);
             await _partUsageDAO.UpdateAsync(targetusage, _headerData.JWTPayload.Subject);

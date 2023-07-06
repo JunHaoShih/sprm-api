@@ -13,7 +13,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     partial class SPRMContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -345,27 +345,27 @@ namespace SprmApi.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3537),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3176),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "自製",
                             Number = "SPRM_SELF_MADE",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3541),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3178),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3546),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3183),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "外包",
                             Number = "SPRM_OUTSOURCE",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3547),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3183),
                             UpdateUser = "system"
                         });
                 });
@@ -441,67 +441,67 @@ namespace SprmApi.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3619),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3287),
                             CreateUser = "system",
                             Name = "料件",
                             Number = "PartVersion",
                             Remarks = "料件",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3619),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3287),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3626),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3294),
                             CreateUser = "system",
                             Name = "料件使用關係",
                             Number = "PartUsage",
                             Remarks = "料件使用關係",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3626),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3294),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3628),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3295),
                             CreateUser = "system",
                             Name = "工藝路徑",
                             Number = "Routing",
                             Remarks = "工藝路徑",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3629),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3295),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3631),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3296),
                             CreateUser = "system",
                             Name = "工藝路徑版本",
                             Number = "RoutingVersion",
                             Remarks = "工藝路徑版本",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3631),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3297),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 5L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3634),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3300),
                             CreateUser = "system",
                             Name = "製程",
                             Number = "Process",
                             Remarks = "製程",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3635),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3300),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 6L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3638),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3303),
                             CreateUser = "system",
                             Name = "工藝路徑使用關係",
-                            Number = "RoutingProcess",
+                            Number = "RoutingUsage",
                             Remarks = "工藝路徑使用關係",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3639),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3303),
                             UpdateUser = "system"
                         });
                 });
@@ -823,53 +823,53 @@ namespace SprmApi.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3583),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3212),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "加工製程",
                             Number = "SPRM_PROCESSING",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3583),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3212),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3586),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3262),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "檢驗製程",
                             Number = "SPRM_QUALITY_CONTROL",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3587),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3262),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3589),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3264),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "組裝製程",
                             Number = "SPRM_ASSEMBLE",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3589),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3264),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3591),
+                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3265),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "運輸製程",
                             Number = "SPRM_TRANSPORT",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 5, 7, 35, 47, 435, DateTimeKind.Utc).AddTicks(3592),
+                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3266),
                             UpdateUser = "system"
                         });
                 });
@@ -969,101 +969,6 @@ namespace SprmApi.Migrations
                     b.ToTable("processes", "sprm", t =>
                         {
                             t.HasComment("製程");
-                        });
-                });
-
-            modelBuilder.Entity("SprmApi.Core.RoutingProcesses.RoutingProcess", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id")
-                        .HasColumnOrder(0)
-                        .HasComment("system id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("create_date")
-                        .HasColumnOrder(2)
-                        .HasComment("Create date");
-
-                    b.Property<string>("CreateUser")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("create_user")
-                        .HasColumnOrder(1)
-                        .HasComment("Creator");
-
-                    b.Property<int?>("ExportTime")
-                        .HasColumnType("integer")
-                        .HasColumnName("export_time")
-                        .HasComment("下料工時(毫秒)");
-
-                    b.Property<int?>("ImportTime")
-                        .HasColumnType("integer")
-                        .HasColumnName("import_time")
-                        .HasComment("上料工時(毫秒)");
-
-                    b.Property<long>("MakeTypeId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("make_type_id")
-                        .HasComment("製造類型id");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("number")
-                        .HasComment("途程內編號");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("integer")
-                        .HasColumnName("order")
-                        .HasComment("製程順序");
-
-                    b.Property<long>("ProcessId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("process_id")
-                        .HasComment("製程id");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("text")
-                        .HasColumnName("remarks")
-                        .HasColumnOrder(5)
-                        .HasComment("Remarks");
-
-                    b.Property<long>("RoutingVersionId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("routing_version_id")
-                        .HasComment("途程版本id");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_date")
-                        .HasColumnOrder(4)
-                        .HasComment("Update date");
-
-                    b.Property<string>("UpdateUser")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("update_user")
-                        .HasColumnOrder(3)
-                        .HasComment("Updator");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MakeTypeId");
-
-                    b.HasIndex("ProcessId");
-
-                    b.HasIndex("RoutingVersionId", "Number")
-                        .IsUnique();
-
-                    b.ToTable("routing_processes", "sprm", t =>
-                        {
-                            t.HasComment("途程之製程");
                         });
                 });
 
@@ -1374,33 +1279,6 @@ namespace SprmApi.Migrations
                     b.Navigation("MakeType");
 
                     b.Navigation("ProcessType");
-                });
-
-            modelBuilder.Entity("SprmApi.Core.RoutingProcesses.RoutingProcess", b =>
-                {
-                    b.HasOne("SprmApi.Core.MakeTypes.MakeType", "MakeType")
-                        .WithMany()
-                        .HasForeignKey("MakeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SprmApi.Core.Processes.Process", "Process")
-                        .WithMany()
-                        .HasForeignKey("ProcessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SprmApi.Core.Routings.RoutingVersion", "RoutingVersion")
-                        .WithMany()
-                        .HasForeignKey("RoutingVersionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MakeType");
-
-                    b.Navigation("Process");
-
-                    b.Navigation("RoutingVersion");
                 });
 
             modelBuilder.Entity("SprmApi.Core.RoutingUsages.RoutingUsage", b =>

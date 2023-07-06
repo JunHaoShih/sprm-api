@@ -1,9 +1,9 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Parts.DTOs;
+using SprmApi.Core.Parts.Dto;
 using SprmApi.Core.PartUsages;
-using SprmApi.Core.PartUsages.DTOs;
+using SprmApi.Core.PartUsages.Dto;
 using SprmApi.MiddleWares;
 using System.Transactions;
 
@@ -14,11 +14,11 @@ namespace SprmApi.Core.Parts
     /// </summary>
     public class PartService : IPartService
     {
-        private readonly IPartDAO _partDAO;
+        private readonly IPartDao _partDAO;
 
-        private readonly IPartVersionDAO _partVersionDAO;
+        private readonly IPartVersionDao _partVersionDAO;
 
-        private readonly IPartUsageDAO _partUsageDAO;
+        private readonly IPartUsageDao _partUsageDAO;
 
         private readonly HeaderData _headerData;
 
@@ -33,9 +33,9 @@ namespace SprmApi.Core.Parts
         /// <param name="headerData"></param>
         /// <param name="paginationData"></param>
         public PartService(
-            IPartDAO partDAO,
-            IPartVersionDAO partVersionDAO,
-            IPartUsageDAO partUsageDAO,
+            IPartDao partDAO,
+            IPartVersionDao partVersionDAO,
+            IPartUsageDao partUsageDAO,
             HeaderData headerData,
             PaginationData paginationData)
         {
@@ -56,7 +56,7 @@ namespace SprmApi.Core.Parts
         public async Task<Part?> GetByIdAsync(long id) => await _partDAO.GetByIdAsync(id);
 
         /// <inheritdoc/>
-        public async Task<Part> InsertAsync(CreatePartDTO createPartDTO)
+        public async Task<Part> InsertAsync(CreatePartDto createPartDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -66,7 +66,7 @@ namespace SprmApi.Core.Parts
             {
                 //await _attributeLinkDAO.GetByObjectTypeIdAsync()
                 var newPart = await _partDAO.InsertAsync(createPartDTO, _headerData.JWTPayload.Subject);
-                CreatePartVersionDTO firstVersion = new CreatePartVersionDTO
+                CreatePartVersionDto firstVersion = new CreatePartVersionDto
                 {
                     MasterId = newPart.Id,
                     Version = 1,
@@ -105,28 +105,28 @@ namespace SprmApi.Core.Parts
                 Part? targetPart = await _partDAO.GetByIdAsync(partId);
                 if (targetPart == null)
                 {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
                 }
                 if (targetPart.Checkout)
                 {
-                    throw new SPRMException(ErrorCode.DataAlreadyCheckout, $"Part id: ${partId} already checkout!");
+                    throw new SprmException(ErrorCode.DataAlreadyCheckout, $"Part id: ${partId} already checkout!");
                 }
 
                 PartVersion? latestVersion = await _partVersionDAO.GetLatest(partId);
                 if (latestVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.LatestVersionNotFound, $"Part id: ${partId} cannot find latest version!");
+                    throw new SprmException(ErrorCode.LatestVersionNotFound, $"Part id: ${partId} cannot find latest version!");
                 }
                 IEnumerable<PartUsage> usages = await _partUsageDAO.GetByPartVersionIdAsync(latestVersion.Id, false);
 
-                CreatePartVersionDTO createVersionDto = CreatePartVersionDTO.Parse(latestVersion);
+                CreatePartVersionDto createVersionDto = CreatePartVersionDto.Parse(latestVersion);
                 createVersionDto.IsLatest = false;
                 createVersionDto.IsDraft = true;
                 createVersionDto.Version++;
                 PartVersion draftVersion = await _partVersionDAO.InsertAsync(createVersionDto.ToEntity(), _headerData.JWTPayload.Subject);
                 foreach (var usage in usages)
                 {
-                    CreatePartUsageChildDTO createDto = CreatePartUsageChildDTO.Parse(usage);
+                    CreatePartUsageChildDto createDto = CreatePartUsageChildDto.Parse(usage);
                     await _partUsageDAO.InsertAsync(draftVersion.Id, createDto, _headerData.JWTPayload.Subject);
                 }
 
@@ -146,22 +146,14 @@ namespace SprmApi.Core.Parts
             };
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
-                Part? targetPart = await _partDAO.GetByIdAsync(partId);
-                if (targetPart == null)
-                {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
-                }
-                if (!targetPart.Checkout)
-                {
-                    throw new SPRMException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
-                }
+                Part targetPart = await GetPartById(partId);
 
                 PartVersion? latestVersion = await _partVersionDAO.GetLatest(partId);
                 PartVersion? draftVersion = await _partVersionDAO.GetDraft(partId);
 
                 if (draftVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
+                    throw new SprmException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
                 }
 
                 if (latestVersion != null)
@@ -183,6 +175,20 @@ namespace SprmApi.Core.Parts
             }
         }
 
+        private async Task<Part> GetPartById(long partId)
+        {
+            Part? targetPart = await _partDAO.GetByIdAsync(partId);
+            if (targetPart == null)
+            {
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
+            }
+            if (!targetPart.Checkout)
+            {
+                throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
+            }
+            return targetPart;
+        }
+
         /// <inheritdoc/>
         public async Task<Part> DiscardAsync(long partId)
         {
@@ -192,20 +198,12 @@ namespace SprmApi.Core.Parts
             };
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
-                Part? targetPart = await _partDAO.GetByIdAsync(partId);
-                if (targetPart == null)
-                {
-                    throw new SPRMException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
-                }
-                if (!targetPart.Checkout)
-                {
-                    throw new SPRMException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
-                }
+                Part targetPart = await GetPartById(partId);
 
                 PartVersion? draftVersion = await _partVersionDAO.GetDraft(partId);
                 if (draftVersion == null)
                 {
-                    throw new SPRMException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
+                    throw new SprmException(ErrorCode.DraftVersionNotFound, $"Part id: ${partId} cannt find draft version!");
                 }
 
                 await _partVersionDAO.DeleteAsync(draftVersion);

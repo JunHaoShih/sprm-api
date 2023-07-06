@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.Customs.DTOs;
+﻿using SprmApi.Core.Customs.Dto;
 using SprmApi.Core.ObjectTypes;
 
 namespace SprmApi.Core.Customs
@@ -23,17 +23,17 @@ namespace SprmApi.Core.Customs
         Task DeleteAsync(long id);
 
         /// <summary>
-        /// Insert a group of attribute links
-        /// </summary>
-        /// <param name="createDTO"></param>
-        /// <returns></returns>
-        Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDTO createDTO);
-
-        /// <summary>
         /// Delete a group of attribute links
         /// </summary>
         /// <param name="deleteDTO"></param>
         /// <returns></returns>
-        Task DeleteAsync(DeleteAttributeLinksDTO deleteDTO);
+        Task DeleteAsync(DeleteAttributeLinksDto deleteDTO);
+
+        /// <summary>
+        /// Insert a group of attribute links
+        /// </summary>
+        /// <param name="createDTO"></param>
+        /// <returns></returns>
+        Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDto createDTO);
     }
 }

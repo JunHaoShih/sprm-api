@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.RoutingUsages.DTOs;
+using SprmApi.Core.RoutingUsages.Dto;
 
 namespace SprmApi.Core.RoutingUsages
 {
@@ -32,14 +32,14 @@ namespace SprmApi.Core.RoutingUsages
         /// <response code="200">新增成功</response>
         /// <response code="500">新增失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<RoutingUsageDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<RoutingUsageDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public async Task<IActionResult> Post(CreateRoutingUsageDTO createDto)
+        public async Task<IActionResult> Post(CreateRoutingUsageDto createDto)
         {
-            RoutingUsageDTO newUsage = await _routingUsageService.InsertAsync(createDto);
-            return Ok(GenericResponse<RoutingUsageDTO>.Success(newUsage));
+            RoutingUsageDto newUsage = await _routingUsageService.InsertAsync(createDto);
+            return Ok(GenericResponse<RoutingUsageDto>.Success(newUsage));
         }
 
         /// <summary>
@@ -50,14 +50,14 @@ namespace SprmApi.Core.RoutingUsages
         /// <response code="200">搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<RoutingUsageDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<RoutingUsageDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("~/api/RoutingVersion/{id}/RoutingUsage")]
         public async Task<IActionResult> GetByRootVersionId(long id)
         {
-            IEnumerable<RoutingUsageDTO> usages = await _routingUsageService.GetByRootVersionIdAsync(id);
-            return Ok(GenericResponse<IEnumerable<RoutingUsageDTO>>.Success(usages));
+            IEnumerable<RoutingUsageDto> usages = await _routingUsageService.GetByRootVersionIdAsync(id);
+            return Ok(GenericResponse<IEnumerable<RoutingUsageDto>>.Success(usages));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace SprmApi.Core.RoutingUsages
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateById(long id, UpdateRoutingUsageDTO dto)
+        public async Task<IActionResult> UpdateById(long id, UpdateRoutingUsageDto dto)
         {
             await _routingUsageService.UpdateById(id, dto);
             return Ok(GenericResponse<string>.Success(""));

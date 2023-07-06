@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.RoutingUsages.DTOs;
+using SprmApi.Core.RoutingUsages.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.RoutingUsages
@@ -11,7 +11,7 @@ namespace SprmApi.Core.RoutingUsages
     /// </summary>
     public class RoutingUsageService : IRoutingUsageService
     {
-        private readonly IRoutingUsageDAO _routingUsageDAO;
+        private readonly IRoutingUsageDao _routingUsageDAO;
 
         private readonly HeaderData _headerData;
 
@@ -20,30 +20,30 @@ namespace SprmApi.Core.RoutingUsages
         /// </summary>
         /// <param name="routingUsageDAO"></param>
         /// <param name="headerData"></param>
-        public RoutingUsageService(IRoutingUsageDAO routingUsageDAO, HeaderData headerData)
+        public RoutingUsageService(IRoutingUsageDao routingUsageDAO, HeaderData headerData)
         {
             _routingUsageDAO = routingUsageDAO;
             _headerData = headerData;
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<RoutingUsageDTO>> GetByRootVersionIdAsync(long rootVersionId)
+        public async Task<IEnumerable<RoutingUsageDto>> GetByRootVersionIdAsync(long rootVersionId)
         {
             IQueryable<RoutingUsage> usages = _routingUsageDAO.GetByRootVersionId(rootVersionId);
-            IQueryable<RoutingUsageDTO> dtos = usages.Select(usage => RoutingUsageDTO.Parse(usage));
+            IQueryable<RoutingUsageDto> dtos = usages.Select(usage => RoutingUsageDto.Parse(usage));
             return await dtos.ToListAsync();
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingUsageDTO> InsertAsync(CreateRoutingUsageDTO createDto)
+        public async Task<RoutingUsageDto> InsertAsync(CreateRoutingUsageDto createDto)
         {
             RoutingUsage newUsage = await _routingUsageDAO.InsertAsync(createDto, _headerData.JWTPayload.Subject);
             RoutingUsage? includedNewUsage = await _routingUsageDAO.GetAsync(newUsage.Id);
             if (includedNewUsage == null)
             {
-                throw new SPRMException(ErrorCode.DbError, "Something went wrong");
+                throw new SprmException(ErrorCode.DbError, "Something went wrong");
             }
-            return RoutingUsageDTO.Parse(includedNewUsage);
+            return RoutingUsageDto.Parse(includedNewUsage);
         }
 
         /// <inheritdoc/>
@@ -53,12 +53,12 @@ namespace SprmApi.Core.RoutingUsages
         }
 
         /// <inheritdoc/>
-        public async Task UpdateById(long id, UpdateRoutingUsageDTO updateData)
+        public async Task UpdateById(long id, UpdateRoutingUsageDto updateData)
         {
             var targetusage = await _routingUsageDAO.GetAsync(id);
             if (targetusage == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Part usage id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Part usage id: {id} does not exist!");
             }
             targetusage = updateData.ApplyUpdate(targetusage);
             await _routingUsageDAO.UpdateAsync(targetusage, _headerData.JWTPayload.Subject);

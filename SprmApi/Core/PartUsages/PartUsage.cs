@@ -57,9 +57,19 @@ namespace SprmApi.Core.PartUsages
         /// </summary>
         public Part? Child { get; set; }
 
+        /// <inheritdoc/>
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
-        /// Dispose JsonDocument properties
+        /// Dispose custom values
         /// </summary>
-        public void Dispose() => CustomValues.Dispose();
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            CustomValues.Dispose();
+        }
     }
 }

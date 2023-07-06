@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.ProcessTypes.DTOs;
+﻿using SprmApi.Core.ProcessTypes.Dto;
 
 namespace SprmApi.Core.ProcessTypes
 {
@@ -7,22 +7,22 @@ namespace SprmApi.Core.ProcessTypes
     /// </summary>
     public class ProcessTypeService : IProcessTypeService
     {
-        private readonly IProcessTypeDAO _processTypeDAO;
+        private readonly IProcessTypeDao _processTypeDAO;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="processTypeDAO"></param>
-        public ProcessTypeService(IProcessTypeDAO processTypeDAO)
+        public ProcessTypeService(IProcessTypeDao processTypeDAO)
         {
             _processTypeDAO = processTypeDAO;
         }
 
         /// <inheritdoc/>
-        public IQueryable<ProcessTypeDTO> GetAll()
+        public IQueryable<ProcessTypeDto> GetAll()
         {
             IQueryable<ProcessType> processTypes = _processTypeDAO.GetAll();
-            IQueryable<ProcessTypeDTO> processTypeDTOs = processTypes.Select(processType => ProcessTypeDTO.Parse(processType));
+            IQueryable<ProcessTypeDto> processTypeDTOs = processTypes.Select(processType => ProcessTypeDto.Parse(processType));
             return processTypeDTOs;
         }
     }

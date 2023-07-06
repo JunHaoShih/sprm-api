@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.MakeTypes.DTOs;
+﻿using SprmApi.Core.MakeTypes.Dto;
 
 namespace SprmApi.Core.MakeTypes
 {
@@ -11,6 +11,6 @@ namespace SprmApi.Core.MakeTypes
         /// Get all make types
         /// </summary>
         /// <returns></returns>
-        IQueryable<MakeTypeDTO> GetAll();
+        IQueryable<MakeTypeDto> GetAll();
     }
 }

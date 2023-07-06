@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
-using SprmApi.Core.Parts.DTOs;
+using SprmApi.Core.Parts.Dto;
 
 namespace SprmApi.Core.Parts
 {
@@ -30,14 +30,14 @@ namespace SprmApi.Core.Parts
         /// <response code="200">取得成功</response>
         /// <response code="500">取得失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<PartVersionDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<PartVersionDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
             PartVersion? partVersion = await _partVersionService.GetByIdAsync(id, true);
-            return Ok(GenericResponse<PartVersionDTO>.Success(PartVersionDTO.Parse(partVersion)));
+            return Ok(GenericResponse<PartVersionDto>.Success(PartVersionDto.Parse(partVersion)));
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, UpdatePartVersionDTO versionDTO)
+        public async Task<IActionResult> Put(long id, UpdatePartVersionDto versionDTO)
         {
             await _partVersionService.UpdateAsync(id, versionDTO);
             return Ok(GenericResponse<string>.Success(""));
@@ -74,15 +74,15 @@ namespace SprmApi.Core.Parts
         /// <response code="200">取得成功</response>
         /// <response code="500">取得失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartVersionDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartVersionDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("~/api/Part/{partId}/PartVersion")]
         public async Task<IActionResult> GetPartVersions(long partId, [FromQuery] OffsetPaginationInput input)
         {
             IEnumerable<PartVersion> versions = await _partVersionService.GetPartVersions(partId, input);
-            IEnumerable<PartVersionDTO?> partVersionDTOs = versions.Select(version => PartVersionDTO.Parse(version));
-            return Ok(GenericResponse<IEnumerable<PartVersionDTO?>>.Success(partVersionDTOs));
+            IEnumerable<PartVersionDto?> partVersionDTOs = versions.Select(version => PartVersionDto.Parse(version));
+            return Ok(GenericResponse<IEnumerable<PartVersionDto?>>.Success(partVersionDTOs));
         }
     }
 }

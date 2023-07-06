@@ -15,6 +15,6 @@ namespace SprmApi.MiddleWares
         /// <summary>
         /// Store decrypted JWT
         /// </summary>
-        public JWTPayload JWTPayload { get; set; } = null!;
+        public JwtPayload JWTPayload { get; set; } = null!;
     }
 }

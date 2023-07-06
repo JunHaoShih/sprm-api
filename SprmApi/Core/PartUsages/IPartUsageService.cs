@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.PartUsages.DTOs;
+﻿using SprmApi.Core.PartUsages.Dto;
 
 namespace SprmApi.Core.PartUsages
 {
@@ -12,7 +12,7 @@ namespace SprmApi.Core.PartUsages
         /// </summary>
         /// <param name="usagesDTO">Create DTO</param>
         /// <returns></returns>
-        Task<IEnumerable<PartUsage>> InsertAsync(CreatePartUsagesDTO usagesDTO);
+        Task<IEnumerable<PartUsage>> InsertAsync(CreatePartUsagesDto usagesDTO);
 
         /// <summary>
         /// Get all parts a part version uses
@@ -41,6 +41,6 @@ namespace SprmApi.Core.PartUsages
         /// <param name="id">Part usage id</param>
         /// <param name="updateData">Update data</param>
         /// <returns></returns>
-        Task UpdateById(long id, UpdatePartUsageDTO updateData);
+        Task UpdateById(long id, UpdatePartUsageDto updateData);
     }
 }

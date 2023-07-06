@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Response;
 using SprmApi.Core.AppUsers;
-using SprmApi.Core.Auth.DTOs;
+using SprmApi.Core.Auth.Dto;
 
 namespace SprmApi.Core.Auth
 {
@@ -16,14 +16,14 @@ namespace SprmApi.Core.Auth
     {
         private readonly IAuthenticationService _authenticationService;
 
-        private readonly JWTService _jwtService;
+        private readonly JwtService _jwtService;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="jwtService"></param>
         /// <param name="authenticationService"></param>
-        public AuthenticationController(JWTService jwtService, IAuthenticationService authenticationService)
+        public AuthenticationController(JwtService jwtService, IAuthenticationService authenticationService)
         {
             _jwtService = jwtService;
             _authenticationService = authenticationService;
@@ -36,18 +36,18 @@ namespace SprmApi.Core.Auth
         /// <returns></returns>
         /// <response code="200">登入成功</response>
         /// <response code="500">登入失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<AuthenticateResponseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<AuthenticateResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> Authenticate(AuthenticateDTO authDTO)
+        public async Task<IActionResult> Authenticate(AuthenticateDto authDTO)
         {
             AppUser appUser = await _authenticationService.Authenticate(authDTO);
             string token = _jwtService.GenerateToken(appUser);
-            AuthenticateResponseDTO responseDTO = new AuthenticateResponseDTO
+            AuthenticateResponseDto responseDTO = new AuthenticateResponseDto
             {
                 Token = token,
             };
-            return Ok(GenericResponse<AuthenticateResponseDTO>.Success(responseDTO));
+            return Ok(GenericResponse<AuthenticateResponseDto>.Success(responseDTO));
         }
     }
 }

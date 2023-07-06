@@ -1,6 +1,6 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.Customs.DTOs;
+using SprmApi.Core.Customs.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.Customs
@@ -10,12 +10,12 @@ namespace SprmApi.Core.Customs
     /// </summary>
     public class CustomAttributeService : ICustomAttributeService
     {
-        private readonly ICustomAttributeDAO _attributeDAO;
+        private readonly ICustomAttributeDao _attributeDAO;
 
         private readonly HeaderData _headerData;
 
         /// Constructor
-        public CustomAttributeService(ICustomAttributeDAO attributeDAO, HeaderData headerData)
+        public CustomAttributeService(ICustomAttributeDao attributeDAO, HeaderData headerData)
         {
             _attributeDAO = attributeDAO;
             _headerData = headerData;
@@ -31,17 +31,17 @@ namespace SprmApi.Core.Customs
         public async Task<IEnumerable<CustomAttribute>> GetAllAsync() => await _attributeDAO.GetAllAsync();
 
         /// <inheritdoc/>
-        public async Task<CustomAttribute> InsertAsync(CreateCustomAttributeDTO dto)
+        public async Task<CustomAttribute> InsertAsync(CreateCustomAttributeDto dto)
         {
             return await _attributeDAO.InsertAsync(dto, _headerData.JWTPayload.Subject);
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(long id, UpdateCustomAttributeDTO attribute)
+        public async Task UpdateAsync(long id, UpdateCustomAttributeDto attribute)
         {
             var targetAttribute = await _attributeDAO.GetByIdAsync(id);
             if (targetAttribute == null) {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Custom attribute id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Custom attribute id: {id} does not exist!");
             }
             targetAttribute = attribute.ApplyUpdate(targetAttribute);
             await _attributeDAO.UpdateAsync(targetAttribute, _headerData.JWTPayload.Subject);

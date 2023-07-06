@@ -27,7 +27,7 @@ namespace SprmApi.MiddleWares
         /// <param name="httpHeader"></param>
         /// <param name="jWTService"></param>
         /// <returns></returns>
-        public async Task InvokeAsync(HttpContext context, HeaderData httpHeader, JWTService jWTService)
+        public async Task InvokeAsync(HttpContext context, HeaderData httpHeader, JwtService jWTService)
         {
             try
             {
@@ -41,10 +41,10 @@ namespace SprmApi.MiddleWares
                 {
                     httpHeader.Bearer = bearerToken.Split(' ')[1];
                 }
-                JWTPayload payload = jWTService.DecryptToken(httpHeader.Bearer);
+                JwtPayload payload = jWTService.DecryptToken(httpHeader.Bearer);
                 httpHeader.JWTPayload = payload;
             }
-            catch (SPRMAuthException e)
+            catch (SprmAuthException e)
             {
                 await SetResponse(context.Response, 401, e.Code, e.Content);
                 return;
@@ -56,13 +56,14 @@ namespace SprmApi.MiddleWares
             }
             await _next(context);
         }
+
         private async Task SetResponse(HttpResponse response, int statusCode, ErrorCode code, string message)
         {
             DefaultContractResolver contractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
-            response.StatusCode = 401;
+            response.StatusCode = statusCode;
             response.ContentType = "application/json";
             var responseObj = new GenericResponse<string>()
             {

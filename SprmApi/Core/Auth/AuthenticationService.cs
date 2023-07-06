@@ -1,7 +1,7 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Core.AppUsers;
-using SprmApi.Core.Auth.DTOs;
+using SprmApi.Core.Auth.Dto;
 
 namespace SprmApi.Core.Auth
 {
@@ -19,12 +19,12 @@ namespace SprmApi.Core.Auth
         public AuthenticationService(IAppUserService appUserService) => _appUserService = appUserService;
 
         /// <inheritdoc/>
-        public async Task<AppUser> Authenticate(AuthenticateDTO authenticateDTO)
+        public async Task<AppUser> Authenticate(AuthenticateDto authenticateDTO)
         {
             AppUser? appUser = await _appUserService.GetByAuthenticateAsync(authenticateDTO.Username, authenticateDTO.Password);
             if (appUser == null)
             {
-                throw new SPRMException(ErrorCode.IncorrectUsernameOrPassword, "");
+                throw new SprmException(ErrorCode.IncorrectUsernameOrPassword, "");
             }
             return appUser;
         }

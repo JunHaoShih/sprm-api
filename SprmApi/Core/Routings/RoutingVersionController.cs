@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
-using SprmApi.Core.Routings.DTOs;
+using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.Routings
@@ -39,16 +39,16 @@ namespace SprmApi.Core.Routings
         /// <response code="200">取得成功</response>
         /// <response code="500">取得失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<RoutingVersionDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<RoutingVersionDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("~/api/Routing/{id}/RoutingVersion")]
         public async Task<IActionResult> GetVersionsByMasterId(long id, [FromQuery] OffsetPaginationInput input)
         {
-            OffsetPagination<RoutingVersionDTO> versionsPagination = await _routingVersionService.GetByMasterId(id, input);
-            List<RoutingVersionDTO> pagingList = await versionsPagination.GetPagedListAsync();
+            OffsetPagination<RoutingVersionDto> versionsPagination = await _routingVersionService.GetByMasterId(id, input);
+            List<RoutingVersionDto> pagingList = await versionsPagination.GetPagedListAsync();
             _paginationData.PaginationHeader = versionsPagination.GetResponseHeader();
-            return Ok(GenericResponse<IEnumerable<RoutingVersionDTO>>.Success(pagingList));
+            return Ok(GenericResponse<IEnumerable<RoutingVersionDto>>.Success(pagingList));
         }
 
         /// <summary>
@@ -59,14 +59,14 @@ namespace SprmApi.Core.Routings
         /// <response code="200">取得成功</response>
         /// <response code="500">取得失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<RoutingVersionDTO?>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<RoutingVersionDto?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
-            RoutingVersionDTO? target = await _routingVersionService.GetAsync(id);
-            return Ok(GenericResponse<RoutingVersionDTO?>.Success(target));
+            RoutingVersionDto? target = await _routingVersionService.GetAsync(id);
+            return Ok(GenericResponse<RoutingVersionDto?>.Success(target));
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, UpdateRoutingVersionDTO updateDto)
+        public async Task<IActionResult> Put(long id, UpdateRoutingVersionDto updateDto)
         {
             await _routingVersionService.UpdateAsync(id, updateDto);
             return Ok(GenericResponse<string>.Success(""));

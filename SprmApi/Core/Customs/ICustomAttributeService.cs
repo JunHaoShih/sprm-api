@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.Customs.DTOs;
+﻿using SprmApi.Core.Customs.Dto;
 
 namespace SprmApi.Core.Customs
 {
@@ -18,7 +18,7 @@ namespace SprmApi.Core.Customs
         /// </summary>
         /// <param name="dto">creation payload</param>
         /// <returns></returns>
-        Task<CustomAttribute> InsertAsync(CreateCustomAttributeDTO dto);
+        Task<CustomAttribute> InsertAsync(CreateCustomAttributeDto dto);
 
         /// <summary>
         /// Update custom attribute
@@ -26,7 +26,7 @@ namespace SprmApi.Core.Customs
         /// <param name="id">custom attribute id you want to update</param>
         /// <param name="attribute">Update data</param>
         /// <returns></returns>
-        Task UpdateAsync(long id, UpdateCustomAttributeDTO attribute);
+        Task UpdateAsync(long id, UpdateCustomAttributeDto attribute);
 
         /// <summary>
         /// Delete custom attribute

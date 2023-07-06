@@ -5,13 +5,13 @@
     /// </summary>
     public class ObjectTypeService : IObjectTypeService
     {
-        private readonly IObjectTypeDAO _objectTypeDAO;
+        private readonly IObjectTypeDao _objectTypeDAO;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="objectTypeDAO"></param>
-        public ObjectTypeService(IObjectTypeDAO objectTypeDAO)
+        public ObjectTypeService(IObjectTypeDao objectTypeDAO)
         {
             _objectTypeDAO = objectTypeDAO;
         }

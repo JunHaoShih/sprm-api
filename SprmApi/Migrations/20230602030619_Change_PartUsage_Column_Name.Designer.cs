@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230602030619_Change_PartUsage_Column_Name")]
     partial class Change_PartUsage_Column_Name
     {

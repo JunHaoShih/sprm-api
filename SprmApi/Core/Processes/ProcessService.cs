@@ -1,7 +1,7 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Processes.DTOs;
+using SprmApi.Core.Processes.Dto;
 using SprmApi.MiddleWares;
 using System.Transactions;
 
@@ -12,7 +12,7 @@ namespace SprmApi.Core.Processes
     /// </summary>
     public class ProcessService : IProcessService
     {
-        private readonly IProcessDAO _processDAO;
+        private readonly IProcessDao _processDAO;
 
         private readonly HeaderData _headerData;
 
@@ -22,7 +22,7 @@ namespace SprmApi.Core.Processes
         /// <param name="processDAO"></param>
         /// <param name="headerData"></param>
         public ProcessService(
-            IProcessDAO processDAO,
+            IProcessDao processDAO,
             HeaderData headerData)
         {
             _processDAO = processDAO;
@@ -30,16 +30,16 @@ namespace SprmApi.Core.Processes
         }
 
         /// <inheritdoc/>
-        public OffsetPagination<ProcessDTO> GetByPattern(string? pattern, OffsetPaginationInput input)
+        public OffsetPagination<ProcessDto> GetByPattern(string? pattern, OffsetPaginationInput input)
         {
             var processes = _processDAO.GetByPattern(pattern);
-            var dtos = processes.Select(process => ProcessDTO.Parse(process));
-            OffsetPagination<ProcessDTO> offsetPagination = new(dtos, input);
+            var dtos = processes.Select(process => ProcessDto.Parse(process));
+            OffsetPagination<ProcessDto> offsetPagination = new(dtos, input);
             return offsetPagination;
         }
 
         /// <inheritdoc/>
-        public async Task<ProcessDTO> InsertAsync(CreateProcessDTO createDTO)
+        public async Task<ProcessDto> InsertAsync(CreateProcessDto createDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -52,9 +52,9 @@ namespace SprmApi.Core.Processes
                 if (joinedProcess != null)
                 {
                     scope.Complete();
-                    return ProcessDTO.Parse(joinedProcess);
+                    return ProcessDto.Parse(joinedProcess);
                 }
-                throw new SPRMException(ErrorCode.DbError, "Cannot find process after insert success");
+                throw new SprmException(ErrorCode.DbError, "Cannot find process after insert success");
             }
         }
 
@@ -65,24 +65,24 @@ namespace SprmApi.Core.Processes
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(long id, UpdateProcessDTO updateDTO)
+        public async Task UpdateAsync(long id, UpdateProcessDto updateDTO)
         {
             var targetProcess = await _processDAO.GetAsync(id);
             if (targetProcess == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Process id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Process id: {id} does not exist!");
             }
             targetProcess = updateDTO.ApplyUpdate(targetProcess);
             await _processDAO.UpdateAsync(targetProcess, _headerData.JWTPayload.Subject);
         }
 
         /// <inheritdoc/>
-        public async Task<ProcessDTO?> GetAsync(long id)
+        public async Task<ProcessDto?> GetAsync(long id)
         {
             Process? targetProcess = await _processDAO.GetAsync(id);
             if (targetProcess != null)
             {
-                return ProcessDTO.Parse(targetProcess);
+                return ProcessDto.Parse(targetProcess);
             }
             return null;
         }

@@ -1,5 +1,5 @@
 ﻿using SprmApi.Core.AppUsers;
-using SprmApi.Core.Auth.DTOs;
+using SprmApi.Core.Auth.Dto;
 
 namespace SprmApi.Core.Auth
 {
@@ -13,6 +13,6 @@ namespace SprmApi.Core.Auth
         /// </summary>
         /// <param name="authenticateDTO"></param>
         /// <returns></returns>
-        Task<AppUser> Authenticate(AuthenticateDTO authenticateDTO);
+        Task<AppUser> Authenticate(AuthenticateDto authenticateDTO);
     }
 }

@@ -14,8 +14,7 @@ using SprmApi.MiddleWares;
 using SprmApi.Settings;
 using System.Text;
 
-//var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Get ASPNETCORE_ENVIRONMENT environment variable
 string? env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -99,7 +98,7 @@ try
 
     var apiSettings = builder.Configuration.GetSection("ApiSettings").Get<ApiSettings>(c => c.BindNonPublicProperties = true);
     // Set Entity Framework
-    builder.Services.AddDbContext<SPRMContext>(opt =>
+    builder.Services.AddDbContext<SprmContext>(opt =>
         opt.UseNpgsql(apiSettings.ConnectionString, x => x.MigrationsHistoryTable(HistoryRepository.DefaultTableName, "sprm"))
     );
 
@@ -109,7 +108,7 @@ try
     using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
-        var context = services.GetRequiredService<SPRMContext>();
+        var context = services.GetRequiredService<SprmContext>();
         context.Database.Migrate();
     }
 
@@ -151,6 +150,5 @@ catch (Exception e)
 finally
 {
     // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-    // LogManager.Shutdown();
     Log.CloseAndFlush();
 }

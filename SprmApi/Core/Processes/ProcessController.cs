@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
-using SprmApi.Core.Processes.DTOs;
+using SprmApi.Core.Processes.Dto;
 using SprmApi.MiddleWares;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -42,14 +42,14 @@ namespace SprmApi.Core.Processes
         /// <response code="200">新增成功</response>
         /// <response code="500">新增失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<ProcessDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<ProcessDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public async Task<IActionResult> Post(CreateProcessDTO createDTO)
+        public async Task<IActionResult> Post(CreateProcessDto createDTO)
         {
-            ProcessDTO newProcess = await _processService.InsertAsync(createDTO);
-            return Ok(GenericResponse<ProcessDTO>.Success(newProcess));
+            ProcessDto newProcess = await _processService.InsertAsync(createDTO);
+            return Ok(GenericResponse<ProcessDto>.Success(newProcess));
         }
 
         /// <summary>
@@ -67,16 +67,16 @@ namespace SprmApi.Core.Processes
         /// <response code="200">簡易模糊搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<ProcessDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<ProcessDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("Search")]
         public async Task<IActionResult> FuzzySearch([FromQuery] string? pattern, [FromQuery] OffsetPaginationInput input)
         {
-            OffsetPagination<ProcessDTO> processesPagination = _processService.GetByPattern(pattern, input);
-            List<ProcessDTO> pagingList = await processesPagination.GetPagedListAsync();
+            OffsetPagination<ProcessDto> processesPagination = _processService.GetByPattern(pattern, input);
+            List<ProcessDto> pagingList = await processesPagination.GetPagedListAsync();
             _paginationData.PaginationHeader = processesPagination.GetResponseHeader();
-            return Ok(GenericResponse<IEnumerable<ProcessDTO>>.Success(pagingList));
+            return Ok(GenericResponse<IEnumerable<ProcessDto>>.Success(pagingList));
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace SprmApi.Core.Processes
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, UpdateProcessDTO updateDTO)
+        public async Task<IActionResult> Put(long id, UpdateProcessDto updateDTO)
         {
             await _processService.UpdateAsync(id, updateDTO);
             return Ok(GenericResponse<string>.Success(""));
@@ -124,14 +124,14 @@ namespace SprmApi.Core.Processes
         /// <response code="200">搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<ProcessDTO?>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<ProcessDto?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
-            ProcessDTO? process = await _processService.GetAsync(id);
-            return Ok(GenericResponse<ProcessDTO>.Success(process));
+            ProcessDto? process = await _processService.GetAsync(id);
+            return Ok(GenericResponse<ProcessDto>.Success(process));
         }
     }
 }

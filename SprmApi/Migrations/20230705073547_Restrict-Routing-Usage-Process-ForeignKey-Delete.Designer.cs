@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230705073547_Restrict-Routing-Usage-Process-ForeignKey-Delete")]
     partial class RestrictRoutingUsageProcessForeignKeyDelete
     {

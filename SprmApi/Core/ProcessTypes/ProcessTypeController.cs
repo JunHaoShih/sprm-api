@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.ProcessTypes.DTOs;
+using SprmApi.Core.ProcessTypes.Dto;
 
 namespace SprmApi.Core.ProcessTypes
 {
@@ -33,14 +33,14 @@ namespace SprmApi.Core.ProcessTypes
         /// <response code="200">搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<ProcessTypeDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<ProcessTypeDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            List<ProcessTypeDTO> dtos = await _processTypeService.GetAll().ToListAsync();
-            return Ok(GenericResponse<IEnumerable<ProcessTypeDTO>>.Success(dtos));
+            List<ProcessTypeDto> dtos = await _processTypeService.GetAll().ToListAsync();
+            return Ok(GenericResponse<IEnumerable<ProcessTypeDto>>.Success(dtos));
         }
     }
 }

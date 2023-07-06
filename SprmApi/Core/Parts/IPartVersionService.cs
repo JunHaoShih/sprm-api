@@ -1,5 +1,5 @@
 ﻿using SprmApi.Common.Paginations;
-using SprmApi.Core.Parts.DTOs;
+using SprmApi.Core.Parts.Dto;
 
 namespace SprmApi.Core.Parts
 {
@@ -22,7 +22,7 @@ namespace SprmApi.Core.Parts
         /// <param name="id">Part version id</param>
         /// <param name="versionDTO">Update data</param>
         /// <returns></returns>
-        Task UpdateAsync(long id, UpdatePartVersionDTO versionDTO);
+        Task UpdateAsync(long id, UpdatePartVersionDto versionDTO);
 
         /// <summary>
         /// Get part versions of specific part

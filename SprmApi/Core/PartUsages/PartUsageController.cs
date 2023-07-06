@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Response;
-using SprmApi.Core.PartUsages.DTOs;
+using SprmApi.Core.PartUsages.Dto;
 
 namespace SprmApi.Core.PartUsages
 {
@@ -33,15 +33,15 @@ namespace SprmApi.Core.PartUsages
         /// <response code="200">建立成功</response>
         /// <response code="500">建立失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartUsageUsesDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartUsageUsesDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public async Task<IActionResult> Post(CreatePartUsagesDTO usagesDTO)
+        public async Task<IActionResult> Post(CreatePartUsagesDto usagesDTO)
         {
             IEnumerable<PartUsage> newUsages = await _partUsageService.InsertAsync(usagesDTO);
-            IEnumerable<PartUsageUsesDTO> newUsageDTOs = newUsages.Select(usage => PartUsageUsesDTO.Parse(usage)!);
-            return Ok(GenericResponse<IEnumerable<PartUsageUsesDTO>>.Success(newUsageDTOs));
+            IEnumerable<PartUsageUsesDto> newUsageDTOs = newUsages.Select(usage => PartUsageUsesDto.Parse(usage)!);
+            return Ok(GenericResponse<IEnumerable<PartUsageUsesDto>>.Success(newUsageDTOs));
         }
 
         /// <summary>
@@ -52,15 +52,15 @@ namespace SprmApi.Core.PartUsages
         /// <response code="200">搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartUsageUsesDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartUsageUsesDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("ByParent/{id}")]
         public async Task<IActionResult> GetByParentId(long id)
         {
             IEnumerable<PartUsage> usages = await _partUsageService.GetByPartVersionIdAsync(id);
-            IEnumerable<PartUsageUsesDTO> usageDTOs = usages.Select(usage => PartUsageUsesDTO.Parse(usage)!);
-            return Ok(GenericResponse<IEnumerable<PartUsageUsesDTO>>.Success(usageDTOs));
+            IEnumerable<PartUsageUsesDto> usageDTOs = usages.Select(usage => PartUsageUsesDto.Parse(usage)!);
+            return Ok(GenericResponse<IEnumerable<PartUsageUsesDto>>.Success(usageDTOs));
         }
 
         /// <summary>
@@ -71,14 +71,14 @@ namespace SprmApi.Core.PartUsages
         /// <response code="200">搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<PartUsageUsesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<PartUsageUsesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
             PartUsage? usage = await _partUsageService.GetById(id);
-            return Ok(GenericResponse<PartUsageUsesDTO>.Success(PartUsageUsesDTO.Parse(usage)));
+            return Ok(GenericResponse<PartUsageUsesDto>.Success(PartUsageUsesDto.Parse(usage)));
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace SprmApi.Core.PartUsages
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateById(long id, UpdatePartUsageDTO updateDto)
+        public async Task<IActionResult> UpdateById(long id, UpdatePartUsageDto updateDto)
         {
             await _partUsageService.UpdateById(id, updateDto);
             return Ok(GenericResponse<string>.Success(""));

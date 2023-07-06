@@ -1,7 +1,7 @@
 ﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Core.Parts.DTOs;
+using SprmApi.Core.Parts.Dto;
 using SprmApi.MiddleWares;
 using System;
 
@@ -12,7 +12,7 @@ namespace SprmApi.Core.Parts
     /// </summary>
     public class PartVersionService : IPartVersionService
     {
-        private readonly IPartVersionDAO _partVersionDAO;
+        private readonly IPartVersionDao _partVersionDAO;
 
         private readonly HeaderData _headerData;
 
@@ -25,7 +25,7 @@ namespace SprmApi.Core.Parts
         /// <param name="headerData"></param>
         /// <param name="paginationData"></param>
         public PartVersionService(
-            IPartVersionDAO partVersionDAO,
+            IPartVersionDao partVersionDAO,
             HeaderData headerData,
             PaginationData paginationData)
         {
@@ -41,12 +41,12 @@ namespace SprmApi.Core.Parts
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(long id, UpdatePartVersionDTO versionDTO)
+        public async Task UpdateAsync(long id, UpdatePartVersionDto versionDTO)
         {
             var targetVersion = await _partVersionDAO.GetAsync(id, false);
             if (targetVersion == null)
             {
-                throw new SPRMException(ErrorCode.DbDataNotFound, $"Part version id: {id} does not exist!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Part version id: {id} does not exist!");
             }
             targetVersion = versionDTO.ApplyUpdate(targetVersion);
             await _partVersionDAO.UpdateAsync(targetVersion, _headerData.JWTPayload.Subject);

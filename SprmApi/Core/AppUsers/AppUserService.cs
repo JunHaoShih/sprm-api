@@ -2,7 +2,7 @@
 using System.Text;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.AppUsers.DTOs;
+using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
 using SprmApi.Settings;
 
@@ -13,7 +13,7 @@ namespace SprmApi.Core.AppUsers
     /// </summary>
     public class AppUserService : IAppUserService
     {
-        private readonly IAppUserDAO _appUserDAO;
+        private readonly IAppUserDao _appUserDAO;
 
         private readonly ApiSettings _apiSettings;
 
@@ -25,7 +25,7 @@ namespace SprmApi.Core.AppUsers
         /// <param name="appUserDAO"></param>
         /// <param name="apiSettings"></param>
         /// <param name="headerData"></param>
-        public AppUserService(IAppUserDAO appUserDAO, ApiSettings apiSettings, HeaderData headerData)
+        public AppUserService(IAppUserDao appUserDAO, ApiSettings apiSettings, HeaderData headerData)
         {
             _appUserDAO = appUserDAO;
             _apiSettings = apiSettings;
@@ -33,12 +33,12 @@ namespace SprmApi.Core.AppUsers
         }
 
         /// <inheritdoc/>
-        public async Task<AppUser> CreateAppUserAsync(CreateAppUserDTO createAppUserDTO)
+        public async Task<AppUser> CreateAppUserAsync(CreateAppUserDto createAppUserDTO)
         {
             AppUser? creator = await _appUserDAO.GetByUsernameAsync(_headerData.JWTPayload!.Subject);
             if (creator == null)
             {
-                throw new SPRMException(ErrorCode.UserNotExist, $"{_headerData.JWTPayload!.Subject} does not exist");
+                throw new SprmException(ErrorCode.UserNotExist, $"{_headerData.JWTPayload!.Subject} does not exist");
             }
             createAppUserDTO.Password = EncryptPassword(createAppUserDTO.Password);
             return await _appUserDAO.InsertAsync(createAppUserDTO, creator);
@@ -53,7 +53,7 @@ namespace SprmApi.Core.AppUsers
                 return false;
             }
             string passwordHash = EncryptPassword(_apiSettings.DefaultPassword);
-            await _appUserDAO.InsertDefaultAsync(new CreateAppUserDTO
+            await _appUserDAO.InsertDefaultAsync(new CreateAppUserDto
             {
                 Username = _apiSettings.DefaultAdmin,
                 Password = passwordHash,

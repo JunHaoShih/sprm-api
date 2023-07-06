@@ -105,7 +105,7 @@ namespace SprmApi.Common.Error
             var enumName = Enum.GetName(enumType, errorCode);
             if (enumName == null)
             {
-                throw new SPRMException(ErrorCode.Error, "Error occured while getting error code message");
+                throw new SprmException(ErrorCode.Error, "Error occured while getting error code message");
             }
             var attr = enumType.GetField(enumName)!.GetCustomAttributes<ErrorMessageAttribute>().First();
             return attr.Message;

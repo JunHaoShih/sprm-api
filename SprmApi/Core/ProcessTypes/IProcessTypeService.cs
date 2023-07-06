@@ -1,4 +1,4 @@
-﻿using SprmApi.Core.ProcessTypes.DTOs;
+﻿using SprmApi.Core.ProcessTypes.Dto;
 
 namespace SprmApi.Core.ProcessTypes
 {
@@ -11,6 +11,6 @@ namespace SprmApi.Core.ProcessTypes
         /// Get all process types
         /// </summary>
         /// <returns></returns>
-        IQueryable<ProcessTypeDTO> GetAll();
+        IQueryable<ProcessTypeDto> GetAll();
     }
 }

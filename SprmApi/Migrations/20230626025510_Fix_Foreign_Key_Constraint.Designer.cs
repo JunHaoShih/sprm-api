@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230626025510_Fix_Foreign_Key_Constraint")]
     partial class Fix_Foreign_Key_Constraint
     {
