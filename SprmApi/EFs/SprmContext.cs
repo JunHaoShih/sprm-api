@@ -118,7 +118,7 @@ namespace SprmApi.EFs
             modelBuilder.Entity<ObjectType>().HasData(GetDefaultObjectTypes());
         }
 
-        private IEnumerable<MakeType> GetDefaultMakeTypes()
+        private static IEnumerable<MakeType> GetDefaultMakeTypes()
         {
             List<MakeType> makeTypes = new List<MakeType>();
 
@@ -142,7 +142,7 @@ namespace SprmApi.EFs
             return makeTypes;
         }
 
-        private IEnumerable<ObjectType> GetDefaultObjectTypes()
+        private static IEnumerable<ObjectType> GetDefaultObjectTypes()
         {
             List<ObjectType> objTypes = new List<ObjectType>();
 
@@ -197,7 +197,7 @@ namespace SprmApi.EFs
             return objTypes;
         }
 
-        private IEnumerable<ProcessType> GetDefaultProcessTypes()
+        private static IEnumerable<ProcessType> GetDefaultProcessTypes()
         {
             List<ProcessType> processTypes = new List<ProcessType>();
 
