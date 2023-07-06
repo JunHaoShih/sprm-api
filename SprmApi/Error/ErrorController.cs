@@ -77,7 +77,7 @@ namespace SprmApi.Error
 		/// </summary>
 		/// <param name="exception"></param>
 		/// <returns></returns>
-		private GenericResponse<string> HandlePostgresException(PostgresException exception)
+		private static GenericResponse<string> HandlePostgresException(PostgresException exception)
         {
             GenericResponse<string> apiErrorMessage = new GenericResponse<string>();
 
