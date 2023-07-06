@@ -9,7 +9,7 @@ namespace SprmApi.Core.AppUsers
     /// </summary>
     [Table("app_users", Schema = "sprm")]
     [Comment("App使用者")]
-    public class AppUser : SPRMObject
+    public class AppUser : SprmObject
     {
         /// <summary>
         /// App使用者名稱

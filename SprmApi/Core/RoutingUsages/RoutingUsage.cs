@@ -12,7 +12,7 @@ namespace SprmApi.Core.RoutingUsages
     /// </summary>
     [Table("routing_usages", Schema = "sprm")]
     [Comment("工藝路徑使用關係")]
-    public class RoutingUsage : SPRMObject, IDisposable
+    public class RoutingUsage : SprmObject, IDisposable
     {
         /// <summary>
         /// 該使用關係所屬工藝路徑版本的id

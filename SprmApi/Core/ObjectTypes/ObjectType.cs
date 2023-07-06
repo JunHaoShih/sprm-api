@@ -9,7 +9,7 @@ namespace SprmApi.Core.ObjectTypes
     /// </summary>
     [Table("object_types", Schema = "sprm")]
     [Comment("物件類型")]
-    public class ObjectType : SPRMObject
+    public class ObjectType : SprmObject
     {
         /// <summary>
         /// 物件類型編號

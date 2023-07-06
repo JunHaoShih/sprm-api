@@ -10,7 +10,7 @@ namespace SprmApi.Core.Routings
     /// </summary>
     [Table("routings", Schema = "sprm")]
     [Comment("工藝路徑")]
-    public class Routing : SPRMObject
+    public class Routing : SprmObject
     {
         /// <summary>
         /// 關聯料件id

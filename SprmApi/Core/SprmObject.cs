@@ -7,7 +7,7 @@ namespace SprmApi.Core
     /// <summary>
     /// Database基底物件
     /// </summary>
-    public abstract class SPRMObject
+    public abstract class SprmObject
     {
         /// <summary>
         /// System id

@@ -15,13 +15,13 @@ namespace SprmApi.Error
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : ControllerBase
     {
-        private readonly ILogger logger;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="logger"></param>
-        public ErrorController(ILogger<ErrorController> logger) => this.logger = logger;
+        public ErrorController(ILogger<ErrorController> logger) => _logger = logger;
 
         /// <summary>
         /// Where all the errors handled
@@ -29,36 +29,34 @@ namespace SprmApi.Error
         /// <returns></returns>
         public ActionResult<GenericResponse<string>> Error()
         {
-            var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            var exception = context!.Error;
+            IExceptionHandlerFeature? context = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            Exception exception = context!.Error;
             int statusCode = StatusCodes.Status500InternalServerError;
 
-            GenericResponse<string> apiErrorMessage = new GenericResponse<string>();
+            GenericResponse<string> apiErrorMessage;
 
-            if (exception is SprmAuthException)
+            if (exception is SprmAuthException authException)
             {
-                var apiException = (SprmAuthException)exception;
                 apiErrorMessage = new GenericResponse<string>
                 {
-                    Code = apiException.Code,
-                    Message = apiException.Message,
-                    Content = apiException.Content
+                    Code = authException.Code,
+                    Message = authException.Message,
+                    Content = authException.Content
                 };
                 statusCode = StatusCodes.Status401Unauthorized;
             }
-            else if (exception is SprmException)
+            else if (exception is SprmException baseException)
             {
-                var apiException = (SprmException)exception;
                 apiErrorMessage = new GenericResponse<string>
                 {
-                    Code = apiException.Code,
-                    Message = apiException.Message,
-                    Content = apiException.Content
+                    Code = baseException.Code,
+                    Message = baseException.Message,
+                    Content = baseException.Content
                 };
             }
-            else if (exception.GetBaseException() is PostgresException)
+            else if (exception.GetBaseException() is PostgresException pgException)
             {
-                apiErrorMessage = HandlePostgresException((PostgresException)exception.GetBaseException());
+                apiErrorMessage = HandlePostgresException(pgException);
             }
             else
             {
@@ -69,7 +67,7 @@ namespace SprmApi.Error
                     Content = exception.Message
                 };
             }
-            logger.LogError(exception, exception.Message);
+            _logger.LogError(exception, "Error catched by error handler: {Message}", exception.Message);
 
             return StatusCode(statusCode, apiErrorMessage);
         }
@@ -79,9 +77,9 @@ namespace SprmApi.Error
 		/// </summary>
 		/// <param name="exception"></param>
 		/// <returns></returns>
-		private GenericResponse<string> HandlePostgresException(PostgresException exception)
+		private static GenericResponse<string> HandlePostgresException(PostgresException exception)
         {
-            GenericResponse<string> apiErrorMessage = new GenericResponse<string>();
+            GenericResponse<string> apiErrorMessage;
 
             if (exception.SqlState == "23505")
             {

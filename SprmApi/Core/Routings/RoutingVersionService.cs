@@ -68,7 +68,6 @@ namespace SprmApi.Core.Routings
             }
             RoutingVersion updatedVersion = update.ApplyUpdate(targetVersion);
             await _routingVersionDAO.UpdateAsync(updatedVersion, _headerData.JWTPayload.Subject);
-            return;
         }
     }
 }

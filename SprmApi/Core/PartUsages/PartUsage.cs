@@ -11,7 +11,7 @@ namespace SprmApi.Core.PartUsages
     /// </summary>
     [Table("part_usages", Schema = "sprm")]
     [Comment("零件使用關係")]
-    public class PartUsage : SPRMObject, IDisposable
+    public class PartUsage : SprmObject, IDisposable
     {
         /// <summary>
         /// 父零件id

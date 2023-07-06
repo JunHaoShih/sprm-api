@@ -30,7 +30,7 @@ namespace SprmApi.Core.Auth
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("EnsureAdminHostedService is starting");
-            var success = _appUserService.CreateDefaultAdminAsync();
+            _appUserService.CreateDefaultAdminAsync();
             return Task.CompletedTask;
         }
 
