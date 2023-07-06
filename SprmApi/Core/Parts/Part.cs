@@ -11,7 +11,7 @@ namespace SprmApi.Core.Parts
     /// </summary>
     [Table("parts", Schema = "sprm")]
     [Comment("零件")]
-    public class Part : SPRMObject
+    public class Part : SprmObject
     {
         /// <summary>
         /// 料號

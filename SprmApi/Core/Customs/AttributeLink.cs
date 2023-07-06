@@ -10,7 +10,7 @@ namespace SprmApi.Core.Customs
     /// </summary>
     [Table("attribute_links", Schema = "sprm")]
     [Comment("類型屬性")]
-    public class AttributeLink : SPRMObject
+    public class AttributeLink : SprmObject
     {
         /// <summary>
         /// 物件類型id

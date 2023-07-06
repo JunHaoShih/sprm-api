@@ -42,7 +42,7 @@ namespace SprmApi.Common.Dto
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected BaseReturnDto Populate(SPRMObject obj)
+        protected BaseReturnDto Populate(SprmObject obj)
         {
             Id = obj.Id;
             CreateUser = obj.CreateUser;

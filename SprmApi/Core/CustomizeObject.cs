@@ -8,7 +8,7 @@ namespace SprmApi.Core
     /// <summary>
     /// 可自定義物件
     /// </summary>
-    public abstract class CustomizeObject : SPRMObject
+    public abstract class CustomizeObject : SprmObject
     {
         /// <summary>
         /// 編號

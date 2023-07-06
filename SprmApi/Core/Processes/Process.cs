@@ -13,7 +13,7 @@ namespace SprmApi.Core.Processes
     /// </summary>
     [Table("processes", Schema = "sprm")]
     [Comment("製程")]
-    public class Process : SPRMObject, IDisposable
+    public class Process : SprmObject, IDisposable
     {
         /// <summary>
         /// 製程代碼

@@ -8,7 +8,7 @@ namespace SprmApi.Core
     /// 可迭代物件
     /// </summary>
     /// <typeparam name="T">可迭代的類別</typeparam>
-    public abstract class IterableObject<T> : SPRMObject
+    public abstract class IterableObject<T> : SprmObject
     {
         /// <summary>
         /// Master id
