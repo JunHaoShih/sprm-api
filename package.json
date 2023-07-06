@@ -1,0 +1,25 @@
+{
+  "name": "simplemanufacturingprocessmanagement",
+  "version": "1.0.0",
+  "description": "Husky and commitlint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JunHaoShih/SimpleManufacturingProcessManagement.git"
+  },
+  "author": "Victor Shih",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JunHaoShih/SimpleManufacturingProcessManagement/issues"
+  },
+  "homepage": "https://github.com/JunHaoShih/SimpleManufacturingProcessManagement#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "husky": "^8.0.3"
+  }
+}
