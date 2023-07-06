@@ -41,7 +41,7 @@ namespace SprmApi.Core.Parts
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(long id, UpdatePartVersionDTO versionDTO)
+        public async Task UpdateAsync(long id, UpdatePartVersionDto versionDTO)
         {
             var targetVersion = await _partVersionDAO.GetAsync(id, false);
             if (targetVersion == null)

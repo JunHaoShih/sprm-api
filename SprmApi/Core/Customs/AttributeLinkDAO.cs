@@ -11,13 +11,13 @@ namespace SprmApi.Core.Customs
     /// </summary>
     public class AttributeLinkDAO : IAttributeLinkDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public AttributeLinkDAO(SPRMContext context) => _context = context;
+        public AttributeLinkDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public async Task DeleteAsync(long id)

@@ -12,7 +12,7 @@ namespace SprmApi.Core.AppUsers
         /// </summary>
         /// <param name="createAppUserDTO"></param>
         /// <returns></returns>
-        Task<AppUser> CreateAppUserAsync(CreateAppUserDTO createAppUserDTO);
+        Task<AppUser> CreateAppUserAsync(CreateAppUserDto createAppUserDTO);
 
         /// <summary>
         /// 用帳號和hash密碼取使用者

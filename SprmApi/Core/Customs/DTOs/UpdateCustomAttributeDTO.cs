@@ -6,7 +6,7 @@ namespace SprmApi.Core.Customs.DTOs
     /// <summary>
     /// Update DTO for custom attribute
     /// </summary>
-    public class UpdateCustomAttributeDTO
+    public class UpdateCustomAttributeDto
     {
         /// <summary>
         /// 自定屬性編號

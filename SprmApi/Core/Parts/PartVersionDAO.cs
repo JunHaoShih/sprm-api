@@ -8,13 +8,13 @@ namespace SprmApi.Core.Parts
     /// </summary>
     public class PartVersionDAO : IPartVersionDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public PartVersionDAO(SPRMContext context) => _context = context;
+        public PartVersionDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public async Task<PartVersion?> GetAsync(long partVersionId, bool includePart)

@@ -7,7 +7,6 @@ using SprmApi.Core.Parts;
 using SprmApi.Core.PartUsages;
 using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
-using SprmApi.Core.RoutingProcesses;
 using SprmApi.Core.Routings;
 using SprmApi.Core.RoutingUsages;
 using SprmApi.Settings;
@@ -17,19 +16,15 @@ namespace SprmApi.EFs
     /// <summary>
     /// 本系統的DbContext
     /// </summary>
-    public class SPRMContext : DbContext
+    public class SprmContext : DbContext
     {
-        private readonly ApiSettings _apiSettings;
-
         /// <summary>
         /// Constructor, 一定要去base(options)
         /// </summary>
         /// <param name="options"></param>
         /// <param name="apiSettings"></param>
-        public SPRMContext(DbContextOptions<SPRMContext> options, ApiSettings apiSettings) : base(options)
-        {
-            _apiSettings = apiSettings;
-        }
+        public SprmContext(DbContextOptions<SprmContext> options) : base(options)
+        { }
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -65,10 +60,6 @@ namespace SprmApi.EFs
 
             modelBuilder.Entity<MakeType>()
                 .HasIndex(c => new { c.Number })
-                .IsUnique();
-
-            modelBuilder.Entity<RoutingProcess>()
-                .HasIndex(c => new { c.RoutingVersionId, c.Number })
                 .IsUnique();
 
             modelBuilder.Entity<ObjectType>()
@@ -201,7 +192,7 @@ namespace SprmApi.EFs
             {
                 Id = (long)SprmObjectType.RoutingUsage,
                 Remarks = "工藝路徑使用關係",
-                Number = typeof(RoutingProcess).Name,
+                Number = typeof(RoutingUsage).Name,
                 Name = "工藝路徑使用關係"
             });
 
@@ -292,11 +283,6 @@ namespace SprmApi.EFs
         /// 製造類型
         /// </summary>
         public DbSet<MakeType> MakeTypes => Set<MakeType>();
-
-        /// <summary>
-        /// 途程製程
-        /// </summary>
-        public DbSet<RoutingProcess> RoutingProcesses => Set<RoutingProcess>();
 
         /// <summary>
         /// 物件類型

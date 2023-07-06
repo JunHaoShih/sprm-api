@@ -6,7 +6,7 @@ namespace SprmApi.Core.Routings.DTOs
     /// <summary>
     /// 工藝路徑建立DTO
     /// </summary>
-    public class CreateRoutingDTO
+    public class CreateRoutingDto
     {
         /// <summary>
         /// 工藝路徑所屬料件

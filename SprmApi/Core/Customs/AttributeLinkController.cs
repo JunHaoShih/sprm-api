@@ -32,14 +32,14 @@ namespace SprmApi.Core.Customs
         /// <response code="200">新增自訂屬性成功</response>
         /// <response code="500">新增自訂屬性失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<AttributeLinksDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<AttributeLinksDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("ByObjectType")]
         public async Task<IActionResult> GetByObjectType([Required][EnumValidation] SprmObjectType objectTypeId)
         {
             var links = await _attributeLinkService.GetByObjectTypeIdAsync(objectTypeId);
-            return Ok(GenericResponse<AttributeLinksDTO>.Success(AttributeLinksDTO.Parse(objectTypeId, links)));
+            return Ok(GenericResponse<AttributeLinksDto>.Success(AttributeLinksDto.Parse(objectTypeId, links)));
         }
 
         /// <summary>
@@ -50,14 +50,14 @@ namespace SprmApi.Core.Customs
         /// <response code="200">新增自定屬性關聯成功</response>
         /// <response code="500">新增自定屬性關聯失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<AttributeLinksDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<AttributeLinksDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public async Task<IActionResult> Post(CreateAttributeLinksDTO createDTO)
+        public async Task<IActionResult> Post(CreateAttributeLinksDto createDTO)
         {
             var newLink = await _attributeLinkService.Insert(createDTO);
-            return Ok(GenericResponse<AttributeLinksDTO>.Success(AttributeLinksDTO.Parse(createDTO.ObjectTypeId, newLink)));
+            return Ok(GenericResponse<AttributeLinksDto>.Success(AttributeLinksDto.Parse(createDTO.ObjectTypeId, newLink)));
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpDelete]
-        public async Task<IActionResult> Delete(DeleteAttributeLinksDTO deleteDTO)
+        public async Task<IActionResult> Delete(DeleteAttributeLinksDto deleteDTO)
         {
             await _attributeLinkService.DeleteAsync(deleteDTO);
             return Ok(GenericResponse<string>.Success(string.Empty));

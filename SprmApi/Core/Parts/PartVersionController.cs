@@ -53,7 +53,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, UpdatePartVersionDTO versionDTO)
+        public async Task<IActionResult> Put(long id, UpdatePartVersionDto versionDTO)
         {
             await _partVersionService.UpdateAsync(id, versionDTO);
             return Ok(GenericResponse<string>.Success(""));

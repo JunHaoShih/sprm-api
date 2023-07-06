@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230620075122_Processes_Add_Custom_Values")]
     partial class Processes_Add_Custom_Values
     {

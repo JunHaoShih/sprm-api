@@ -13,6 +13,6 @@ namespace SprmApi.Core.Auth
         /// </summary>
         /// <param name="authenticateDTO"></param>
         /// <returns></returns>
-        Task<AppUser> Authenticate(AuthenticateDTO authenticateDTO);
+        Task<AppUser> Authenticate(AuthenticateDto authenticateDTO);
     }
 }

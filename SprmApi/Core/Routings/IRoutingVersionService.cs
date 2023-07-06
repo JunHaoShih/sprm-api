@@ -30,6 +30,6 @@ namespace SprmApi.Core.Routings
         /// <param name="id">Routing version id</param>
         /// <param name="update">Update data</param>
         /// <returns></returns>
-        Task UpdateAsync(long id, UpdateRoutingVersionDTO update);
+        Task UpdateAsync(long id, UpdateRoutingVersionDto update);
     }
 }

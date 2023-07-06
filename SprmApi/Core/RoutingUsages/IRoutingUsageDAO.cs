@@ -13,7 +13,7 @@ namespace SprmApi.Core.RoutingUsages
         /// <param name="createDto"></param>
         /// <param name="creater"></param>
         /// <returns></returns>
-        Task<RoutingUsage> InsertAsync(CreateRoutingUsageDTO createDto, string creater);
+        Task<RoutingUsage> InsertAsync(CreateRoutingUsageDto createDto, string creater);
 
         /// <summary>
         /// Get all routing usages by root routing version id

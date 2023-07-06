@@ -59,7 +59,7 @@ namespace SprmApi.Core.Routings
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(long id, UpdateRoutingVersionDTO update)
+        public async Task UpdateAsync(long id, UpdateRoutingVersionDto update)
         {
             RoutingVersion? targetVersion = await _routingVersionDAO.GetAsync(id);
             if (targetVersion == null)

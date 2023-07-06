@@ -6,7 +6,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 零件版本DTO，PartDTO專用的版本DTO
     /// </summary>
-    public class PartVersionInfoDTO : BaseReturnDto
+    public class PartVersionInfoDto : BaseReturnDto
     {
         /// <summary>
         /// 零件id
@@ -38,9 +38,9 @@ namespace SprmApi.Core.Parts.DTOs
         /// </summary>
         /// <param name="partVersion"></param>
         /// <returns></returns>
-        public static PartVersionInfoDTO Parse(PartVersion partVersion)
+        public static PartVersionInfoDto Parse(PartVersion partVersion)
         {
-            var dto = new PartVersionInfoDTO
+            var dto = new PartVersionInfoDto
             {
                 MasterId = partVersion.MasterId,
                 Version = partVersion.Version,

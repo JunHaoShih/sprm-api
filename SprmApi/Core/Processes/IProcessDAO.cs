@@ -13,7 +13,7 @@ namespace SprmApi.Core.Processes
         /// <param name="createDTO">Create DTO</param>
         /// <param name="creator">Creator</param>
         /// <returns></returns>
-        Task<Process> Insert(CreateProcessDTO createDTO, string creator);
+        Task<Process> Insert(CreateProcessDto createDTO, string creator);
 
         /// <summary>
         /// Get process by id

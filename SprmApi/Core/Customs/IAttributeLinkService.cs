@@ -27,13 +27,13 @@ namespace SprmApi.Core.Customs
         /// </summary>
         /// <param name="createDTO"></param>
         /// <returns></returns>
-        Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDTO createDTO);
+        Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDto createDTO);
 
         /// <summary>
         /// Delete a group of attribute links
         /// </summary>
         /// <param name="deleteDTO"></param>
         /// <returns></returns>
-        Task DeleteAsync(DeleteAttributeLinksDTO deleteDTO);
+        Task DeleteAsync(DeleteAttributeLinksDto deleteDTO);
     }
 }

@@ -77,7 +77,7 @@ namespace SprmApi.Core.Routings
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingDto> InsertAsync(CreateRoutingDTO createDTO)
+        public async Task<RoutingDto> InsertAsync(CreateRoutingDto createDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -86,7 +86,7 @@ namespace SprmApi.Core.Routings
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
                 Routing newRouting = await _routingDAO.InsertAsync(createDTO, _headerData.JWTPayload.Subject);
-                CreateRoutingVersionDTO firstVersion = new CreateRoutingVersionDTO
+                CreateRoutingVersionDto firstVersion = new CreateRoutingVersionDto
                 {
                     MasterId = newRouting.Id,
                     Version = 1,
@@ -126,7 +126,7 @@ namespace SprmApi.Core.Routings
                     throw new SprmException(ErrorCode.LatestVersionNotFound, $"Routing id: ${routingId} cannot find latest version!");
                 }
 
-                CreateRoutingVersionDTO createVersionDto = CreateRoutingVersionDTO.Parse(latestVersion);
+                CreateRoutingVersionDto createVersionDto = CreateRoutingVersionDto.Parse(latestVersion);
                 createVersionDto.IsLatest = false;
                 createVersionDto.IsDraft = true;
                 createVersionDto.Version++;
@@ -147,7 +147,7 @@ namespace SprmApi.Core.Routings
                 .ToListAsync();
             foreach (RoutingUsage usage in usages)
             {
-                CreateRoutingUsageDTO createDto = CreateRoutingUsageDTO.Parse(usage);
+                CreateRoutingUsageDto createDto = CreateRoutingUsageDto.Parse(usage);
                 createDto.RootVersionId = draftRootId;
                 createDto.ParentUsageId = newParentUsageId;
                 RoutingUsage newUsage = await _routingUsageDAO.InsertAsync(createDto, _headerData.JWTPayload.Subject);

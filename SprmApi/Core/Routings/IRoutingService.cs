@@ -13,7 +13,7 @@ namespace SprmApi.Core.Routings
         /// </summary>
         /// <param name="createDTO"></param>
         /// <returns></returns>
-        Task<RoutingDto> InsertAsync(CreateRoutingDTO createDTO);
+        Task<RoutingDto> InsertAsync(CreateRoutingDto createDTO);
 
         /// <summary>
         /// Get routings by part id

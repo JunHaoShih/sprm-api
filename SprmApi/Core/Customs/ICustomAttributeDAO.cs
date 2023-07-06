@@ -19,7 +19,7 @@ namespace SprmApi.Core.Customs
         /// <param name="dto">creation payload</param>
         /// <param name="creator">creator username</param>
         /// <returns></returns>
-        Task<CustomAttribute> InsertAsync(CreateCustomAttributeDTO dto, string creator);
+        Task<CustomAttribute> InsertAsync(CreateCustomAttributeDto dto, string creator);
 
         /// <summary>
         /// Update custom attribute

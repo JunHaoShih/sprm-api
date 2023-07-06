@@ -6,7 +6,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 建立料件DTO
     /// </summary>
-    public class CreatePartDTO
+    public class CreatePartDto
     {
         /// <summary>
         /// Part number

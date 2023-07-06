@@ -39,7 +39,7 @@ namespace SprmApi.Core.AppUsers
         /// <response code="200">成功取得當前使用者資訊</response>
         /// <response code="500">存取發生錯誤</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<AppUserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<AppUserDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("Me")]
@@ -50,7 +50,7 @@ namespace SprmApi.Core.AppUsers
             {
                 throw new SprmAuthException(ErrorCode.Error, "Cannot find current user");
             }
-            return Ok(GenericResponse<AppUserDTO>.Success(AppUserDTO.Parse(appUser)));
+            return Ok(GenericResponse<AppUserDto>.Success(AppUserDto.Parse(appUser)));
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using SprmApi.Common.DTOs;
-using SprmApi.Core.Customs.DTOs;
-using SprmApi.Core.ProcessTypes;
 
 namespace SprmApi.Core.ProcessTypes.DTOs
 {
     /// <summary>
     /// 製程類型DTO
     /// </summary>
-    public class ProcessTypeDTO : BaseReturnDto
+    public class ProcessTypeDto : BaseReturnDto
     {
         /// <summary>
         /// 製程類型編號
@@ -34,9 +32,9 @@ namespace SprmApi.Core.ProcessTypes.DTOs
         /// </summary>
         /// <param name="processType"></param>
         /// <returns></returns>
-        public static ProcessTypeDTO Parse(ProcessType processType)
+        public static ProcessTypeDto Parse(ProcessType processType)
         {
-            var dto = new ProcessTypeDTO
+            var dto = new ProcessTypeDto
             {
                 Number = processType.Number,
                 Name = processType.Name,

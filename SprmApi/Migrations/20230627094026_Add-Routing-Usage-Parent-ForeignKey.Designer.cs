@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230627094026_Add-Routing-Usage-Parent-ForeignKey")]
     partial class AddRoutingUsageParentForeignKey
     {

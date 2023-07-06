@@ -11,6 +11,6 @@ namespace SprmApi.Core.MakeTypes
         /// Get all make types
         /// </summary>
         /// <returns></returns>
-        IQueryable<MakeTypeDTO> GetAll();
+        IQueryable<MakeTypeDto> GetAll();
     }
 }

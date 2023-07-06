@@ -31,13 +31,13 @@ namespace SprmApi.Core.Customs
         public async Task<IEnumerable<CustomAttribute>> GetAllAsync() => await _attributeDAO.GetAllAsync();
 
         /// <inheritdoc/>
-        public async Task<CustomAttribute> InsertAsync(CreateCustomAttributeDTO dto)
+        public async Task<CustomAttribute> InsertAsync(CreateCustomAttributeDto dto)
         {
             return await _attributeDAO.InsertAsync(dto, _headerData.JWTPayload.Subject);
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(long id, UpdateCustomAttributeDTO attribute)
+        public async Task UpdateAsync(long id, UpdateCustomAttributeDto attribute)
         {
             var targetAttribute = await _attributeDAO.GetByIdAsync(id);
             if (targetAttribute == null) {

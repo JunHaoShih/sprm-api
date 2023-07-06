@@ -3,7 +3,7 @@
     /// <summary>
     /// 物件類型
     /// </summary>
-    public class ObjectTypeDTO
+    public class ObjectTypeDto
     {
         /// <summary>
         /// id
@@ -25,9 +25,9 @@
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static ObjectTypeDTO Parse(ObjectType entity)
+        public static ObjectTypeDto Parse(ObjectType entity)
         {
-            return new ObjectTypeDTO { Id = entity.Id, Number = entity.Number, Name = entity.Name };
+            return new ObjectTypeDto { Id = entity.Id, Number = entity.Number, Name = entity.Name };
         }
     }
 }

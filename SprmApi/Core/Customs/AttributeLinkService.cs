@@ -41,7 +41,7 @@ namespace SprmApi.Core.Customs
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAsync(DeleteAttributeLinksDTO deleteDTO)
+        public async Task DeleteAsync(DeleteAttributeLinksDto deleteDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -81,7 +81,7 @@ namespace SprmApi.Core.Customs
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDTO createDTO)
+        public async Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDto createDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {

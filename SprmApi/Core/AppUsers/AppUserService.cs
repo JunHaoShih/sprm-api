@@ -33,7 +33,7 @@ namespace SprmApi.Core.AppUsers
         }
 
         /// <inheritdoc/>
-        public async Task<AppUser> CreateAppUserAsync(CreateAppUserDTO createAppUserDTO)
+        public async Task<AppUser> CreateAppUserAsync(CreateAppUserDto createAppUserDTO)
         {
             AppUser? creator = await _appUserDAO.GetByUsernameAsync(_headerData.JWTPayload!.Subject);
             if (creator == null)
@@ -53,7 +53,7 @@ namespace SprmApi.Core.AppUsers
                 return false;
             }
             string passwordHash = EncryptPassword(_apiSettings.DefaultPassword);
-            await _appUserDAO.InsertDefaultAsync(new CreateAppUserDTO
+            await _appUserDAO.InsertDefaultAsync(new CreateAppUserDto
             {
                 Username = _apiSettings.DefaultAdmin,
                 Password = passwordHash,

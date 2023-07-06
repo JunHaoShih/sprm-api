@@ -98,7 +98,7 @@ try
 
     var apiSettings = builder.Configuration.GetSection("ApiSettings").Get<ApiSettings>(c => c.BindNonPublicProperties = true);
     // Set Entity Framework
-    builder.Services.AddDbContext<SPRMContext>(opt =>
+    builder.Services.AddDbContext<SprmContext>(opt =>
         opt.UseNpgsql(apiSettings.ConnectionString, x => x.MigrationsHistoryTable(HistoryRepository.DefaultTableName, "sprm"))
     );
 
@@ -108,7 +108,7 @@ try
     using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
-        var context = services.GetRequiredService<SPRMContext>();
+        var context = services.GetRequiredService<SprmContext>();
         context.Database.Migrate();
     }
 

@@ -13,14 +13,14 @@ namespace SprmApi.Core.Processes
         /// </summary>
         /// <param name="createDTO"></param>
         /// <returns></returns>
-        Task<ProcessDTO> InsertAsync(CreateProcessDTO createDTO);
+        Task<ProcessDto> InsertAsync(CreateProcessDto createDTO);
 
         /// <summary>
         /// Get process by id
         /// </summary>
         /// <param name="id">Process is</param>
         /// <returns></returns>
-        Task<ProcessDTO?> GetAsync(long id);
+        Task<ProcessDto?> GetAsync(long id);
 
         /// <summary>
         /// Search process by pattern
@@ -28,7 +28,7 @@ namespace SprmApi.Core.Processes
         /// <param name="pattern">Search pattern</param>
         /// <param name="input">Offset pagination input data</param>
         /// <returns></returns>
-        OffsetPagination<ProcessDTO> GetByPattern(string? pattern, OffsetPaginationInput input);
+        OffsetPagination<ProcessDto> GetByPattern(string? pattern, OffsetPaginationInput input);
 
         /// <summary>
         /// Delete process by id
@@ -43,6 +43,6 @@ namespace SprmApi.Core.Processes
         /// <param name="id">Process id</param>
         /// <param name="updateDTO">Update data</param>
         /// <returns></returns>
-        Task UpdateAsync(long id, UpdateProcessDTO updateDTO);
+        Task UpdateAsync(long id, UpdateProcessDto updateDTO);
     }
 }

@@ -31,7 +31,7 @@ namespace SprmApi.Core.Parts.DTOs
         /// <summary>
         /// 料件版本的master
         /// </summary>
-        public PartMasterDTO Master { get; set; } = null!;
+        public PartMasterDto Master { get; set; } = null!;
 
         /// <summary>
         /// 自訂屬性值
@@ -55,7 +55,7 @@ namespace SprmApi.Core.Parts.DTOs
                 Version = partVersion.Version,
                 IsLatest = partVersion.IsLatest,
                 IsDraft = partVersion.IsDraft,
-                Master = PartMasterDTO.Parse(partVersion.Master!),
+                Master = PartMasterDto.Parse(partVersion.Master!),
                 CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(partVersion.CustomValues)!,
             };
             dto.Populate(partVersion);

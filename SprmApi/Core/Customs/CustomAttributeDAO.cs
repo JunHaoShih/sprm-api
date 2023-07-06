@@ -11,13 +11,13 @@ namespace SprmApi.Core.Customs
     /// </summary>
     public class CustomAttributeDAO : ICustomAttributeDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public CustomAttributeDAO(SPRMContext context) => _context = context;
+        public CustomAttributeDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public async Task DeleteAsync(long id)
@@ -54,7 +54,7 @@ namespace SprmApi.Core.Customs
         }
 
         /// <inheritdoc/>
-        public async Task<CustomAttribute> InsertAsync(CreateCustomAttributeDTO dto, string creator)
+        public async Task<CustomAttribute> InsertAsync(CreateCustomAttributeDto dto, string creator)
         {
             var duplicateAttr = await GetByNumberAsync(dto.Number);
             if (duplicateAttr != null)

@@ -28,15 +28,15 @@ namespace SprmApi.Core.ObjectTypes
         /// <response code="200">取得成功</response>
         /// <response code="500">取得失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<ObjectTypeDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<ObjectTypeDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var objectTypes = await _objectTypeService.GetAllAsync();
-            var objectTypeDTOs = objectTypes.Select(objType => ObjectTypeDTO.Parse(objType));
-            return Ok(GenericResponse<IEnumerable<ObjectTypeDTO>>.Success(objectTypeDTOs));
+            var objectTypeDTOs = objectTypes.Select(objType => ObjectTypeDto.Parse(objType));
+            return Ok(GenericResponse<IEnumerable<ObjectTypeDto>>.Success(objectTypeDTOs));
         }
     }
 }

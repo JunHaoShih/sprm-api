@@ -7,7 +7,7 @@ namespace SprmApi.Core.Customs.DTOs
     /// <summary>
     /// 建立attribute links的DTO
     /// </summary>
-    public class CreateAttributeLinksDTO
+    public class CreateAttributeLinksDto
     {
         /// <summary>
         /// 物件類別id

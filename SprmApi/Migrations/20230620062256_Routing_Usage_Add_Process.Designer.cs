@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230620062256_Routing_Usage_Add_Process")]
     partial class Routing_Usage_Add_Process
     {

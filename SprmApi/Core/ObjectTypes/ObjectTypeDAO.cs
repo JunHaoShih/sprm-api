@@ -8,13 +8,13 @@ namespace SprmApi.Core.ObjectTypes
     /// </summary>
     public class ObjectTypeDAO : IObjectTypeDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public ObjectTypeDAO( SPRMContext context )
+        public ObjectTypeDAO( SprmContext context )
         {
             _context = context;
         }

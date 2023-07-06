@@ -12,13 +12,13 @@ namespace SprmApi.Core.Routings
     /// </summary>
     public class RoutingDAO : IRoutingDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public RoutingDAO(SPRMContext context) => _context = context;
+        public RoutingDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public IQueryable<Routing> GetByPartId(long partId, bool includeVersion)
@@ -33,7 +33,7 @@ namespace SprmApi.Core.Routings
         }
 
         /// <inheritdoc/>
-        public async Task<Routing> InsertAsync(CreateRoutingDTO createDTO, string creator)
+        public async Task<Routing> InsertAsync(CreateRoutingDto createDTO, string creator)
         {
             Routing? duplicateRouting = _context.Routings
                 .Where(routing => routing.PartId == createDTO.PartId && routing.Name == createDTO.Name)

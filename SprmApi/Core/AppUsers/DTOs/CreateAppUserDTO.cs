@@ -5,7 +5,7 @@ namespace SprmApi.Core.AppUsers.DTOs
     /// <summary>
     /// AppUser DTO for AppUser creation
     /// </summary>
-    public class CreateAppUserDTO
+    public class CreateAppUserDto
     {
         /// <summary>
         /// 使用者名稱

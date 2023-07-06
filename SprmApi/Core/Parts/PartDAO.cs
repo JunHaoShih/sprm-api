@@ -12,13 +12,13 @@ namespace SprmApi.Core.Parts
     /// </summary>
     public class PartDAO : IPartDAO
     {
-        private readonly SPRMContext _sprmContext;
+        private readonly SprmContext _sprmContext;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="smpmContext"></param>
-        public PartDAO(SPRMContext smpmContext) => _sprmContext = smpmContext;
+        public PartDAO(SprmContext smpmContext) => _sprmContext = smpmContext;
 
         /// <inheritdoc/>
         public async Task DeleteAsync(long id)
@@ -50,7 +50,7 @@ namespace SprmApi.Core.Parts
         }
 
         /// <inheritdoc/>
-        public async Task<Part> InsertAsync(CreatePartDTO createPartDTO, string creator)
+        public async Task<Part> InsertAsync(CreatePartDto createPartDTO, string creator)
         {
             Part? duplicatePart = await GetByNumberAsync(createPartDTO.Number);
             if (duplicatePart != null)

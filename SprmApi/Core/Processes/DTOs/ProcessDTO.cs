@@ -8,7 +8,7 @@ namespace SprmApi.Core.Processes.DTOs
     /// <summary>
     /// 製程回傳DTO
     /// </summary>
-    public class ProcessDTO : BaseReturnDto
+    public class ProcessDto : BaseReturnDto
     {
         /// <summary>
         /// 料號
@@ -33,12 +33,12 @@ namespace SprmApi.Core.Processes.DTOs
         /// <summary>
         /// 製程類型
         /// </summary>
-        public ProcessTypeDTO ProcessType { get; set; } = null!;
+        public ProcessTypeDto ProcessType { get; set; } = null!;
 
         /// <summary>
         /// 製造類型
         /// </summary>
-        public MakeTypeDTO DefaultMakeType { get; set; } = null!;
+        public MakeTypeDto DefaultMakeType { get; set; } = null!;
 
         /// <summary>
         /// 自訂屬性值
@@ -50,16 +50,16 @@ namespace SprmApi.Core.Processes.DTOs
         /// </summary>
         /// <param name="process"></param>
         /// <returns></returns>
-        public static ProcessDTO Parse(Process process)
+        public static ProcessDto Parse(Process process)
         {
-            ProcessDTO dto = new ProcessDTO
+            ProcessDto dto = new ProcessDto
             {
                 Number = process.Number,
                 Name = process.Name,
                 DefaultImportTime = process.DefaultImportTime,
                 DefaultExportTime = process.DefaultExportTime,
-                ProcessType = ProcessTypeDTO.Parse(process.ProcessType!),
-                DefaultMakeType = MakeTypeDTO.Parse(process.MakeType!),
+                ProcessType = ProcessTypeDto.Parse(process.ProcessType!),
+                DefaultMakeType = MakeTypeDto.Parse(process.MakeType!),
                 CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(process.CustomValues)!,
             };
             dto.Populate(process);

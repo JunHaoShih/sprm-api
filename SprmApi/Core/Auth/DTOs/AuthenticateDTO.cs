@@ -5,7 +5,7 @@ namespace SprmApi.Core.Auth.DTOs
     /// <summary>
     /// 使用者驗證DTO
     /// </summary>
-    public class AuthenticateDTO
+    public class AuthenticateDto
     {
         /// <summary>
         /// 使用者名稱

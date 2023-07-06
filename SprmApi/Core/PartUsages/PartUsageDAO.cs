@@ -12,13 +12,13 @@ namespace SprmApi.Core.PartUsages
     /// </summary>
     public class PartUsageDAO : IPartUsageDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public PartUsageDAO(SPRMContext context) => _context = context;
+        public PartUsageDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public async Task<PartUsage?> GetAsync(long parentPartVersionId, long childPartId)

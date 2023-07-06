@@ -7,13 +7,13 @@ namespace SprmApi.Core.MakeTypes
     /// </summary>
     public class MakeTypeDAO : IMakeTypeDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public MakeTypeDAO(SPRMContext context) => _context = context;
+        public MakeTypeDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public IQueryable<MakeType> GetAll()

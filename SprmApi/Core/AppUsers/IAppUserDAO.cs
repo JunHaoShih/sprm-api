@@ -21,7 +21,7 @@ namespace SprmApi.Core.AppUsers
         /// <param name="newAppUser"></param>
         /// <param name="creator"></param>
         /// <returns></returns>
-        Task<AppUser> InsertAsync(CreateAppUserDTO newAppUser, AppUser creator);
+        Task<AppUser> InsertAsync(CreateAppUserDto newAppUser, AppUser creator);
 
         /// <summary>
         /// Get AppUser by username
@@ -35,6 +35,6 @@ namespace SprmApi.Core.AppUsers
         /// </summary>
         /// <param name="newAppUser"></param>
         /// <returns></returns>
-        Task<AppUser> InsertDefaultAsync(CreateAppUserDTO newAppUser);
+        Task<AppUser> InsertDefaultAsync(CreateAppUserDto newAppUser);
     }
 }

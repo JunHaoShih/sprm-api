@@ -5,7 +5,7 @@ namespace SprmApi.Core.AppUsers.DTOs
     /// <summary>
     /// AppUser data
     /// </summary>
-    public class AppUserDTO
+    public class AppUserDto
     {
         /// <summary>
         /// 使用者id
@@ -27,9 +27,9 @@ namespace SprmApi.Core.AppUsers.DTOs
         /// </summary>
         /// <param name="appUser"></param>
         /// <returns></returns>
-        public static AppUserDTO Parse(AppUser appUser)
+        public static AppUserDto Parse(AppUser appUser)
         {
-            return JsonConvert.DeserializeObject<AppUserDTO>(JsonConvert.SerializeObject(appUser))!;
+            return JsonConvert.DeserializeObject<AppUserDto>(JsonConvert.SerializeObject(appUser))!;
         }
     }
 }

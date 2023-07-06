@@ -34,7 +34,7 @@ namespace SprmApi.Core.Parts
         /// <param name="createPartDTO"></param>
         /// <param name="creator">Create user name</param>
         /// <returns></returns>
-        Task<Part> InsertAsync(CreatePartDTO createPartDTO, string creator);
+        Task<Part> InsertAsync(CreatePartDto createPartDTO, string creator);
 
         /// <summary>
         /// Delete a part

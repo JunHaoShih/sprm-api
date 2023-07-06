@@ -28,15 +28,15 @@ namespace SprmApi.Core.Customs
         /// <response code="200">取得自訂屬性成功</response>
         /// <response code="500">取得自訂屬性失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<CustomAttributeDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<CustomAttributeDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var attributes = await _customAttributeService.GetAllAsync();
-            var attributeDTOs = attributes.Select(attr => CustomAttributeDTO.Parse(attr));
-            return Ok(GenericResponse<IEnumerable<CustomAttributeDTO>>.Success(attributeDTOs));
+            var attributeDTOs = attributes.Select(attr => CustomAttributeDto.Parse(attr));
+            return Ok(GenericResponse<IEnumerable<CustomAttributeDto>>.Success(attributeDTOs));
         }
 
         /// <summary>
@@ -47,14 +47,14 @@ namespace SprmApi.Core.Customs
         /// <response code="200">新增自訂屬性成功</response>
         /// <response code="500">新增自訂屬性失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<CustomAttributeDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<CustomAttributeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCustomAttributeDTO createDTO)
+        public async Task<IActionResult> Create(CreateCustomAttributeDto createDTO)
         {
             var customAttribute = await _customAttributeService.InsertAsync(createDTO);
-            return Ok(GenericResponse<CustomAttributeDTO>.Success(CustomAttributeDTO.Parse(customAttribute)));
+            return Ok(GenericResponse<CustomAttributeDto>.Success(CustomAttributeDto.Parse(customAttribute)));
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, UpdateCustomAttributeDTO updateDTO)
+        public async Task<IActionResult> Put(long id, UpdateCustomAttributeDto updateDTO)
         {
             await _customAttributeService.UpdateAsync(id, updateDTO);
             return Ok(GenericResponse<string>.Success(""));

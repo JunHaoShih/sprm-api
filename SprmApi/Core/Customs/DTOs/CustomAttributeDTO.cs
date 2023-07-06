@@ -5,7 +5,7 @@ namespace SprmApi.Core.Customs.DTOs
     /// <summary>
     /// 自定屬性
     /// </summary>
-    public class CustomAttributeDTO : BaseReturnDto
+    public class CustomAttributeDto : BaseReturnDto
     {
         /// <summary>
         /// 自定屬性編號
@@ -47,9 +47,9 @@ namespace SprmApi.Core.Customs.DTOs
         /// </summary>
         /// <param name="attribute"></param>
         /// <returns></returns>
-        public static CustomAttributeDTO Parse(CustomAttribute attribute)
+        public static CustomAttributeDto Parse(CustomAttribute attribute)
         {
-            var dto = new CustomAttributeDTO
+            var dto = new CustomAttributeDto
             {
                 Number = attribute.Number,
                 Name = attribute.Name,

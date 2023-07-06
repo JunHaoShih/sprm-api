@@ -6,7 +6,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 建立料件版本DTO
     /// </summary>
-    public class CreatePartVersionDTO
+    public class CreatePartVersionDto
     {
         /// <summary>
         /// 料件id
@@ -60,9 +60,9 @@ namespace SprmApi.Core.Parts.DTOs
         /// </summary>
         /// <param name="version">entity</param>
         /// <returns></returns>
-        public static CreatePartVersionDTO Parse(PartVersion version)
+        public static CreatePartVersionDto Parse(PartVersion version)
         {
-            return new CreatePartVersionDTO
+            return new CreatePartVersionDto
             {
                 MasterId = version.MasterId,
                 Version = version.Version,

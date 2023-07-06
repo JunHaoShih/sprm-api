@@ -6,7 +6,7 @@ namespace SprmApi.Core.PartUsages.DTOs
     /// <summary>
     /// 使用關係更新DTO
     /// </summary>
-    public class UpdatePartUsageDTO
+    public class UpdatePartUsageDto
     {
         /// <summary>
         /// 備註

@@ -5,7 +5,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 
     /// </summary>
-    public class UpdatePartVersionDTO
+    public class UpdatePartVersionDto
     {
         /// <summary>
         /// 備註

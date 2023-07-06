@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230501111828_First_Version")]
     partial class First_Version
     {

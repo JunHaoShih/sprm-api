@@ -5,7 +5,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 零件
     /// </summary>
-    public class PartDTO : BaseReturnDto
+    public class PartDto : BaseReturnDto
     {
         /// <summary>
         /// 料號
@@ -35,20 +35,20 @@ namespace SprmApi.Core.Parts.DTOs
         /// <summary>
         /// 零件版本
         /// </summary>
-        public PartVersionInfoDTO Version { get; set; } = null!;
+        public PartVersionInfoDto Version { get; set; } = null!;
 
         /// <summary>
         /// Parse entity to DTO
         /// </summary>
         /// <param name="part"></param>
         /// <returns></returns>
-        public static PartDTO? Parse(Part? part)
+        public static PartDto? Parse(Part? part)
         {
             if (part == null)
             {
                 return null;
             }
-            var partDTO = new PartDTO
+            var partDTO = new PartDto
             {
                 Number = part.Number,
                 Name = part.Name,
@@ -65,7 +65,7 @@ namespace SprmApi.Core.Parts.DTOs
                 .Where(version => version.IsLatest || version.IsDraft)
                 .OrderByDescending(version => version.IsLatest)
                 .First();
-            partDTO.Version = PartVersionInfoDTO.Parse(latestVersion);
+            partDTO.Version = PartVersionInfoDto.Parse(latestVersion);
             return partDTO;
         }
     }

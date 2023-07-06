@@ -7,7 +7,7 @@ namespace SprmApi.Core.Customs.DTOs
     /// <summary>
     /// 刪除attribute links的DTO
     /// </summary>
-    public class DeleteAttributeLinksDTO
+    public class DeleteAttributeLinksDto
     {
         /// <summary>
         /// 物件類別id

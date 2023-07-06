@@ -8,7 +8,7 @@ namespace SprmApi.Core.Routings.DTOs
     /// <summary>
     /// 工藝路徑版本建立DTO
     /// </summary>
-    public class CreateRoutingVersionDTO
+    public class CreateRoutingVersionDto
     {
         /// <summary>
         /// 料件id
@@ -62,9 +62,9 @@ namespace SprmApi.Core.Routings.DTOs
         /// </summary>
         /// <param name="version">entity</param>
         /// <returns></returns>
-        public static CreateRoutingVersionDTO Parse(RoutingVersion version)
+        public static CreateRoutingVersionDto Parse(RoutingVersion version)
         {
-            return new CreateRoutingVersionDTO
+            return new CreateRoutingVersionDto
             {
                 MasterId = version.MasterId,
                 Version = version.Version,

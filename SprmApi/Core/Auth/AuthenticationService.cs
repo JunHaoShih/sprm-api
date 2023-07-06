@@ -19,7 +19,7 @@ namespace SprmApi.Core.Auth
         public AuthenticationService(IAppUserService appUserService) => _appUserService = appUserService;
 
         /// <inheritdoc/>
-        public async Task<AppUser> Authenticate(AuthenticateDTO authenticateDTO)
+        public async Task<AppUser> Authenticate(AuthenticateDto authenticateDTO)
         {
             AppUser? appUser = await _appUserService.GetByAuthenticateAsync(authenticateDTO.Username, authenticateDTO.Password);
             if (appUser == null)

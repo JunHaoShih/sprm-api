@@ -6,7 +6,7 @@ namespace SprmApi.Core.Processes.DTOs
     /// <summary>
     /// 更新製程DTO
     /// </summary>
-    public class UpdateProcessDTO
+    public class UpdateProcessDto
     {
         /// <summary>
         /// 製程編號

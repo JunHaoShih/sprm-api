@@ -11,13 +11,13 @@ namespace SprmApi.Core.RoutingUsages
     /// </summary>
     public class RoutingUsageDAO : IRoutingUsageDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public RoutingUsageDAO(SPRMContext context) => _context = context;
+        public RoutingUsageDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public async Task DeleteAsync(long id)
@@ -65,7 +65,7 @@ namespace SprmApi.Core.RoutingUsages
         }
 
         /// <inheritdoc/>
-        public async Task<RoutingUsage> InsertAsync(CreateRoutingUsageDTO createDto, string creater)
+        public async Task<RoutingUsage> InsertAsync(CreateRoutingUsageDto createDto, string creater)
         {
             RoutingUsage? duplicateUsage = await _context.RoutingUsages
                 .Where(usage => usage.Number == createDto.Number && usage.RootVersionId == createDto.RootVersionId)

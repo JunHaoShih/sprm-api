@@ -30,14 +30,14 @@ namespace SprmApi.Core.Parts
         /// <response code="200">新增成功</response>
         /// <response code="500">新增失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<PartDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public async Task<IActionResult> Create(CreatePartDTO createPartDTO)
+        public async Task<IActionResult> Create(CreatePartDto createPartDTO)
         {
             Part part = await _partService.InsertAsync(createPartDTO);
-            return Ok(GenericResponse<PartDTO>.Success(PartDTO.Parse(part)));
+            return Ok(GenericResponse<PartDto>.Success(PartDto.Parse(part)));
         }
 
         /// <summary>
@@ -55,15 +55,15 @@ namespace SprmApi.Core.Parts
         /// <response code="200">簡易模糊搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("Search")]
         public async Task<IActionResult> FuzzySearch([FromQuery] string? pattern, [FromQuery] OffsetPaginationInput input)
         {
             var parts = await _partService.GetByPatternAsync(pattern, input);
-            var partDTOs = parts.Select(part => PartDTO.Parse(part)!);
-            return Ok(GenericResponse<IEnumerable<PartDTO>>.Success(partDTOs));
+            var partDTOs = parts.Select(part => PartDto.Parse(part)!);
+            return Ok(GenericResponse<IEnumerable<PartDto>>.Success(partDTOs));
         }
 
         /// <summary>
@@ -74,14 +74,14 @@ namespace SprmApi.Core.Parts
         /// <response code="200">搜尋成功</response>
         /// <response code="500">搜尋失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<PartDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
             Part? part = await _partService.GetByIdAsync(id);
-            return Ok(GenericResponse<PartDTO>.Success(PartDTO.Parse(part)));
+            return Ok(GenericResponse<PartDto>.Success(PartDto.Parse(part)));
         }
 
         /// <summary>
@@ -110,14 +110,14 @@ namespace SprmApi.Core.Parts
         /// <response code="200">簽出成功</response>
         /// <response code="500">簽出失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<PartDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost("{id}/CheckOut")]
         public async Task<IActionResult> CheckOut(long id)
         {
             Part checkout = await _partService.CheckOutAsync(id);
-            return Ok(GenericResponse<PartDTO>.Success(PartDTO.Parse(checkout)));
+            return Ok(GenericResponse<PartDto>.Success(PartDto.Parse(checkout)));
         }
 
         /// <summary>
@@ -128,14 +128,14 @@ namespace SprmApi.Core.Parts
         /// <response code="200">簽入成功</response>
         /// <response code="500">簽入失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<PartDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost("{id}/CheckIn")]
         public async Task<IActionResult> CheckIn(long id)
         {
             Part checkin = await _partService.CheckInAsync(id);
-            return Ok(GenericResponse<PartDTO>.Success(PartDTO.Parse(checkin)));
+            return Ok(GenericResponse<PartDto>.Success(PartDto.Parse(checkin)));
         }
 
         /// <summary>
@@ -146,14 +146,14 @@ namespace SprmApi.Core.Parts
         /// <response code="200">捨棄簽出成功</response>
         /// <response code="500">捨棄簽出失敗</response>
         /// <response code="401">驗證失敗</response>
-        [ProducesResponseType(typeof(GenericResponse<PartDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpDelete("{id}/Discard")]
         public async Task<IActionResult> Discard(long id)
         {
             Part checkin = await _partService.DiscardAsync(id);
-            return Ok(GenericResponse<PartDTO>.Success(PartDTO.Parse(checkin)));
+            return Ok(GenericResponse<PartDto>.Success(PartDto.Parse(checkin)));
         }
     }
 }

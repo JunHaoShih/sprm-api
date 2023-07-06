@@ -13,13 +13,13 @@ namespace SprmApi.Core.Processes
     /// </summary>
     public class ProcessDAO : IProcessDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public ProcessDAO(SPRMContext context) => _context = context;
+        public ProcessDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public async Task<Process?> GetByNumberAsync(string number)
@@ -50,7 +50,7 @@ namespace SprmApi.Core.Processes
         }
 
         /// <inheritdoc/>
-        public async Task<Process> Insert(CreateProcessDTO createDTO, string creator)
+        public async Task<Process> Insert(CreateProcessDto createDTO, string creator)
         {
             Process? duplicateProcess = await GetByNumberAsync(createDTO.Number);
             if (duplicateProcess != null)

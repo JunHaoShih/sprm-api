@@ -6,7 +6,7 @@ namespace SprmApi.Core.Customs.DTOs
     /// <summary>
     /// Custom attribute creation payload
     /// </summary>
-    public class CreateCustomAttributeDTO
+    public class CreateCustomAttributeDto
     {
         /// <summary>
         /// Custom attribute number

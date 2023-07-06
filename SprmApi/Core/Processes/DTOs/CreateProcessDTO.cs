@@ -6,7 +6,7 @@ namespace SprmApi.Core.Processes.DTOs
     /// <summary>
     /// 建立製程DTO
     /// </summary>
-    public class CreateProcessDTO
+    public class CreateProcessDto
     {
         /// <summary>
         /// Part number

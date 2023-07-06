@@ -30,16 +30,16 @@ namespace SprmApi.Core.Processes
         }
 
         /// <inheritdoc/>
-        public OffsetPagination<ProcessDTO> GetByPattern(string? pattern, OffsetPaginationInput input)
+        public OffsetPagination<ProcessDto> GetByPattern(string? pattern, OffsetPaginationInput input)
         {
             var processes = _processDAO.GetByPattern(pattern);
-            var dtos = processes.Select(process => ProcessDTO.Parse(process));
-            OffsetPagination<ProcessDTO> offsetPagination = new(dtos, input);
+            var dtos = processes.Select(process => ProcessDto.Parse(process));
+            OffsetPagination<ProcessDto> offsetPagination = new(dtos, input);
             return offsetPagination;
         }
 
         /// <inheritdoc/>
-        public async Task<ProcessDTO> InsertAsync(CreateProcessDTO createDTO)
+        public async Task<ProcessDto> InsertAsync(CreateProcessDto createDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -52,7 +52,7 @@ namespace SprmApi.Core.Processes
                 if (joinedProcess != null)
                 {
                     scope.Complete();
-                    return ProcessDTO.Parse(joinedProcess);
+                    return ProcessDto.Parse(joinedProcess);
                 }
                 throw new SprmException(ErrorCode.DbError, "Cannot find process after insert success");
             }
@@ -65,7 +65,7 @@ namespace SprmApi.Core.Processes
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(long id, UpdateProcessDTO updateDTO)
+        public async Task UpdateAsync(long id, UpdateProcessDto updateDTO)
         {
             var targetProcess = await _processDAO.GetAsync(id);
             if (targetProcess == null)
@@ -77,12 +77,12 @@ namespace SprmApi.Core.Processes
         }
 
         /// <inheritdoc/>
-        public async Task<ProcessDTO?> GetAsync(long id)
+        public async Task<ProcessDto?> GetAsync(long id)
         {
             Process? targetProcess = await _processDAO.GetAsync(id);
             if (targetProcess != null)
             {
-                return ProcessDTO.Parse(targetProcess);
+                return ProcessDto.Parse(targetProcess);
             }
             return null;
         }

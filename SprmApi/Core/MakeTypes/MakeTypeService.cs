@@ -16,10 +16,10 @@ namespace SprmApi.Core.MakeTypes
         public MakeTypeService(IMakeTypeDAO makeTypeDAO) => _makeTypeDAO = makeTypeDAO;
 
         /// <inheritdoc/>
-        public IQueryable<MakeTypeDTO> GetAll()
+        public IQueryable<MakeTypeDto> GetAll()
         {
             IQueryable<MakeType> makeTypes = _makeTypeDAO.GetAll();
-            IQueryable<MakeTypeDTO> dtos = makeTypes.Select(makeType => MakeTypeDTO.Parse(makeType));
+            IQueryable<MakeTypeDto> dtos = makeTypes.Select(makeType => MakeTypeDto.Parse(makeType));
             return dtos;
         }
     }

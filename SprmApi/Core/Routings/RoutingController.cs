@@ -42,7 +42,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public async Task<IActionResult> CreateRouting(CreateRoutingDTO createDTO)
+        public async Task<IActionResult> CreateRouting(CreateRoutingDto createDTO)
         {
             RoutingDto newRouting = await _routingService.InsertAsync(createDTO);
             return Ok(GenericResponse<RoutingDto>.Success(newRouting));

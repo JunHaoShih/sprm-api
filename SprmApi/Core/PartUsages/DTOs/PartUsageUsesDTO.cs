@@ -7,7 +7,7 @@ namespace SprmApi.Core.PartUsages.DTOs
     /// <summary>
     /// Part usage DTO
     /// </summary>
-    public class PartUsageUsesDTO : BaseReturnDto
+    public class PartUsageUsesDto : BaseReturnDto
     {
         /// <summary>
         /// The part version id which child part is used by
@@ -17,7 +17,7 @@ namespace SprmApi.Core.PartUsages.DTOs
         /// <summary>
         /// The part which parent part version uses
         /// </summary>
-        public PartDTO Child { get; set; } = null!;
+        public PartDto Child { get; set; } = null!;
 
         /// <summary>
         /// Child part quantity
@@ -39,13 +39,13 @@ namespace SprmApi.Core.PartUsages.DTOs
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static PartUsageUsesDTO? Parse(PartUsage? entity)
+        public static PartUsageUsesDto? Parse(PartUsage? entity)
         {
             if (entity == null) return null;
-            var dto = new PartUsageUsesDTO()
+            var dto = new PartUsageUsesDto()
             {
                 ParentId = entity.ParentId,
-                Child = PartDTO.Parse(entity.Child)!,
+                Child = PartDto.Parse(entity.Child)!,
                 Quantity = entity.Quantity,
                 SubChildCount = entity.Child!.PartVersions!.First().PartUsages!.Count,
                 CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(entity.CustomValues)!,

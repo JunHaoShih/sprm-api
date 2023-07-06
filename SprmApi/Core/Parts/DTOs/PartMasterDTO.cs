@@ -5,7 +5,7 @@ namespace SprmApi.Core.Parts.DTOs
     /// <summary>
     /// 料件版本master DTO
     /// </summary>
-    public class PartMasterDTO : BaseReturnDto
+    public class PartMasterDto : BaseReturnDto
     {
         /// <summary>
         /// 料號
@@ -32,9 +32,9 @@ namespace SprmApi.Core.Parts.DTOs
         /// </summary>
         /// <param name="part"></param>
         /// <returns></returns>
-        public static PartMasterDTO Parse(Part part)
+        public static PartMasterDto Parse(Part part)
         {
-            var partDTO = new PartMasterDTO
+            var partDTO = new PartMasterDto
             {
                 Number = part.Number,
                 Name = part.Name,

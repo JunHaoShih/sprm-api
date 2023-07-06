@@ -11,6 +11,6 @@ namespace SprmApi.Core.ProcessTypes
         /// Get all process types
         /// </summary>
         /// <returns></returns>
-        IQueryable<ProcessTypeDTO> GetAll();
+        IQueryable<ProcessTypeDto> GetAll();
     }
 }

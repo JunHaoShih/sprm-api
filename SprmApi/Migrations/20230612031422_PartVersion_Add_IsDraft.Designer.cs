@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230612031422_PartVersion_Add_IsDraft")]
     partial class PartVersion_Add_IsDraft
     {

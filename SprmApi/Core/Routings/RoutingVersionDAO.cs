@@ -9,13 +9,13 @@ namespace SprmApi.Core.Routings
     /// </summary>
     public class RoutingVersionDAO : IRoutingVersionDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public RoutingVersionDAO(SPRMContext context) => _context = context;
+        public RoutingVersionDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public async Task<RoutingVersion> InsertAsync(RoutingVersion routeVersion, string creator)

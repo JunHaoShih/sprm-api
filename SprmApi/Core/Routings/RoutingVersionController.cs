@@ -82,7 +82,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, UpdateRoutingVersionDTO updateDto)
+        public async Task<IActionResult> Put(long id, UpdateRoutingVersionDto updateDto)
         {
             await _routingVersionService.UpdateAsync(id, updateDto);
             return Ok(GenericResponse<string>.Success(""));

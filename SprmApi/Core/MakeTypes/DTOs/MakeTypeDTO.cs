@@ -1,12 +1,11 @@
 ﻿using SprmApi.Common.DTOs;
-using SprmApi.Core.MakeTypes;
 
 namespace SprmApi.Core.MakeTypes.DTOs
 {
     /// <summary>
     /// 製造類型DTO
     /// </summary>
-    public class MakeTypeDTO : BaseReturnDto
+    public class MakeTypeDto : BaseReturnDto
     {
         /// <summary>
         /// 製造類型編號
@@ -33,9 +32,9 @@ namespace SprmApi.Core.MakeTypes.DTOs
         /// </summary>
         /// <param name="processType"></param>
         /// <returns></returns>
-        public static MakeTypeDTO Parse(MakeType processType)
+        public static MakeTypeDto Parse(MakeType processType)
         {
-            var dto = new MakeTypeDTO
+            var dto = new MakeTypeDto
             {
                 Number = processType.Number,
                 Name = processType.Name,

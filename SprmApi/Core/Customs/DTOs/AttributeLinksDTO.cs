@@ -5,7 +5,7 @@ namespace SprmApi.Core.Customs.DTOs
     /// <summary>
     /// Attribute links
     /// </summary>
-    public class AttributeLinksDTO
+    public class AttributeLinksDto
     {
         /// <summary>
         /// Object type id
@@ -15,7 +15,7 @@ namespace SprmApi.Core.Customs.DTOs
         /// <summary>
         /// Related custom attributes
         /// </summary>
-        public IEnumerable<CustomAttributeDTO> Attributes { get; set; } = null!;
+        public IEnumerable<CustomAttributeDto> Attributes { get; set; } = null!;
 
         /// <summary>
         /// Parse entities to DTO
@@ -23,11 +23,11 @@ namespace SprmApi.Core.Customs.DTOs
         /// <param name="objectTypeId"></param>
         /// <param name="links"></param>
         /// <returns></returns>
-        public static AttributeLinksDTO Parse(SprmObjectType objectTypeId, IEnumerable<AttributeLink> links)
+        public static AttributeLinksDto Parse(SprmObjectType objectTypeId, IEnumerable<AttributeLink> links)
         {
-            var linksDTO = new AttributeLinksDTO();
+            var linksDTO = new AttributeLinksDto();
             linksDTO.ObjectTypeId = (long)objectTypeId;
-            linksDTO.Attributes = links.Select(link => CustomAttributeDTO.Parse(link.Attribute!));
+            linksDTO.Attributes = links.Select(link => CustomAttributeDto.Parse(link.Attribute!));
             return linksDTO;
         }
     }

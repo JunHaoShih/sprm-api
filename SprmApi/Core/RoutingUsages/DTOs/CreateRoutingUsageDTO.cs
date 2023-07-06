@@ -6,7 +6,7 @@ namespace SprmApi.Core.RoutingUsages.DTOs
     /// <summary>
     /// 建立工藝路徑使用關係的DTO
     /// </summary>
-    public class CreateRoutingUsageDTO
+    public class CreateRoutingUsageDto
     {
         /// <summary>
         /// 備註
@@ -64,9 +64,9 @@ namespace SprmApi.Core.RoutingUsages.DTOs
         /// </summary>
         /// <param name="partUsage"></param>
         /// <returns></returns>
-        public static CreateRoutingUsageDTO Parse(RoutingUsage partUsage)
+        public static CreateRoutingUsageDto Parse(RoutingUsage partUsage)
         {
-            return new CreateRoutingUsageDTO
+            return new CreateRoutingUsageDto
             {
                 Remarks = partUsage.Remarks,
                 RootVersionId = partUsage.RootVersionId,

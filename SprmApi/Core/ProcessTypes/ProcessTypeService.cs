@@ -19,10 +19,10 @@ namespace SprmApi.Core.ProcessTypes
         }
 
         /// <inheritdoc/>
-        public IQueryable<ProcessTypeDTO> GetAll()
+        public IQueryable<ProcessTypeDto> GetAll()
         {
             IQueryable<ProcessType> processTypes = _processTypeDAO.GetAll();
-            IQueryable<ProcessTypeDTO> processTypeDTOs = processTypes.Select(processType => ProcessTypeDTO.Parse(processType));
+            IQueryable<ProcessTypeDto> processTypeDTOs = processTypes.Select(processType => ProcessTypeDto.Parse(processType));
             return processTypeDTOs;
         }
     }

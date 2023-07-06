@@ -7,13 +7,13 @@ namespace SprmApi.Core.ProcessTypes
     /// </summary>
     public class ProcessTypeDAO : IProcessTypeDAO
     {
-        private readonly SPRMContext _context;
+        private readonly SprmContext _context;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public ProcessTypeDAO(SPRMContext context) => _context = context;
+        public ProcessTypeDAO(SprmContext context) => _context = context;
 
         /// <inheritdoc/>
         public IQueryable<ProcessType> GetAll()

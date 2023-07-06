@@ -5,7 +5,7 @@ namespace SprmApi.Core.Routings.DTOs
     /// <summary>
     /// 更新工藝路徑版本DTO
     /// </summary>
-    public class UpdateRoutingVersionDTO
+    public class UpdateRoutingVersionDto
     {
         /// <summary>
         /// 備註

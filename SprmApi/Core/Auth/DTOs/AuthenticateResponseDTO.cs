@@ -3,7 +3,7 @@
     /// <summary>
     /// Authentication success data
     /// </summary>
-    public class AuthenticateResponseDTO
+    public class AuthenticateResponseDto
     {
         /// <summary>
         /// JWT

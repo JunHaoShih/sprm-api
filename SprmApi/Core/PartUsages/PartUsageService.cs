@@ -46,7 +46,7 @@ namespace SprmApi.Core.PartUsages
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<PartUsage>> InsertAsync(CreatePartUsagesDTO usagesDTO)
+        public async Task<IEnumerable<PartUsage>> InsertAsync(CreatePartUsagesDto usagesDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -107,7 +107,7 @@ namespace SprmApi.Core.PartUsages
         }
 
         /// <inheritdoc/>
-        public async Task UpdateById(long id, UpdatePartUsageDTO updateData)
+        public async Task UpdateById(long id, UpdatePartUsageDto updateData)
         {
             var targetusage = await _partUsageDAO.GetAsync(id, false);
             if (targetusage == null)

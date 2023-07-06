@@ -6,7 +6,7 @@ namespace SprmApi.Core.PartUsages.DTOs
     /// <summary>
     /// DTO for creating part usages
     /// </summary>
-    public class CreatePartUsagesDTO
+    public class CreatePartUsagesDto
     {
         /// <summary>
         /// Parent part version id

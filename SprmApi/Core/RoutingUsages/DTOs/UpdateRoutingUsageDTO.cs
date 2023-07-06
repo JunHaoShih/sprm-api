@@ -7,7 +7,7 @@ namespace SprmApi.Core.RoutingUsages.DTOs
     /// <summary>
     /// 更新工藝路徑使用關係
     /// </summary>
-    public class UpdateRoutingUsageDTO
+    public class UpdateRoutingUsageDto
     {
         /// <summary>
         /// 備註

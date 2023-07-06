@@ -56,7 +56,7 @@ namespace SprmApi.Core.Parts
         public async Task<Part?> GetByIdAsync(long id) => await _partDAO.GetByIdAsync(id);
 
         /// <inheritdoc/>
-        public async Task<Part> InsertAsync(CreatePartDTO createPartDTO)
+        public async Task<Part> InsertAsync(CreatePartDto createPartDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -66,7 +66,7 @@ namespace SprmApi.Core.Parts
             {
                 //await _attributeLinkDAO.GetByObjectTypeIdAsync()
                 var newPart = await _partDAO.InsertAsync(createPartDTO, _headerData.JWTPayload.Subject);
-                CreatePartVersionDTO firstVersion = new CreatePartVersionDTO
+                CreatePartVersionDto firstVersion = new CreatePartVersionDto
                 {
                     MasterId = newPart.Id,
                     Version = 1,
@@ -119,7 +119,7 @@ namespace SprmApi.Core.Parts
                 }
                 IEnumerable<PartUsage> usages = await _partUsageDAO.GetByPartVersionIdAsync(latestVersion.Id, false);
 
-                CreatePartVersionDTO createVersionDto = CreatePartVersionDTO.Parse(latestVersion);
+                CreatePartVersionDto createVersionDto = CreatePartVersionDto.Parse(latestVersion);
                 createVersionDto.IsLatest = false;
                 createVersionDto.IsDraft = true;
                 createVersionDto.Version++;

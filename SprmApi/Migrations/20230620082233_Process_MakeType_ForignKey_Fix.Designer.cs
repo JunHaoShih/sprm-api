@@ -14,7 +14,7 @@ using SprmApi.EFs;
 
 namespace SprmApi.Migrations
 {
-    [DbContext(typeof(SPRMContext))]
+    [DbContext(typeof(SprmContext))]
     [Migration("20230620082233_Process_MakeType_ForignKey_Fix")]
     partial class Process_MakeType_ForignKey_Fix
     {

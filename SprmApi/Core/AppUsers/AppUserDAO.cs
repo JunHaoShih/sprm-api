@@ -11,13 +11,13 @@ namespace SprmApi.Core.AppUsers
     /// </summary>
     public class AppUserDAO : IAppUserDAO
     {
-        private readonly SPRMContext _sprmContext;
+        private readonly SprmContext _sprmContext;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="smpmContext"></param>
-        public AppUserDAO(SPRMContext smpmContext) => _sprmContext = smpmContext;
+        public AppUserDAO(SprmContext smpmContext) => _sprmContext = smpmContext;
 
         /// <inheritdoc/>
         public async Task<AppUser?> GetByAuthenticateAsync(string username, string passwordHash)
@@ -28,7 +28,7 @@ namespace SprmApi.Core.AppUsers
         }
 
         /// <inheritdoc/>
-        public async Task<AppUser> InsertAsync(CreateAppUserDTO newAppUser, AppUser creator)
+        public async Task<AppUser> InsertAsync(CreateAppUserDto newAppUser, AppUser creator)
         {
             AppUser? duplicateUser = await GetByUsernameAsync(newAppUser.Username);
             if (duplicateUser != null)
@@ -52,7 +52,7 @@ namespace SprmApi.Core.AppUsers
         }
 
         /// <inheritdoc/>
-        public async Task<AppUser> InsertDefaultAsync(CreateAppUserDTO newAppUser)
+        public async Task<AppUser> InsertDefaultAsync(CreateAppUserDto newAppUser)
         {
             AppUser entity = newAppUser.ToEntity();
             entity.CreateUser = newAppUser.Username;
