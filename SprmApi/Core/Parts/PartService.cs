@@ -146,15 +146,7 @@ namespace SprmApi.Core.Parts
             };
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
-                Part? targetPart = await _partDAO.GetByIdAsync(partId);
-                if (targetPart == null)
-                {
-                    throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
-                }
-                if (!targetPart.Checkout)
-                {
-                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
-                }
+                Part targetPart = await GetPartById(partId);
 
                 PartVersion? latestVersion = await _partVersionDAO.GetLatest(partId);
                 PartVersion? draftVersion = await _partVersionDAO.GetDraft(partId);
@@ -183,6 +175,20 @@ namespace SprmApi.Core.Parts
             }
         }
 
+        private async Task<Part> GetPartById(long partId)
+        {
+            Part? targetPart = await _partDAO.GetByIdAsync(partId);
+            if (targetPart == null)
+            {
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
+            }
+            if (!targetPart.Checkout)
+            {
+                throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
+            }
+            return targetPart;
+        }
+
         /// <inheritdoc/>
         public async Task<Part> DiscardAsync(long partId)
         {
@@ -192,15 +198,7 @@ namespace SprmApi.Core.Parts
             };
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
-                Part? targetPart = await _partDAO.GetByIdAsync(partId);
-                if (targetPart == null)
-                {
-                    throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${partId} does not exist!");
-                }
-                if (!targetPart.Checkout)
-                {
-                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Part id: ${partId} does not checkout!");
-                }
+                Part targetPart = await GetPartById(partId);
 
                 PartVersion? draftVersion = await _partVersionDAO.GetDraft(partId);
                 if (draftVersion == null)

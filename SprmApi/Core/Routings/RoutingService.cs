@@ -164,15 +164,7 @@ namespace SprmApi.Core.Routings
             };
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
-                Routing? targetRouting = await _routingDAO.GetByIdAsync(routingId);
-                if (targetRouting == null)
-                {
-                    throw new SprmException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
-                }
-                if (!targetRouting.Checkout)
-                {
-                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Routing id: ${routingId} does not checkout!");
-                }
+                Routing targetRouting = await GetRoutingById(routingId);
 
                 RoutingVersion? latestVersion = await _routingVersionDAO.GetLatest(routingId);
                 RoutingVersion? draftVersion = await _routingVersionDAO.GetDraft(routingId);
@@ -202,6 +194,20 @@ namespace SprmApi.Core.Routings
             }
         }
 
+        private async Task<Routing> GetRoutingById(long routingId)
+        {
+            Routing? targetRouting = await _routingDAO.GetByIdAsync(routingId);
+            if (targetRouting == null)
+            {
+                throw new SprmException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
+            }
+            if (!targetRouting.Checkout)
+            {
+                throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Routing id: ${routingId} does not checkout!");
+            }
+            return targetRouting;
+        }
+
         /// <inheritdoc/>
         public async Task<RoutingDto> DiscardAsync(long routingId)
         {
@@ -211,15 +217,7 @@ namespace SprmApi.Core.Routings
             };
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
-                Routing? targetRouting = await _routingDAO.GetByIdAsync(routingId);
-                if (targetRouting == null)
-                {
-                    throw new SprmException(ErrorCode.DbDataNotFound, $"Routing id: ${routingId} does not exist!");
-                }
-                if (!targetRouting.Checkout)
-                {
-                    throw new SprmException(ErrorCode.DataDoesNotCheckout, $"Routing id: ${routingId} does not checkout!");
-                }
+                Routing targetRouting = await GetRoutingById(routingId);
 
                 RoutingVersion? draftVersion = await _routingVersionDAO.GetDraft(routingId);
                 if (draftVersion == null)
