@@ -35,30 +35,28 @@ namespace SprmApi.Error
 
             GenericResponse<string> apiErrorMessage = new GenericResponse<string>();
 
-            if (exception is SprmAuthException)
+            if (exception is SprmAuthException authException)
             {
-                var apiException = (SprmAuthException)exception;
                 apiErrorMessage = new GenericResponse<string>
                 {
-                    Code = apiException.Code,
-                    Message = apiException.Message,
-                    Content = apiException.Content
+                    Code = authException.Code,
+                    Message = authException.Message,
+                    Content = authException.Content
                 };
                 statusCode = StatusCodes.Status401Unauthorized;
             }
-            else if (exception is SprmException)
+            else if (exception is SprmException baseException)
             {
-                var apiException = (SprmException)exception;
                 apiErrorMessage = new GenericResponse<string>
                 {
-                    Code = apiException.Code,
-                    Message = apiException.Message,
-                    Content = apiException.Content
+                    Code = baseException.Code,
+                    Message = baseException.Message,
+                    Content = baseException.Content
                 };
             }
-            else if (exception.GetBaseException() is PostgresException)
+            else if (exception.GetBaseException() is PostgresException pgException)
             {
-                apiErrorMessage = HandlePostgresException((PostgresException)exception.GetBaseException());
+                apiErrorMessage = HandlePostgresException(pgException);
             }
             else
             {
