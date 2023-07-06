@@ -30,7 +30,7 @@ namespace SprmApi.Core.Routings.DTOs
         /// <summary>
         /// 最新版本
         /// </summary>
-        public RoutingVersionInfoDTO Version { get; set; } = null!;
+        public RoutingVersionInfoDto Version { get; set; } = null!;
 
         /// <summary>
         /// Parse entity to DTO
@@ -46,7 +46,7 @@ namespace SprmApi.Core.Routings.DTOs
                 PartId = routing.PartId,
                 Name = routing.Name,
                 Checkout = routing.Checkout,
-                Version = RoutingVersionInfoDTO.Parse(version),
+                Version = RoutingVersionInfoDto.Parse(version),
             };
             routingDTO.Populate(routing);
             if (draft != null)

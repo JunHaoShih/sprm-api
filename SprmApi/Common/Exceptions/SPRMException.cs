@@ -1,4 +1,5 @@
-﻿using SprmApi.Common.Error;
+﻿using System.Runtime.Serialization;
+using SprmApi.Common.Error;
 
 namespace SprmApi.Common.Exceptions
 {
@@ -55,5 +56,10 @@ namespace SprmApi.Common.Exceptions
             Code = code;
             Content = content;
         }
+
+        /// <inheritdoc/>
+        protected SprmException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+        { }
     }
 }

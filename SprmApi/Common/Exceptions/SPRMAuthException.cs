@@ -6,7 +6,8 @@ namespace SprmApi.Common.Exceptions
     /// <summary>
     /// Authentication exception
     /// </summary>
-    public class SprmAuthException : SprmException, ISerializable
+    [Serializable]
+    public class SprmAuthException : SprmException
     {
         /// <inheritdoc/>
         public SprmAuthException(ErrorCode code, string content)
@@ -15,5 +16,10 @@ namespace SprmApi.Common.Exceptions
             Code = code;
             Content = content;
         }
+
+        /// <inheritdoc/>
+        protected SprmAuthException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+        { }
     }
 }

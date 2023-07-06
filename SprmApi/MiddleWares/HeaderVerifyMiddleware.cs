@@ -56,6 +56,7 @@ namespace SprmApi.MiddleWares
             }
             await _next(context);
         }
+
         private async Task SetResponse(HttpResponse response, int statusCode, ErrorCode code, string message)
         {
             DefaultContractResolver contractResolver = new DefaultContractResolver

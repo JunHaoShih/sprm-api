@@ -6,7 +6,7 @@ namespace SprmApi.Core.Routings.DTOs
     /// <summary>
     /// 工藝路徑版本DTO，(只可以在RoutingDto使用)
     /// </summary>
-    public class RoutingVersionInfoDTO : BaseReturnDto
+    public class RoutingVersionInfoDto : BaseReturnDto
     {
         /// <summary>
         /// 零件id
@@ -31,16 +31,16 @@ namespace SprmApi.Core.Routings.DTOs
         /// <summary>
         /// 自訂屬性值
         /// </summary>
-        public Dictionary<string, string> CustomValues = new();
+        public Dictionary<string, string> CustomValues { get; set; } = new();
 
         /// <summary>
         /// Parse entity to DTO
         /// </summary>
         /// <param name="routingVersion"></param>
         /// <returns></returns>
-        public static RoutingVersionInfoDTO Parse(RoutingVersion routingVersion)
+        public static RoutingVersionInfoDto Parse(RoutingVersion routingVersion)
         {
-            var dto = new RoutingVersionInfoDTO
+            var dto = new RoutingVersionInfoDto
             {
                 MasterId = routingVersion.MasterId,
                 Version = routingVersion.Version,
