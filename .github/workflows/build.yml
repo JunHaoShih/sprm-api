@@ -46,5 +46,5 @@ jobs:
           dotnet tool install --global dotnet-coverage
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"JunHaoShih_sprm-api" /o:"junhaoshih" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
           dotnet build --no-incremental
-          dotnet dotcover test --dcReportType=HTML
+          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
