@@ -9,7 +9,7 @@ using SprmApi.EFs;
 
 namespace SprmUnitTest.Core.AppUsers
 {
-    public class AppUserTest
+    public class AppUserDaoTest
     {
         [SetUp]
         public void Setup()

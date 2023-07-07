@@ -29,5 +29,27 @@
         /// JWT settings
         /// </summary>
         public JwtSettings JwtSettings { get; private set; } = null!;
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ApiSettings() { }
+
+        /// <summary>
+        /// Constructor for initialize value
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="signKey"></param>
+        /// <param name="defaultAdmin"></param>
+        /// <param name="defaultPassword"></param>
+        /// <param name="jwtSettings"></param>
+        public ApiSettings(string connectionString, string signKey, string defaultAdmin, string defaultPassword, JwtSettings jwtSettings)
+        {
+            ConnectionString = connectionString;
+            SignKey = signKey;
+            DefaultAdmin = defaultAdmin;
+            DefaultPassword = defaultPassword;
+            JwtSettings = jwtSettings;
+        }
     }
 }
