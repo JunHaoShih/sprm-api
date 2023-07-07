@@ -1,8 +1,6 @@
-﻿using SprmApi.Core.AppUsers.Dto;
-using SprmApi.Core.AppUsers;
-using SprmApi.Settings;
+﻿using SprmApi.Core.AppUsers;
 using SprmApi.Core.Auth;
-using NUnit.Framework;
+using SprmApi.Settings;
 
 namespace SprmUnitTest.Core.Auth
 {
