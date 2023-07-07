@@ -1,15 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MockQueryable.Moq;
-using Moq;
+﻿using Moq;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.AppUsers.Dto;
-using SprmApi.EFs;
 using SprmApi.MiddleWares;
 using SprmApi.Settings;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace SprmUnitTest.Core.AppUsers
 {
@@ -70,7 +65,7 @@ namespace SprmUnitTest.Core.AppUsers
                 {
                     finalDto = dto;
                 })
-                .ReturnsAsync(new AppUser { Id = -1});
+                .ReturnsAsync(new AppUser { Id = -1 });
             AppUserService appUserService = new(daoMock.Object, _appSettings, _headerData);
             AppUser createdUser = await appUserService.CreateAppUserAsync(dto);
             Assert.That(finalDto, Is.Not.Null);
@@ -110,8 +105,11 @@ namespace SprmUnitTest.Core.AppUsers
                 .ReturnsAsync(new AppUser());
             AppUserService appUserService = new(daoMock.Object, _appSettings, _headerData);
             bool success = await appUserService.CreateDefaultAdminAsync();
-            Assert.That(dto, Is.Not.Null);
-            Assert.That(success, Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(dto, Is.Not.Null);
+                Assert.That(success, Is.True);
+            });
         }
 
         [Test]
