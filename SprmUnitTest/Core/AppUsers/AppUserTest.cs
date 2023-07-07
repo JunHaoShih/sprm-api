@@ -202,9 +202,12 @@ namespace SprmUnitTest.Core.AppUsers
             AppUserDao dao = new(mock.Object);
             AppUser user = await dao.InsertAsync(dto, creator);
             Assert.That(user, Is.Not.Null);
-            Assert.That(user.Username, Is.EqualTo(dto.Username));
-            Assert.That(user.Password, Is.EqualTo(dto.Password));
-            Assert.That(user.FullName, Is.EqualTo(dto.FullName));
+            Assert.Multiple(() =>
+            {
+                Assert.That(user.Username, Is.EqualTo(dto.Username));
+                Assert.That(user.Password, Is.EqualTo(dto.Password));
+                Assert.That(user.FullName, Is.EqualTo(dto.FullName));
+            });
         }
 
         private static readonly object[] s_user_create_failed_case =
@@ -270,9 +273,12 @@ namespace SprmUnitTest.Core.AppUsers
             AppUserDao dao = new(mock.Object);
             AppUser user = await dao.InsertDefaultAsync(dto);
             Assert.That(user, Is.Not.Null);
-            Assert.That(user.Username, Is.EqualTo(dto.Username));
-            Assert.That(user.Password, Is.EqualTo(dto.Password));
-            Assert.That(user.FullName, Is.EqualTo(dto.FullName));
+            Assert.Multiple(() =>
+            {
+                Assert.That(user.Username, Is.EqualTo(dto.Username));
+                Assert.That(user.Password, Is.EqualTo(dto.Password));
+                Assert.That(user.FullName, Is.EqualTo(dto.FullName));
+            });
         }
     }
 }
