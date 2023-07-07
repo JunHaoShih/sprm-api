@@ -15,7 +15,7 @@ namespace SprmUnitTest.Core.AppUsers
 
         private HeaderData _headerData;
 
-        private ApiSettings _appSettings;
+        private ApiSettings _apiSettings;
 
         [SetUp]
         public void Setup()
@@ -28,7 +28,7 @@ namespace SprmUnitTest.Core.AppUsers
                     Subject = s_requestUsername
                 }
             };
-            _appSettings = new ApiSettings("", s_signedKey, "admin", "password", new JwtSettings("TestIssuer", ""));
+            _apiSettings = new ApiSettings("", s_signedKey, "admin", "password", new JwtSettings("TestIssuer", ""));
         }
 
         private static readonly object[] s_createUserCase =
@@ -66,7 +66,7 @@ namespace SprmUnitTest.Core.AppUsers
                     finalDto = dto;
                 })
                 .ReturnsAsync(new AppUser { Id = -1 });
-            AppUserService appUserService = new(daoMock.Object, _appSettings, _headerData);
+            AppUserService appUserService = new(daoMock.Object, _apiSettings, _headerData);
             AppUser createdUser = await appUserService.CreateAppUserAsync(dto);
             Assert.That(finalDto, Is.Not.Null);
             Assert.Multiple(() =>
@@ -84,7 +84,7 @@ namespace SprmUnitTest.Core.AppUsers
             daoMock
                 .Setup(x => x.GetByUsernameAsync(_headerData.JWTPayload!.Subject))
                 .ReturnsAsync(value: null);
-            AppUserService appUserService = new(daoMock.Object, _appSettings, _headerData);
+            AppUserService appUserService = new(daoMock.Object, _apiSettings, _headerData);
             SprmException? ex = Assert.ThrowsAsync<SprmException>(() => appUserService.CreateAppUserAsync(dto));
             Assert.That(ex, Is.Not.Null);
             Assert.That(ex.Code, Is.EqualTo(ErrorCode.UserNotExist));
@@ -95,7 +95,7 @@ namespace SprmUnitTest.Core.AppUsers
         {
             Mock<IAppUserDao> daoMock = new(MockBehavior.Strict);
             daoMock
-                .Setup(x => x.GetByUsernameAsync(_appSettings.DefaultAdmin))
+                .Setup(x => x.GetByUsernameAsync(_apiSettings.DefaultAdmin))
                 .ReturnsAsync(value: null);
 
             CreateAppUserDto? dto = null;
@@ -103,7 +103,7 @@ namespace SprmUnitTest.Core.AppUsers
                 .Setup(x => x.InsertDefaultAsync(It.IsAny<CreateAppUserDto>()))
                 .Callback<CreateAppUserDto>(inputDto => dto = inputDto)
                 .ReturnsAsync(new AppUser());
-            AppUserService appUserService = new(daoMock.Object, _appSettings, _headerData);
+            AppUserService appUserService = new(daoMock.Object, _apiSettings, _headerData);
             bool success = await appUserService.CreateDefaultAdminAsync();
             Assert.Multiple(() =>
             {
@@ -119,13 +119,13 @@ namespace SprmUnitTest.Core.AppUsers
             AppUser defaultAdmin = new AppUser()
             {
                 Id = 1,
-                Username = _appSettings.DefaultAdmin,
+                Username = _apiSettings.DefaultAdmin,
                 FullName = "FFF",
             };
             daoMock
-                .Setup(x => x.GetByUsernameAsync(_appSettings.DefaultAdmin))
+                .Setup(x => x.GetByUsernameAsync(_apiSettings.DefaultAdmin))
                 .ReturnsAsync(defaultAdmin);
-            AppUserService appUserService = new(daoMock.Object, _appSettings, _headerData);
+            AppUserService appUserService = new(daoMock.Object, _apiSettings, _headerData);
             bool success = await appUserService.CreateDefaultAdminAsync();
             Assert.That(success, Is.False);
         }
@@ -153,7 +153,7 @@ namespace SprmUnitTest.Core.AppUsers
                     inputPassword = password;
                 })
                 .ReturnsAsync(new AppUser() { Id = -1 });
-            AppUserService appUserService = new(daoMock.Object, _appSettings, _headerData);
+            AppUserService appUserService = new(daoMock.Object, _apiSettings, _headerData);
             await appUserService.GetByAuthenticateAsync(username, password);
             Assert.Multiple(() =>
             {
