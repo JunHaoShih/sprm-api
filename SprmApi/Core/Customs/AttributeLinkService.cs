@@ -77,7 +77,7 @@ namespace SprmApi.Core.Customs
             {
                 throw new SprmException(ErrorCode.DbDataNotFound, $"Object type id: {objectTypeId} does not exist");
             }
-            return await _attributeLinkDAO.GetByObjectTypeIdAsync(objectTypeId);
+            return await _attributeLinkDAO.GetByObjectTypeAsync(objectTypeId);
         }
 
         /// <inheritdoc/>
@@ -95,7 +95,7 @@ namespace SprmApi.Core.Customs
 
                 foreach (var attributeId in createDTO.AttributeIds)
                 {
-                    var newLink = await _attributeLinkDAO.Insert(createDTO.ObjectTypeId, attributeId, _headerData.JWTPayload.Subject);
+                    var newLink = await _attributeLinkDAO.InsertAsync(createDTO.ObjectTypeId, attributeId, _headerData.JWTPayload.Subject);
                     newLinks.Add(newLink);
                 }
                 
