@@ -16,7 +16,7 @@ namespace SprmUnitTest.Core.Customs
         {
         }
 
-        private static readonly object[] s_attribureDeleteSuccessCase =
+        private static readonly object[] s_attributeDeleteSuccessCase =
         {
             new object[]
             {
@@ -39,7 +39,7 @@ namespace SprmUnitTest.Core.Customs
             }
         };
 
-        [TestCaseSource(nameof(s_attribureDeleteSuccessCase))]
+        [TestCaseSource(nameof(s_attributeDeleteSuccessCase))]
         public async Task DeleteSuccessAsync(List<CustomAttribute> attributes, long id)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -49,7 +49,7 @@ namespace SprmUnitTest.Core.Customs
             Assert.Pass();
         }
 
-        private static readonly object[] s_attribureDeleteFailedCase =
+        private static readonly object[] s_attributeDeleteFailedCase =
         {
             new object[]
             {
@@ -66,7 +66,7 @@ namespace SprmUnitTest.Core.Customs
             }
         };
 
-        [TestCaseSource(nameof(s_attribureDeleteFailedCase))]
+        [TestCaseSource(nameof(s_attributeDeleteFailedCase))]
         public void DeleteFailedAsync(List<CustomAttribute> attributes, long id)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -77,7 +77,7 @@ namespace SprmUnitTest.Core.Customs
             Assert.That(ex.Code, Is.EqualTo(ErrorCode.DbDataNotFound));
         }
 
-        [TestCaseSource(nameof(s_attribureDeleteSuccessCase))]
+        [TestCaseSource(nameof(s_attributeDeleteSuccessCase))]
         public async Task GetByIdFoundAsync(List<CustomAttribute> attributes, long id)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -88,7 +88,7 @@ namespace SprmUnitTest.Core.Customs
             Assert.That(attribute, Is.EqualTo(attributes.Single(x => x.Id == id)));
         }
 
-        [TestCaseSource(nameof(s_attribureDeleteFailedCase))]
+        [TestCaseSource(nameof(s_attributeDeleteFailedCase))]
         public async Task GetByIdNotFoundAsync(List<CustomAttribute> attributes, long id)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -98,7 +98,7 @@ namespace SprmUnitTest.Core.Customs
             Assert.That(attribute, Is.Null);
         }
 
-        private static readonly object[] s_attribureGetByNumberSuccessCase =
+        private static readonly object[] s_attributeGetByNumberSuccessCase =
         {
             new object[]
             {
@@ -115,7 +115,7 @@ namespace SprmUnitTest.Core.Customs
             }
         };
 
-        [TestCaseSource(nameof(s_attribureGetByNumberSuccessCase))]
+        [TestCaseSource(nameof(s_attributeGetByNumberSuccessCase))]
         public async Task GetByNumberFoundAsync(List<CustomAttribute> attributes, string number)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -126,7 +126,7 @@ namespace SprmUnitTest.Core.Customs
             Assert.That(attribute, Is.EqualTo(attributes.Single(x => x.Number == number)));
         }
 
-        private static readonly object[] s_attribureGetByNumberFailedCase =
+        private static readonly object[] s_attributeGetByNumberFailedCase =
         {
             new object[]
             {
@@ -143,7 +143,7 @@ namespace SprmUnitTest.Core.Customs
             }
         };
 
-        [TestCaseSource(nameof(s_attribureGetByNumberFailedCase))]
+        [TestCaseSource(nameof(s_attributeGetByNumberFailedCase))]
         public async Task GetByNumberNotFoundAsync(List<CustomAttribute> attributes, string number)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -153,7 +153,7 @@ namespace SprmUnitTest.Core.Customs
             Assert.That(attribute, Is.Null);
         }
 
-        private static readonly object[] s_attribureInsertSuccessCase =
+        private static readonly object[] s_attributeInsertSuccessCase =
         {
             new object[]
             {
@@ -175,7 +175,7 @@ namespace SprmUnitTest.Core.Customs
             }
         };
 
-        [TestCaseSource(nameof(s_attribureInsertSuccessCase))]
+        [TestCaseSource(nameof(s_attributeInsertSuccessCase))]
         public async Task InsertSuccessAsync(List<CustomAttribute> attributes, CreateCustomAttributeDto dto, string creater)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -189,7 +189,7 @@ namespace SprmUnitTest.Core.Customs
             });
         }
 
-        private static readonly object[] s_attribureInsertFailedCase =
+        private static readonly object[] s_attributeInsertFailedCase =
         {
             new object[]
             {
@@ -211,7 +211,7 @@ namespace SprmUnitTest.Core.Customs
             }
         };
 
-        [TestCaseSource(nameof(s_attribureInsertFailedCase))]
+        [TestCaseSource(nameof(s_attributeInsertFailedCase))]
         public void InsertFailedAsync(List<CustomAttribute> attributes, CreateCustomAttributeDto dto, string creater)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
@@ -222,7 +222,7 @@ namespace SprmUnitTest.Core.Customs
             Assert.That(ex.Code, Is.EqualTo(ErrorCode.DbInsertDuplicate));
         }
 
-        private static readonly object[] s_attribureUpdateCase =
+        private static readonly object[] s_attributeUpdateCase =
         {
             new object[]
             {
@@ -237,7 +237,7 @@ namespace SprmUnitTest.Core.Customs
             }
         };
 
-        [TestCaseSource(nameof(s_attribureUpdateCase))]
+        [TestCaseSource(nameof(s_attributeUpdateCase))]
         public async Task UpdateAsync(CustomAttribute entity, string updater)
         {
             Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
