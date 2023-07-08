@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
-using NUnit.Framework;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Core.Customs;
