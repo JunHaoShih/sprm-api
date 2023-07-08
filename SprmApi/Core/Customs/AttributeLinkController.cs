@@ -56,7 +56,7 @@ namespace SprmApi.Core.Customs
         [HttpPost]
         public async Task<IActionResult> Post(CreateAttributeLinksDto createDTO)
         {
-            var newLink = await _attributeLinkService.Insert(createDTO);
+            var newLink = await _attributeLinkService.InsertAsync(createDTO);
             return Ok(GenericResponse<AttributeLinksDto>.Success(AttributeLinksDto.Parse(createDTO.ObjectTypeId, newLink)));
         }
 

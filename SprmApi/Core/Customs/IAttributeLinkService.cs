@@ -34,6 +34,6 @@ namespace SprmApi.Core.Customs
         /// </summary>
         /// <param name="createDTO"></param>
         /// <returns></returns>
-        Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDto createDTO);
+        Task<IEnumerable<AttributeLink>> InsertAsync(CreateAttributeLinksDto createDTO);
     }
 }
