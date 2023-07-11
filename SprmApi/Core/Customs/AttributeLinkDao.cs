@@ -32,28 +32,28 @@ namespace SprmApi.Core.Customs
         }
 
         /// <inheritdoc/>
-        public async Task<AttributeLink?> Get(SprmObjectType objectTypeId, long attributeId)
+        public async Task<AttributeLink?> Get(SprmObjectType objectType, long attributeId)
         {
             return await _context.AttributeLinks
-                .Where(link => link.ObjectTypeId == (long)objectTypeId && link.AttributeId == attributeId)
+                .Where(link => link.ObjectTypeId == (long)objectType && link.AttributeId == attributeId)
                 .Include(link => link.Attribute)
                 .FirstOrDefaultAsync();
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<AttributeLink>> GetByObjectTypeIdAsync(SprmObjectType objectTypeId)
+        public async Task<IEnumerable<AttributeLink>> GetByObjectTypeAsync(SprmObjectType objectType)
         {
             var links = await _context.AttributeLinks
-                .Where(link => link.ObjectTypeId == (long)objectTypeId)
+                .Where(link => link.ObjectTypeId == (long)objectType)
                 .Include(link => link.Attribute)
                 .ToListAsync();
             return links;
         }
 
         /// <inheritdoc/>
-        public async Task<AttributeLink> Insert(SprmObjectType objectTypeId, long attributeId, string creator)
+        public async Task<AttributeLink> InsertAsync(SprmObjectType objectType, long attributeId, string creator)
         {
-            var duplicateLink = await Get(objectTypeId, attributeId);
+            var duplicateLink = await Get(objectType, attributeId);
             if (duplicateLink != null)
             {
                 throw new SprmException(ErrorCode.DbInsertDuplicate, $"link already exist");
@@ -61,10 +61,10 @@ namespace SprmApi.Core.Customs
             var entity = new AttributeLink
             {
                 AttributeId = attributeId,
-                ObjectTypeId = (long)objectTypeId,
+                ObjectTypeId = (long)objectType,
+                CreateUser = creator,
+                UpdateUser = creator
             };
-            entity.CreateUser = creator;
-            entity.UpdateUser = creator;
             _context.AttributeLinks.Add(entity);
             await _context.SaveChangesAsync();
             return entity;

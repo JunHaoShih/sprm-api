@@ -240,66 +240,66 @@ namespace SprmApi.EFs
         /// <summary>
         /// 零件
         /// </summary>
-        public DbSet<Part> Parts => Set<Part>();
+        public virtual DbSet<Part> Parts => Set<Part>();
 
         /// <summary>
         /// 零件使用關係
         /// </summary>
-        public DbSet<PartUsage> PartUsages => Set<PartUsage>();
+        public virtual DbSet<PartUsage> PartUsages => Set<PartUsage>();
 
         /// <summary>
         /// 零件版本
         /// </summary>
-        public DbSet<PartVersion> PartVersions => Set<PartVersion>();
+        public virtual DbSet<PartVersion> PartVersions => Set<PartVersion>();
 
         /// <summary>
         /// 產品途程
         /// </summary>
-        public DbSet<Routing> Routings => Set<Routing>();
+        public virtual DbSet<Routing> Routings => Set<Routing>();
 
         /// <summary>
         /// 產品途程版本
         /// </summary>
-        public DbSet<RoutingVersion> RoutingVersions => Set<RoutingVersion>();
+        public virtual DbSet<RoutingVersion> RoutingVersions => Set<RoutingVersion>();
 
         /// <summary>
         /// 工藝路徑使用關係
         /// </summary>
-        public DbSet<RoutingUsage> RoutingUsages => Set<RoutingUsage>();
+        public virtual DbSet<RoutingUsage> RoutingUsages => Set<RoutingUsage>();
 
         /// <summary>
         /// 製程
         /// </summary>
-        public DbSet<Process> Processes => Set<Process>();
+        public virtual DbSet<Process> Processes => Set<Process>();
 
         /// <summary>
         /// 製程類型
         /// </summary>
-        public DbSet<ProcessType> ProcessTypes => Set<ProcessType>();
+        public virtual DbSet<ProcessType> ProcessTypes => Set<ProcessType>();
 
         /// <summary>
         /// 製造類型
         /// </summary>
-        public DbSet<MakeType> MakeTypes => Set<MakeType>();
+        public virtual DbSet<MakeType> MakeTypes => Set<MakeType>();
 
         /// <summary>
         /// 物件類型
         /// </summary>
-        public DbSet<ObjectType> ObjectTypes => Set<ObjectType>();
+        public virtual DbSet<ObjectType> ObjectTypes => Set<ObjectType>();
 
         /// <summary>
         /// 自訂屬性
         /// </summary>
-        public DbSet<CustomAttribute> CustomAttributes => Set<CustomAttribute>();
+        public virtual DbSet<CustomAttribute> CustomAttributes => Set<CustomAttribute>();
 
         /// <summary>
         /// 類型屬性
         /// </summary>
-        public DbSet<AttributeLink> AttributeLinks => Set<AttributeLink>();
+        public virtual DbSet<AttributeLink> AttributeLinks => Set<AttributeLink>();
 
         /// <summary>
         /// AppUser
         /// </summary>
-        public DbSet<AppUser> AppUsers => Set<AppUser>();
+        public virtual DbSet<AppUser> AppUsers => Set<AppUser>();
     }
 }

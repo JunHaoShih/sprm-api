@@ -36,6 +36,10 @@ namespace SprmApi.Core.ObjectTypes
     public enum SprmObjectType
     {
         /// <summary>
+        /// 未知(表示錯誤)
+        /// </summary>
+        Unknown = 0,
+        /// <summary>
         /// 料件版本
         /// </summary>
         PartVersion = 1,

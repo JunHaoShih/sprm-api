@@ -77,11 +77,11 @@ namespace SprmApi.Core.Customs
             {
                 throw new SprmException(ErrorCode.DbDataNotFound, $"Object type id: {objectTypeId} does not exist");
             }
-            return await _attributeLinkDAO.GetByObjectTypeIdAsync(objectTypeId);
+            return await _attributeLinkDAO.GetByObjectTypeAsync(objectTypeId);
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<AttributeLink>> Insert(CreateAttributeLinksDto createDTO)
+        public async Task<IEnumerable<AttributeLink>> InsertAsync(CreateAttributeLinksDto createDTO)
         {
             TransactionOptions transactionOptions = new TransactionOptions()
             {
@@ -95,7 +95,7 @@ namespace SprmApi.Core.Customs
 
                 foreach (var attributeId in createDTO.AttributeIds)
                 {
-                    var newLink = await _attributeLinkDAO.Insert(createDTO.ObjectTypeId, attributeId, _headerData.JWTPayload.Subject);
+                    var newLink = await _attributeLinkDAO.InsertAsync(createDTO.ObjectTypeId, attributeId, _headerData.JWTPayload.Subject);
                     newLinks.Add(newLink);
                 }
                 
@@ -113,12 +113,12 @@ namespace SprmApi.Core.Customs
         /// <exception cref="SprmException"></exception>
         private async Task ValidateLinksAsync(SprmObjectType objectTypeId, IEnumerable<long> attributeIds)
         {
-            var objectType = await _objectTypeDAO.GetByIdAsync(objectTypeId);
+            ObjectType? objectType = await _objectTypeDAO.GetByIdAsync(objectTypeId);
             if (objectType == null)
             {
                 throw new SprmException(ErrorCode.DbDataNotFound, $"Object type id: {objectTypeId} does not exist");
             }
-            foreach (var attributeId in attributeIds)
+            foreach (long attributeId in attributeIds)
             {
                 var attribute = await _attributeDAO.GetByIdAsync(attributeId);
                 if (attribute == null)
