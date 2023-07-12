@@ -37,6 +37,7 @@ namespace SprmApi.Core.Auth
                 Issuer = _apiSettings.JwtSettings.Issuer,
                 IssuedAt = iat.GetUnixTimestamp(),
                 Expiration = exp.GetUnixTimestamp(),
+                IsAdmin = appUser.IsAdmin,
             };
             string json = JsonConvert.SerializeObject(payload);
             string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);

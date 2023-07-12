@@ -30,5 +30,10 @@ namespace SprmApi.Core.Auth
         /// </summary>
         [JsonProperty("exp")]
         public long Expiration { get; set; }
+
+        /// <summary>
+        /// 是否為管理員
+        /// </summary>
+        public bool IsAdmin { get; set; }
     }
 }

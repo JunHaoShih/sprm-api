@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Response;
 using SprmApi.Core.Permissions.Dto;
 using SprmApi.MiddleWares;
@@ -9,6 +10,7 @@ namespace SprmApi.Core.Permissions
     /// <summary>
     /// 權限controller
     /// </summary>
+    [RequireAdmin]
     [Route("api/[controller]")]
     [ApiController]
     [OpenApiTag("Permission", Description = "權限")]
