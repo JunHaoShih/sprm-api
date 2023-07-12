@@ -105,9 +105,9 @@ namespace SprmUnitTest.Core.AppUsers
                 .ReturnsAsync(new AppUser());
             AppUserService appUserService = new(daoMock.Object, _apiSettings, _headerData);
             bool success = await appUserService.CreateDefaultAdminAsync();
+            Assert.That(dto, Is.Not.Null);
             Assert.Multiple(() =>
             {
-                Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.IsAdmin, Is.True);
                 Assert.That(success, Is.True);
             });
