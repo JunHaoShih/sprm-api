@@ -1,4 +1,6 @@
 ﻿using SprmApi.Common.Dto;
+using SprmApi.Common.Error;
+using SprmApi.Common.Exceptions;
 using SprmApi.Core.ObjectTypes;
 
 namespace SprmApi.Core.Permissions.Dto
@@ -44,7 +46,7 @@ namespace SprmApi.Core.Permissions.Dto
             SprmObjectType entityObjectType = (SprmObjectType)entity.ObjectTypeId;
             if (!Enum.IsDefined<SprmObjectType>(entityObjectType))
             {
-                throw new ArgumentOutOfRangeException("ObjectTypeId", "ObjectTypeId is out of enum range");
+                throw new SprmException(ErrorCode.Error, "Object type does not exist");
             }
             PermissionDto dto = new()
             {
