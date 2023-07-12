@@ -57,6 +57,7 @@ namespace SprmApi.Core.AppUsers
             {
                 Username = _apiSettings.DefaultAdmin,
                 Password = passwordHash,
+                IsAdmin = true,
                 FullName = "System administrator",
             });
             return true;

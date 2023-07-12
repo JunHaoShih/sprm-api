@@ -108,6 +108,7 @@ namespace SprmUnitTest.Core.AppUsers
             Assert.Multiple(() =>
             {
                 Assert.That(dto, Is.Not.Null);
+                Assert.That(dto.IsAdmin, Is.True);
                 Assert.That(success, Is.True);
             });
         }
