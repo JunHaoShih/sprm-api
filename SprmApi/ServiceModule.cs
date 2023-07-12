@@ -6,6 +6,7 @@ using SprmApi.Core.MakeTypes;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Parts;
 using SprmApi.Core.PartUsages;
+using SprmApi.Core.Permissions;
 using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
 using SprmApi.Core.Routings;
@@ -95,6 +96,10 @@ namespace SprmApi
             // Routing usage
             builder.RegisterType<RoutingUsageDao>().As<IRoutingUsageDao>();
             builder.RegisterType<RoutingUsageService>().As<IRoutingUsageService>();
+
+            // Permission
+            builder.RegisterType<PermissionDao>().As<IPermissionDao>();
+            builder.RegisterType<PermissionService>().As<IPermissionService>();
         }
     }
 }

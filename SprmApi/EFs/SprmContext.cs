@@ -5,6 +5,7 @@ using SprmApi.Core.MakeTypes;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Parts;
 using SprmApi.Core.PartUsages;
+using SprmApi.Core.Permissions;
 using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
 using SprmApi.Core.Routings;
@@ -301,5 +302,10 @@ namespace SprmApi.EFs
         /// AppUser
         /// </summary>
         public virtual DbSet<AppUser> AppUsers => Set<AppUser>();
+
+        /// <summary>
+        /// 權限
+        /// </summary>
+        public virtual DbSet<Permission> Permissions => Set<Permission>();
     }
 }

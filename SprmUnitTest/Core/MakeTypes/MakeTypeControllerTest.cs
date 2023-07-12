@@ -42,8 +42,8 @@ namespace SprmUnitTest.Core.MakeTypes
             serviceMock
                 .Setup(x => x.GetAll())
                 .Returns(makeTypes.BuildMock().AsQueryable());
-            MakeTypeController service = new(serviceMock.Object);
-            OkObjectResult? result = await service.GetAll() as OkObjectResult; ;
+            MakeTypeController controller = new(serviceMock.Object);
+            OkObjectResult? result = await controller.GetAll() as OkObjectResult;
             Assert.That(result, Is.Not.Null);
             Assert.That(result.StatusCode, Is.EqualTo(200));
         }

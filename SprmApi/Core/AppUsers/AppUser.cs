@@ -37,5 +37,13 @@ namespace SprmApi.Core.AppUsers
         [MaxLength(50)]
         [Comment("App使用者姓名")]
         public string FullName { get; set; } = null!;
+
+        /// <summary>
+        /// 是否為系統管理員
+        /// </summary>
+        [Required]
+        [Column("is_admin")]
+        [Comment("是否為系統管理員")]
+        public bool IsAdmin { get; set; }
     }
 }

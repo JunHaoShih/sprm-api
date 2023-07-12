@@ -23,6 +23,11 @@ namespace SprmApi.Core.AppUsers.Dto
         public string FullName { get; set; } = null!;
 
         /// <summary>
+        /// 是否為系統管理員
+        /// </summary>
+        public bool IsAdmin { get; set; }
+
+        /// <summary>
         /// Parse entity to DTO
         /// </summary>
         /// <param name="appUser"></param>
