@@ -2,6 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Response;
 using SprmApi.Core.Permissions.Dto;
+using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.Permissions
 {
@@ -15,13 +16,17 @@ namespace SprmApi.Core.Permissions
     {
         private readonly IPermissionService _permissionService;
 
+        private readonly HeaderData _headerData;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="permissionService"></param>
-        public PermissionController(IPermissionService permissionService)
+        /// <param name="headerData"></param>
+        public PermissionController(IPermissionService permissionService, HeaderData headerData)
         {
             _permissionService = permissionService;
+            _headerData = headerData;
         }
 
         /// <summary>
@@ -40,6 +45,25 @@ namespace SprmApi.Core.Permissions
         {
             IEnumerable<PermissionDto> permissions = await _permissionService.GetByUserIdAsync(userId);
             return Ok(GenericResponse<IEnumerable<PermissionDto>>.Success(permissions));
+        }
+
+        /// <summary>
+        /// 更新使用者的權限
+        /// </summary>
+        /// <param name="userId">使用者id</param>
+        /// <param name="permissionDtos">更新資料</param>
+        /// <returns></returns>
+        /// <response code="200">更新成功</response>
+        /// <response code="500">更新失敗</response>
+        /// <response code="401">驗證失敗</response>
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [HttpPut("~/api/AppUser/{userId}/Permission")]
+        public async Task<IActionResult> SaveByUserId(long userId, IEnumerable<SavePermissionDto> permissionDtos)
+        {
+            await _permissionService.SaveAsync(permissionDtos, userId, _headerData.JWTPayload.Subject);
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
     }
 }

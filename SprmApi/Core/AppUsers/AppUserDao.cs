@@ -61,5 +61,13 @@ namespace SprmApi.Core.AppUsers
             await _sprmContext.SaveChangesAsync();
             return entity;
         }
+
+        /// <inheritdoc/>
+        public async Task<AppUser?> GetAsync(long id)
+        {
+            AppUser? user = await _sprmContext.AppUsers
+                .SingleOrDefaultAsync(user => user.Id == id);
+            return user;
+        }
     }
 }

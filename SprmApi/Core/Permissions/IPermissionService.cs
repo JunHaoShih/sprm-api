@@ -13,5 +13,14 @@ namespace SprmApi.Core.Permissions
         /// <param name="userId">User id</param>
         /// <returns></returns>
         Task<IEnumerable<PermissionDto>> GetByUserIdAsync(long userId);
+
+        /// <summary>
+        /// Save user permissions
+        /// </summary>
+        /// <param name="permissionDtos">Permission datas</param>
+        /// <param name="userId">User id</param>
+        /// <param name="requestUser">Request user</param>
+        /// <returns></returns>
+        Task SaveAsync(IEnumerable<SavePermissionDto> permissionDtos, long userId, string requestUser);
     }
 }

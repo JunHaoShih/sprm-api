@@ -77,6 +77,10 @@ namespace SprmApi.EFs
                 .HasIndex(c => new { c.RootVersionId, c.Number })
                 .IsUnique();
 
+            modelBuilder.Entity<Permission>()
+                .HasIndex(c => new { c.UserId, c.ObjectTypeId })
+                .IsUnique ();
+
             // Set constraints
 
             // Restrict part delete if routing exist
