@@ -50,7 +50,6 @@ namespace SprmApi.Core.Permissions
             permission.UpdateDate = DateTime.UtcNow;
             permission.UpdateUser = updater;
             await _context.SaveChangesAsync();
-            return;
         }
     }
 }
