@@ -63,5 +63,13 @@ namespace SprmApi.Core.ObjectTypes
         /// 工藝路徑使用關係
         /// </summary>
         RoutingUsage = 6,
+        /// <summary>
+        /// 自訂屬性
+        /// </summary>
+        CustomAttribute = 7,
+        /// <summary>
+        /// 屬性連結
+        /// </summary>
+        AttributeLink = 8,
     }
 }
