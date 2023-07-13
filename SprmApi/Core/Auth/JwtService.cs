@@ -1,11 +1,11 @@
 ﻿using Jose;
-using Newtonsoft.Json;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Extensions;
 using SprmApi.Core.AppUsers;
 using SprmApi.Settings;
 using System.Text;
+using System.Text.Json;
 
 namespace SprmApi.Core.Auth
 {
@@ -39,7 +39,7 @@ namespace SprmApi.Core.Auth
                 Expiration = exp.GetUnixTimestamp(),
                 IsAdmin = appUser.IsAdmin,
             };
-            string json = JsonConvert.SerializeObject(payload);
+            string json = JsonSerializer.Serialize(payload);
             string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
             return jwtToken;
         }
@@ -52,7 +52,7 @@ namespace SprmApi.Core.Auth
         public JwtPayload DecryptToken(string token)
         {
             string json = JWT.Decode(token, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
-            JwtPayload? payload = JsonConvert.DeserializeObject<JwtPayload>(json);
+            JwtPayload? payload = JsonSerializer.Deserialize<JwtPayload>(json);
             if (payload == null)
             {
                 throw new InvalidOperationException("Token is null");

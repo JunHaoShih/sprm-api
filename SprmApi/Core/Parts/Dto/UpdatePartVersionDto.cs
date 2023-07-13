@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SprmApi.Core.Parts.Dto
 {
@@ -26,7 +27,7 @@ namespace SprmApi.Core.Parts.Dto
         public PartVersion ApplyUpdate(PartVersion partVersion)
         {
             partVersion.Remarks = Remarks;
-            partVersion.CustomValues = System.Text.Json.JsonSerializer.SerializeToDocument(CustomValues);
+            partVersion.CustomValues = JsonSerializer.SerializeToDocument(CustomValues);
             return partVersion;
         }
     }

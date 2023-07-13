@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.Routings.Dto
@@ -11,6 +11,7 @@ namespace SprmApi.Core.Routings.Dto
         /// <summary>
         /// 工藝路徑所屬料件
         /// </summary>
+        [JsonRequired]
         public long PartId { get; set; }
 
         /// <summary>

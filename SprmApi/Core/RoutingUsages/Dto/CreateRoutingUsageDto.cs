@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.RoutingUsages.Dto
@@ -55,7 +56,7 @@ namespace SprmApi.Core.RoutingUsages.Dto
                 RootVersionId = RootVersionId,
                 ParentUsageId = ParentUsageId,
                 ProcessId = ProcessId,
-                CustomValues = System.Text.Json.JsonSerializer.SerializeToDocument(CustomValues),
+                CustomValues = JsonSerializer.SerializeToDocument(CustomValues),
             };
         }
 
@@ -73,7 +74,7 @@ namespace SprmApi.Core.RoutingUsages.Dto
                 ParentUsageId = partUsage.ParentUsageId,
                 Number = partUsage.Number,
                 ProcessId = partUsage.ProcessId,
-                CustomValues = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(partUsage.CustomValues)!,
+                CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(partUsage.CustomValues)!,
             };
         }
     }

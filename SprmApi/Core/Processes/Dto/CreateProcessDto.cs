@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.Processes.Dto
@@ -67,7 +68,7 @@ namespace SprmApi.Core.Processes.Dto
                 DefaultMakeTypeId = DefaultMakeTypeId,
                 DefaultImportTime = DefaultImportTime,
                 DefaultExportTime = DefaultExportTime,
-                CustomValues = System.Text.Json.JsonSerializer.SerializeToDocument(CustomValues),
+                CustomValues = JsonSerializer.SerializeToDocument(CustomValues),
             };
         }
     }

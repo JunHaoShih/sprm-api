@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.PartUsages.Dto
@@ -61,7 +62,7 @@ namespace SprmApi.Core.PartUsages.Dto
                 PartId = partUsage.ChildId,
                 Quantity = partUsage.Quantity,
                 Remarks = partUsage.Remarks,
-                CustomValues = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(partUsage.CustomValues)!,
+                CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(partUsage.CustomValues)!,
             };
         }
     }

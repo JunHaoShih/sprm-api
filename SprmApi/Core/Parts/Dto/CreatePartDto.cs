@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.Parts.Dto
@@ -44,7 +45,7 @@ namespace SprmApi.Core.Parts.Dto
         /// <returns></returns>
         public Part ToEntity()
         {
-            return JsonConvert.DeserializeObject<Part>(JsonConvert.SerializeObject(this))!;
+            return JsonSerializer.Deserialize<Part>(JsonSerializer.Serialize(this))!;
         }
     }
 }

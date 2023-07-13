@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
+﻿using System.Text.Json;
 
 namespace SprmApi.MiddleWares
 {
@@ -29,14 +28,11 @@ namespace SprmApi.MiddleWares
                 if (paginationData.PaginationHeader != null)
                 {
                     var httpContext = (HttpContext)state;
-                    DefaultContractResolver contractResolver = new DefaultContractResolver
+                    var serializeOptions = new JsonSerializerOptions
                     {
-                        NamingStrategy = new CamelCaseNamingStrategy()
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     };
-                    var responseJson = JsonConvert.SerializeObject(paginationData.PaginationHeader, new JsonSerializerSettings
-                    {
-                        ContractResolver = contractResolver
-                    });
+                    var responseJson = JsonSerializer.Serialize(paginationData.PaginationHeader, serializeOptions);
                     httpContext.Response.Headers.Add("X-Pagination", new[] { responseJson });
                 }
                 return Task.CompletedTask;

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 using SprmApi.Core.ObjectTypes;
 

@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Response;
@@ -59,10 +59,6 @@ namespace SprmApi.MiddleWares
 
         private static async Task SetResponse(HttpResponse response, int statusCode, ErrorCode code, string message)
         {
-            DefaultContractResolver contractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()
-            };
             response.StatusCode = statusCode;
             response.ContentType = "application/json";
             var responseObj = new GenericResponse<string>()
@@ -71,11 +67,7 @@ namespace SprmApi.MiddleWares
                 Message = code.GetMessage(),
                 Content = message,
             };
-            var responseJson = JsonConvert.SerializeObject(responseObj, new JsonSerializerSettings
-            {
-                ContractResolver = contractResolver
-            });
-            await response.WriteAsync(responseJson);
+            await response.WriteAsJsonAsync(responseObj);
         }
     }
 

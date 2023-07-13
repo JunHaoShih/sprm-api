@@ -1,4 +1,5 @@
-﻿using SprmApi.Common.Validations;
+﻿using System.Text.Json.Serialization;
+using SprmApi.Common.Validations;
 using SprmApi.Core.ObjectTypes;
 
 namespace SprmApi.Core.Permissions.Dto
@@ -17,21 +18,25 @@ namespace SprmApi.Core.Permissions.Dto
         /// <summary>
         /// 允許建立
         /// </summary>
+        [JsonRequired]
         public bool CreatePermitted { get; set; }
 
         /// <summary>
         /// 允許讀取
         /// </summary>
+        [JsonRequired]
         public bool ReadPermitted { get; set; }
 
         /// <summary>
         /// 允許修改
         /// </summary>
+        [JsonRequired]
         public bool UpdatePermitted { get; set; }
 
         /// <summary>
         /// 允許刪除
         /// </summary>
+        [JsonRequired]
         public bool DeletePermitted { get; set; }
 
         /// <summary>

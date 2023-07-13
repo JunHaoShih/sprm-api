@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
 
 namespace SprmApi.Core.AppUsers.Dto
 {
@@ -34,7 +34,7 @@ namespace SprmApi.Core.AppUsers.Dto
         /// <returns></returns>
         public static AppUserDto Parse(AppUser appUser)
         {
-            return JsonConvert.DeserializeObject<AppUserDto>(JsonConvert.SerializeObject(appUser))!;
+            return JsonSerializer.Deserialize<AppUserDto>(JsonSerializer.Serialize(appUser))!;
         }
     }
 }

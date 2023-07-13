@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace SprmApi.Core.Auth
 {
@@ -10,25 +10,25 @@ namespace SprmApi.Core.Auth
         /// <summary>
         /// JWT用戶
         /// </summary>
-        [JsonProperty("sub")]
+        [JsonPropertyName("sub")]
         public string Subject { get; set; } = null!;
 
         /// <summary>
         /// JWT簽發者
         /// </summary>
-        [JsonProperty("iss")]
+        [JsonPropertyName("iss")]
         public string Issuer { get; set; } = null!;
 
         /// <summary>
         /// JWT簽發時間
         /// </summary>
-        [JsonProperty("iat")]
+        [JsonPropertyName("iat")]
         public long IssuedAt { get; set; }
 
         /// <summary>
         /// JWT過期時間
         /// </summary>
-        [JsonProperty("exp")]
+        [JsonPropertyName("exp")]
         public long Expiration { get; set; }
 
         /// <summary>
