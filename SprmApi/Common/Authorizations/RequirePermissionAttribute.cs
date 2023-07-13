@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using SprmApi.Common.Error;
 using SprmApi.Common.Response;
 using SprmApi.Core.ObjectTypes;
-using SprmApi.Core.Permissions;
 using SprmApi.Core.Permissions.Dto;
 using SprmApi.MiddleWares;
 
@@ -17,7 +16,7 @@ namespace SprmApi.Common.Authorizations
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="types"></param>
+        /// <param name="type"></param>
         /// <param name="cruds"></param>
         public RequirePermissionAttribute(SprmObjectType type, params Crud[] cruds) : base(typeof(RequirePermissionBaseAttribute))
         {
@@ -57,7 +56,7 @@ namespace SprmApi.Common.Authorizations
                 if (_headerData.JWTPayload.IsAdmin)
                 {
                     return;
-                };
+                }
                 IEnumerable<PermissionDto> permissions = _headerData.JWTPayload.Permissions;
                 PermissionDto? targetPermission = permissions.SingleOrDefault(p => p.ObjectType == _objectType);
                 if (targetPermission == null)
@@ -82,7 +81,7 @@ namespace SprmApi.Common.Authorizations
                 }
             }
 
-            private void AccessDenied(AuthorizationFilterContext context)
+            private static void AccessDenied(AuthorizationFilterContext context)
             {
                 context.Result = new ObjectResult(new GenericResponse<string>
                 {
