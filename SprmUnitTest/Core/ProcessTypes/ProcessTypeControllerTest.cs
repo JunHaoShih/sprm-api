@@ -43,7 +43,7 @@ namespace SprmUnitTest.Core.ProcessTypes
                 .Setup(x => x.GetAll())
                 .Returns(processTypes.BuildMock().AsQueryable());
             ProcessTypeController service = new(serviceMock.Object);
-            OkObjectResult? result = await service.GetAll() as OkObjectResult; ;
+            OkObjectResult? result = await service.GetAll() as OkObjectResult;
             Assert.That(result, Is.Not.Null);
             Assert.That(result.StatusCode, Is.EqualTo(200));
         }

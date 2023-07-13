@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Response;
@@ -51,6 +52,22 @@ namespace SprmApi.Core.AppUsers
                 throw new SprmAuthException(ErrorCode.Error, "Cannot find current user");
             }
             return Ok(GenericResponse<AppUserDto>.Success(AppUserDto.Parse(appUser)));
+        }
+
+        /// <summary>
+        /// 建立使用者
+        /// </summary>
+        /// <param name="dto">新使用者資料</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(GenericResponse<AppUserDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequireAdmin]
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateAppUserDto dto)
+        {
+            AppUser newUser = await _appUserService.CreateAppUserAsync(dto);
+            return Ok(GenericResponse<AppUserDto>.Success(AppUserDto.Parse(newUser)));
         }
     }
 }
