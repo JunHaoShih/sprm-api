@@ -1,5 +1,9 @@
-﻿using SprmApi.Core.AppUsers;
+﻿using Moq;
+using SprmApi.Core.AppUsers;
 using SprmApi.Core.Auth;
+using SprmApi.Core.ObjectTypes;
+using SprmApi.Core.Permissions;
+using SprmApi.Core.Permissions.Dto;
 using SprmApi.Settings;
 
 namespace SprmUnitTest.Core.Auth
@@ -26,15 +30,29 @@ namespace SprmUnitTest.Core.Auth
                     Username = "username",
                     Password = "password",
                     FullName = "AAA",
+                },
+                new List<PermissionDto>
+                {
+                    new PermissionDto
+                    {
+                        ObjectType = SprmObjectType.PartVersion,
+                        CreatePermitted = true,
+                        ReadPermitted = true,
+                        UpdatePermitted = true,
+                        DeletePermitted = true,
+                    }
                 }
             },
         };
 
         [TestCaseSource(nameof(s_jwtEncryptCase))]
-        public void GenerateToken(AppUser appUser)
+        public async Task GenerateToken(AppUser appUser, List<PermissionDto> permissions)
         {
-            JwtService jwtService = new(_apiSettings);
-            string token = jwtService.GenerateToken(appUser);
+            Mock<IPermissionService> mock = new(MockBehavior.Strict);
+            mock.Setup(x => x.GetByUserIdAsync(appUser.Id))
+                .ReturnsAsync(permissions);
+            JwtService jwtService = new(_apiSettings, mock.Object);
+            string token = await jwtService.GenerateToken(appUser);
             JwtPayload payload = jwtService.DecryptToken(token);
             Assert.That(appUser.Username, Is.EqualTo(payload.Subject));
         }

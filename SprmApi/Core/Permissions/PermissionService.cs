@@ -3,7 +3,6 @@ using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.Permissions.Dto;
-using SprmApi.MiddleWares;
 using System.Transactions;
 
 namespace SprmApi.Core.Permissions

@@ -42,7 +42,7 @@ namespace SprmApi.Core.Auth
         public async Task<IActionResult> Authenticate(AuthenticateDto authDTO)
         {
             AppUser appUser = await _authenticationService.Authenticate(authDTO);
-            string token = _jwtService.GenerateToken(appUser);
+            string token = await _jwtService.GenerateToken(appUser);
             AuthenticateResponseDto responseDTO = new AuthenticateResponseDto
             {
                 Token = token,

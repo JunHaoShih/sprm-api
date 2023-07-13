@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Parts.Dto;
 
 namespace SprmApi.Core.Parts
@@ -33,6 +35,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> Create(CreatePartDto createPartDTO)
         {
