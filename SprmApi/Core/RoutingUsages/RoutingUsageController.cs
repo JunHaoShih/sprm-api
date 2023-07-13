@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.RoutingUsages.Dto;
 
 namespace SprmApi.Core.RoutingUsages
@@ -35,6 +37,7 @@ namespace SprmApi.Core.RoutingUsages
         [ProducesResponseType(typeof(GenericResponse<RoutingUsageDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingUsage, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> Post(CreateRoutingUsageDto createDto)
         {
@@ -53,6 +56,7 @@ namespace SprmApi.Core.RoutingUsages
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<RoutingUsageDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingUsage, Crud.Read)]
         [HttpGet("~/api/RoutingVersion/{id}/RoutingUsage")]
         public async Task<IActionResult> GetByRootVersionId(long id)
         {
@@ -71,6 +75,7 @@ namespace SprmApi.Core.RoutingUsages
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingUsage, Crud.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
@@ -90,6 +95,7 @@ namespace SprmApi.Core.RoutingUsages
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingUsage, Crud.Update)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateById(long id, UpdateRoutingUsageDto dto)
         {
