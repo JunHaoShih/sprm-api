@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.ProcessTypes.Dto;
 
 namespace SprmApi.Core.ProcessTypes
@@ -36,6 +38,7 @@ namespace SprmApi.Core.ProcessTypes
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<ProcessTypeDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.Process, Crud.Read)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

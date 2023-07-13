@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Processes.Dto;
 using SprmApi.MiddleWares;
 
@@ -45,6 +47,7 @@ namespace SprmApi.Core.Processes
         [ProducesResponseType(typeof(GenericResponse<ProcessDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.Process, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> Post(CreateProcessDto createDTO)
         {
@@ -70,6 +73,7 @@ namespace SprmApi.Core.Processes
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<ProcessDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.Process, Crud.Read)]
         [HttpGet("Search")]
         public async Task<IActionResult> FuzzySearch([FromQuery] string? pattern, [FromQuery] OffsetPaginationInput input)
         {
@@ -90,6 +94,7 @@ namespace SprmApi.Core.Processes
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.Process, Crud.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
@@ -109,6 +114,7 @@ namespace SprmApi.Core.Processes
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.Process, Crud.Update)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, UpdateProcessDto updateDTO)
         {
@@ -127,6 +133,7 @@ namespace SprmApi.Core.Processes
         [ProducesResponseType(typeof(GenericResponse<ProcessDto?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.Process, Crud.Read)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
