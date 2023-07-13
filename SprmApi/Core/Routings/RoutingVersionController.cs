@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
 
@@ -42,6 +44,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<RoutingVersionDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Read)]
         [HttpGet("~/api/Routing/{id}/RoutingVersion")]
         public async Task<IActionResult> GetVersionsByMasterId(long id, [FromQuery] OffsetPaginationInput input)
         {
@@ -62,6 +65,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<RoutingVersionDto?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Read)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
@@ -81,6 +85,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Update)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, UpdateRoutingVersionDto updateDto)
         {

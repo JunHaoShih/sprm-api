@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
 
@@ -41,6 +43,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<RoutingDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> CreateRouting(CreateRoutingDto createDTO)
         {
@@ -59,6 +62,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<RoutingDto?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Read)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
@@ -79,6 +83,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<RoutingDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Read)]
         [HttpGet("~/api/Part/{partId}/Routing")]
         public async Task<IActionResult> GetByPartId(long partId, [FromQuery] OffsetPaginationInput input)
         {
@@ -100,6 +105,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<RoutingDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Update)]
         [HttpPost("{id}/CheckOut")]
         public async Task<IActionResult> CheckOut(long id)
         {
@@ -119,6 +125,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<RoutingDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Update)]
         [HttpPost("{id}/CheckIn")]
         public async Task<IActionResult> CheckIn(long id)
         {
@@ -138,6 +145,7 @@ namespace SprmApi.Core.Routings
         [ProducesResponseType(typeof(GenericResponse<RoutingDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.RoutingVersion, Crud.Delete)]
         [HttpDelete("{id}/Discard")]
         public async Task<IActionResult> Discard(long id)
         {
