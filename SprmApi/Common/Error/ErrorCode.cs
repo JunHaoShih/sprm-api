@@ -34,6 +34,11 @@ namespace SprmApi.Common.Error
         /// </summary>
         [ErrorMessage("Model binding error, please check your parameters")]
         ModelBindingError = 102,
+        /// <summary>
+        /// Access denied
+        /// </summary>
+        [ErrorMessage("Access denied")]
+        AccessDenied = 103,
 
         /// <summary>
         /// Username already exist
