@@ -1,5 +1,7 @@
 ﻿using MockQueryable.Moq;
 using Moq;
+using SprmApi.Common.Error;
+using SprmApi.Common.Exceptions;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Permissions;
@@ -61,6 +63,73 @@ namespace SprmUnitTest.Core.Permissions
                 Assert.That(targetPermissions, Is.Not.Empty);
                 Assert.That(targetPermissions.Select(p => p.Id), Is.EquivalentTo(permissions.Select(p => p.Id)));
             });
+        }
+
+        private static readonly object[] s_getPermissionsByUsernameCase =
+        {
+            new object[]
+            {
+                new List<Permission>
+                {
+                    new Permission
+                    {
+                        Id = 1,
+                        UserId = 1,
+                        ObjectTypeId = (long)SprmObjectType.PartVersion,
+                        CreatePermitted = true,
+                        ReadPermitted = true,
+                        UpdatePermitted = true,
+                        DeletePermitted = true,
+                    },
+                    new Permission
+                    {
+                        Id = 2,
+                        UserId = 1,
+                        ObjectTypeId = (long)SprmObjectType.PartUsage,
+                        CreatePermitted = true,
+                        ReadPermitted = true,
+                        UpdatePermitted = true,
+                        DeletePermitted = true,
+                    },
+                },
+                new AppUser
+                {
+                    Id = 1,
+                    Username = "Test",
+                },
+            },
+        };
+
+        [TestCaseSource(nameof(s_getPermissionsByUsernameCase))]
+        public async Task GetByUserName(List<Permission> permissions, AppUser user)
+        {
+            Mock<IPermissionDao> daoMock = new(MockBehavior.Strict);
+            Mock<IAppUserDao> userDaoMock = new(MockBehavior.Strict);
+            daoMock.Setup(dao => dao.GetByUserId(user.Id))
+                .Returns(permissions.BuildMock().AsQueryable());
+            userDaoMock.Setup(dao => dao.GetByUsernameAsync(user.Username))
+                .ReturnsAsync(new AppUser { Id = user.Id, Username = user.Username });
+            PermissionService service = new(daoMock.Object, userDaoMock.Object);
+            IEnumerable<PermissionDto> targetPermissions = await service.GetByUserNameAsync(user.Username);
+            Assert.Multiple(() =>
+            {
+                Assert.That(targetPermissions, Is.Not.Empty);
+                Assert.That(targetPermissions.Select(p => p.Id), Is.EquivalentTo(permissions.Select(p => p.Id)));
+            });
+        }
+
+        [Test]
+        public void GetByUserNameFailed()
+        {
+            string nonExistUsername = "FF";
+            Mock<IPermissionDao> daoMock = new(MockBehavior.Strict);
+            Mock<IAppUserDao> userDaoMock = new(MockBehavior.Strict);
+            userDaoMock.Setup(dao => dao.GetByUsernameAsync(nonExistUsername))
+                .ReturnsAsync(value: null);
+            PermissionService service = new(daoMock.Object, userDaoMock.Object);
+            SprmException? ex = Assert.ThrowsAsync<SprmException>(() => service.GetByUserNameAsync(nonExistUsername));
+            Assert.That(ex, Is.Not.Null);
+            Assert.That(ex.Code, Is.EqualTo(ErrorCode.UserNotExist));
         }
 
         private static readonly object[] s_permissionsSaveCase =

@@ -37,6 +37,19 @@ namespace SprmApi.Core.Permissions
         }
 
         /// <inheritdoc/>
+        public async Task<IEnumerable<PermissionDto>> GetByUserNameAsync(string username)
+        {
+            AppUser? user = await _appUserDao.GetByUsernameAsync(username);
+            if (user == null)
+            {
+                throw new SprmException(ErrorCode.UserNotExist, $"Username {username} does not exist");
+            }
+            IQueryable<Permission> permissionsQuery = _permissionDao.GetByUserId(user.Id);
+            List<Permission> permissions = await permissionsQuery.ToListAsync();
+            return permissions.Select(p => PermissionDto.Parse(p));
+        }
+
+        /// <inheritdoc/>
         public async Task SaveAsync(IEnumerable<SavePermissionDto> permissionDtos, long userId, string requestUser)
         {
             await ValidateUser(userId);
