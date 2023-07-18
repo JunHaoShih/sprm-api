@@ -6,7 +6,6 @@ using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
 using SprmApi.Core.AppUsers.Dto;
-using SprmApi.Core.ObjectTypes;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.AppUsers
@@ -94,7 +93,7 @@ namespace SprmApi.Core.AppUsers
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<AppUserDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
-        [RequirePermission(SprmObjectType.Process, Crud.Read)]
+        [RequireAdmin]
         [HttpGet("Search")]
         public async Task<IActionResult> FuzzySearch([FromQuery] string? pattern, [FromQuery] OffsetPaginationInput input)
         {
