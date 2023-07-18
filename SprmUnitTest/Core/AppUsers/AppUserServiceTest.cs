@@ -1,4 +1,5 @@
-﻿using MockQueryable.Moq;
+﻿using System.Text.Json;
+using MockQueryable.Moq;
 using Moq;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
@@ -174,12 +175,14 @@ namespace SprmUnitTest.Core.AppUsers
                     new AppUser
                     {
                         Id = 1,
-                        Username = "A"
+                        Username = "A",
+                        CustomValues = JsonSerializer.SerializeToDocument(new Dictionary<string, string>())
                     },
                     new AppUser
                     {
                         Id = 2,
-                        Username = "AB"
+                        Username = "AB",
+                        CustomValues = JsonSerializer.SerializeToDocument(new Dictionary<string, string>())
                     },
                 },
                 "%A%",

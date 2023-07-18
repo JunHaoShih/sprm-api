@@ -32,12 +32,30 @@ namespace SprmApi.Core.AppUsers.Dto
         public bool IsAdmin { get; set; }
 
         /// <summary>
+        /// 備註
+        /// </summary>
+        public string? Remarks { get; set; }
+
+        /// <summary>
+        /// 自訂屬性值
+        /// </summary>
+        public Dictionary<string, string> CustomValues { get; set; } = new();
+
+        /// <summary>
         /// DTO to entity
         /// </summary>
         /// <returns></returns>
         public AppUser ToEntity()
         {
-            return JsonSerializer.Deserialize<AppUser>(JsonSerializer.Serialize(this))!;
+            return new AppUser
+            {
+                Username = Username,
+                Password = Password,
+                FullName = FullName,
+                IsAdmin = IsAdmin,
+                Remarks = Remarks,
+                CustomValues = JsonSerializer.SerializeToDocument(CustomValues),
+            };
         }
     }
 }

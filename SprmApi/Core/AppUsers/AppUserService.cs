@@ -60,6 +60,7 @@ namespace SprmApi.Core.AppUsers
                 Password = passwordHash,
                 IsAdmin = true,
                 FullName = "System administrator",
+                Remarks = "Created by system",
             });
             return true;
         }

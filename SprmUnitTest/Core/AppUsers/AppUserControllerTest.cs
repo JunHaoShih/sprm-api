@@ -10,6 +10,7 @@ using SprmApi.MiddleWares;
 using SprmApi.Settings;
 using System;
 using System.Linq;
+using System.Text.Json;
 
 namespace SprmUnitTest.Core.AppUsers
 {
@@ -54,7 +55,7 @@ namespace SprmUnitTest.Core.AppUsers
             Mock<IAppUserService> serviceMock = new(MockBehavior.Strict);
             serviceMock
                 .Setup(s => s.CreateAppUserAsync(dto))
-                .ReturnsAsync(new AppUser { Id = 1 });
+                .ReturnsAsync(new AppUser { Id = 1, CustomValues = JsonSerializer.SerializeToDocument(new Dictionary<string, string>()) });
             AppUserController controller = new(serviceMock.Object, _headerData, _paginationData);
             OkObjectResult? result = await controller.Post(dto) as OkObjectResult;
             Assert.That(result, Is.Not.Null);
@@ -71,6 +72,7 @@ namespace SprmUnitTest.Core.AppUsers
                     Username = s_requestUsername,
                     FullName = "Full name",
                     IsAdmin = false,
+                    CustomValues = JsonSerializer.SerializeToDocument(new Dictionary<string, string>()),
                 },
             }
         };

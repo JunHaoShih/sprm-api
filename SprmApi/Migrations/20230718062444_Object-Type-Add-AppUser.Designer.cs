@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SprmApi.Core.Customs;
@@ -14,9 +15,11 @@ using SprmApi.EFs;
 namespace SprmApi.Migrations
 {
     [DbContext(typeof(SprmContext))]
-    partial class SPRMContextModelSnapshot : ModelSnapshot
+    [Migration("20230718062444_Object-Type-Add-AppUser")]
+    partial class ObjectTypeAddAppUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

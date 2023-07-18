@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.Customs;
 using SprmApi.Core.MakeTypes;
@@ -118,6 +119,10 @@ namespace SprmApi.EFs
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<AppUser>()
+                .Property(user => user.CustomValues)
+                .HasDefaultValue(JsonSerializer.SerializeToDocument(new Dictionary<string, string>()));
+
             modelBuilder.Entity<MakeType>().HasData(GetDefaultMakeTypes());
             modelBuilder.Entity<ProcessType>().HasData(GetDefaultProcessTypes());
             modelBuilder.Entity<ObjectType>().HasData(GetDefaultObjectTypes());
@@ -213,7 +218,15 @@ namespace SprmApi.EFs
                     Remarks = "屬性連結",
                     Number = typeof(AttributeLink).Name,
                     Name = "屬性連結"
-                }
+                },
+
+                new ObjectType
+                {
+                    Id = (long)SprmObjectType.AppUser,
+                    Remarks = "App使用者",
+                    Number = typeof(AppUser).Name,
+                    Name = "App使用者"
+                },
             };
 
             return objTypes;

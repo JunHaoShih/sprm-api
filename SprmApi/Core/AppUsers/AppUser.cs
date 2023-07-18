@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace SprmApi.Core.AppUsers
 {
@@ -9,7 +10,7 @@ namespace SprmApi.Core.AppUsers
     /// </summary>
     [Table("app_users", Schema = "sprm")]
     [Comment("App使用者")]
-    public class AppUser : SprmObject
+    public class AppUser : SprmObject, IDisposable
     {
         /// <summary>
         /// App使用者名稱
@@ -45,5 +46,29 @@ namespace SprmApi.Core.AppUsers
         [Column("is_admin")]
         [Comment("是否為系統管理員")]
         public bool IsAdmin { get; set; }
+
+        /// <summary>
+        /// 自訂屬性值
+        /// </summary>
+        [Required]
+        [Column("custom_values")]
+        [Comment("自訂屬性值")]
+        public JsonDocument CustomValues { get; set; } = null!;
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose custom values
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            CustomValues.Dispose();
+        }
     }
 }

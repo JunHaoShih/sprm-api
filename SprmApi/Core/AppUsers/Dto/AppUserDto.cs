@@ -1,11 +1,12 @@
 ﻿using System.Text.Json;
+using SprmApi.Common.Dto;
 
 namespace SprmApi.Core.AppUsers.Dto
 {
     /// <summary>
     /// AppUser data
     /// </summary>
-    public class AppUserDto
+    public class AppUserDto : BaseReturnDto
     {
         /// <summary>
         /// 使用者id
@@ -28,13 +29,27 @@ namespace SprmApi.Core.AppUsers.Dto
         public bool IsAdmin { get; set; }
 
         /// <summary>
+        /// 自訂屬性值
+        /// </summary>
+        public Dictionary<string, string> CustomValues { get; set; } = new();
+
+        /// <summary>
         /// Parse entity to DTO
         /// </summary>
         /// <param name="appUser"></param>
         /// <returns></returns>
         public static AppUserDto Parse(AppUser appUser)
         {
-            return JsonSerializer.Deserialize<AppUserDto>(JsonSerializer.Serialize(appUser))!;
+            AppUserDto dto = new AppUserDto
+            {
+                Id = appUser.Id,
+                Username = appUser.Username,
+                FullName = appUser.FullName,
+                IsAdmin = appUser.IsAdmin,
+                CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(appUser.CustomValues)!,
+            };
+            dto.Populate(appUser);
+            return dto;
         }
     }
 }

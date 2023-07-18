@@ -71,5 +71,9 @@ namespace SprmApi.Core.ObjectTypes
         /// 屬性連結
         /// </summary>
         AttributeLink = 8,
+        /// <summary>
+        /// App使用者
+        /// </summary>
+        AppUser = 9,
     }
 }
