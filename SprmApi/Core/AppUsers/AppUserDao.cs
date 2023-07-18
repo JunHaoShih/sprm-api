@@ -69,5 +69,16 @@ namespace SprmApi.Core.AppUsers
                 .SingleOrDefaultAsync(user => user.Id == id);
             return user;
         }
+
+        /// <inheritdoc/>
+        public IQueryable<AppUser> GetByPattern(string? pattern)
+        {
+            if (pattern == null)
+            {
+                return _sprmContext.AppUsers.AsQueryable();
+            }
+            return _sprmContext.AppUsers
+                .Where(user => EF.Functions.Like(user.Username, pattern) || EF.Functions.Like(user.FullName, pattern));
+        }
     }
 }

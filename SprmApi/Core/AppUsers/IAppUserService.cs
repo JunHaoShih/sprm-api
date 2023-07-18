@@ -1,4 +1,5 @@
-﻿using SprmApi.Core.AppUsers.Dto;
+﻿using SprmApi.Common.Paginations;
+using SprmApi.Core.AppUsers.Dto;
 
 namespace SprmApi.Core.AppUsers
 {
@@ -34,5 +35,13 @@ namespace SprmApi.Core.AppUsers
         /// </summary>
         /// <returns></returns>
         Task<bool> CreateDefaultAdminAsync();
+
+        /// <summary>
+        /// Get by pattern
+        /// </summary>
+        /// <param name="pattern">Search pattern</param>
+        /// <param name="input">Offset pagination input</param>
+        /// <returns></returns>
+        OffsetPagination<AppUserDto> GetByPattern(string? pattern, OffsetPaginationInput input);
     }
 }

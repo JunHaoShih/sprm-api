@@ -2,6 +2,7 @@
 using System.Text;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
+using SprmApi.Common.Paginations;
 using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
 using SprmApi.Settings;
@@ -68,6 +69,15 @@ namespace SprmApi.Core.AppUsers
         {
             var passwordHash = EncryptPassword(password);
             return await _appUserDAO.GetByAuthenticateAsync(username, passwordHash);
+        }
+
+        /// <inheritdoc/>
+        public OffsetPagination<AppUserDto> GetByPattern(string? pattern, OffsetPaginationInput input)
+        {
+            IQueryable<AppUser> users = _appUserDAO.GetByPattern(pattern);
+            IQueryable<AppUserDto> dtos = users.Select(user => AppUserDto.Parse(user));
+            OffsetPagination<AppUserDto> offsetPagination = new(dtos, input);
+            return offsetPagination;
         }
 
         /// <inheritdoc/>

@@ -1,6 +1,8 @@
-﻿using Moq;
+﻿using MockQueryable.Moq;
+using Moq;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
+using SprmApi.Common.Paginations;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
@@ -160,6 +162,53 @@ namespace SprmUnitTest.Core.AppUsers
             {
                 Assert.That(inputUsername, Is.EqualTo(username));
                 Assert.That(inputPassword, Is.Not.EqualTo(password));
+            });
+        }
+
+        private static readonly object[] s_fuzzySearchCase =
+        {
+            new object[]
+            {
+                new List<AppUser>
+                {
+                    new AppUser
+                    {
+                        Id = 1,
+                        Username = "A"
+                    },
+                    new AppUser
+                    {
+                        Id = 2,
+                        Username = "AB"
+                    },
+                },
+                "%A%",
+                new OffsetPaginationInput
+                {
+                    Page = 1,
+                    PerPage = 1,
+                }
+            }
+        };
+
+        [TestCaseSource(nameof(s_fuzzySearchCase))]
+        public async Task FuzzySearch(List<AppUser> users, string pattern, OffsetPaginationInput input)
+        {
+            Mock<IAppUserDao> daoMock = new(MockBehavior.Strict);
+            daoMock
+                .Setup(dao => dao.GetByPattern(pattern))
+                .Returns(users.BuildMock().AsQueryable());
+            AppUserService appUserService = new(daoMock.Object, _apiSettings, _headerData);
+            OffsetPagination<AppUserDto> pageData = appUserService.GetByPattern(pattern, input);
+            OffsetPaginationResponse response = pageData.GetResponseHeader();
+            List<AppUserDto> list = await pageData.GetPagedListAsync();
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.Total, Is.EqualTo(users.Count));
+                Assert.That(response.TotalPages, Is.EqualTo(users.Count / input.PerPage));
+                Assert.That(response.PreviousPage, Is.Null);
+                Assert.That(response.NextPage, Is.EqualTo(2));
+                Assert.That(list, Has.Count.EqualTo(input.Page));
             });
         }
     }

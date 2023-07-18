@@ -3,8 +3,10 @@ using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
+using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
 using SprmApi.Core.AppUsers.Dto;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.MiddleWares;
 
 namespace SprmApi.Core.AppUsers
@@ -21,15 +23,19 @@ namespace SprmApi.Core.AppUsers
 
         private readonly HeaderData _headerData;
 
+        private readonly PaginationData _paginationData;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="appUserService"></param>
         /// <param name="headerData"></param>
-        public AppUserController(IAppUserService appUserService, HeaderData headerData)
+        /// <param name="paginationData"></param>
+        public AppUserController(IAppUserService appUserService, HeaderData headerData, PaginationData paginationData)
         {
             _appUserService = appUserService;
             _headerData = headerData;
+            _paginationData = paginationData;
         }
 
         /// <summary>
@@ -68,6 +74,34 @@ namespace SprmApi.Core.AppUsers
         {
             AppUser newUser = await _appUserService.CreateAppUserAsync(dto);
             return Ok(GenericResponse<AppUserDto>.Success(AppUserDto.Parse(newUser)));
+        }
+
+        /// <summary>
+        /// 簡易模糊搜尋
+        /// </summary>
+        /// <param name="pattern">搜尋pattern</param>
+        /// <param name="input">分頁資訊</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// # 功能
+        /// 此搜尋會依照傳入的pattern去找符合的編號與名稱
+        /// # 注意事項
+        /// 1. 此API有分頁，請注意
+        /// </remarks>
+        /// <response code="200">簡易模糊搜尋成功</response>
+        /// <response code="500">搜尋失敗</response>
+        /// <response code="401">驗證失敗</response>
+        [ProducesResponseType(typeof(GenericResponse<IEnumerable<AppUserDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.Process, Crud.Read)]
+        [HttpGet("Search")]
+        public async Task<IActionResult> FuzzySearch([FromQuery] string? pattern, [FromQuery] OffsetPaginationInput input)
+        {
+            OffsetPagination<AppUserDto> usersPagination = _appUserService.GetByPattern(pattern, input);
+            List<AppUserDto> pagingList = await usersPagination.GetPagedListAsync();
+            _paginationData.PaginationHeader = usersPagination.GetResponseHeader();
+            return Ok(GenericResponse<IEnumerable<AppUserDto>>.Success(pagingList));
         }
     }
 }
