@@ -103,6 +103,48 @@ namespace SprmUnitTest.Core.AppUsers
             Assert.That(ex.Code, Is.EqualTo(ErrorCode.Error));
         }
 
+        private static readonly object[] s_getByIdSuccessCase =
+        {
+            new object[]
+            {
+                new AppUser
+                {
+                    Id = 1,
+                    Username = s_requestUsername,
+                    FullName = "Full name",
+                    IsAdmin = false,
+                    CustomValues = JsonSerializer.SerializeToDocument(new Dictionary<string, string>()),
+                },
+                1
+            }
+        };
+
+        [TestCaseSource(nameof(s_getByIdSuccessCase))]
+        public async Task GetByIdSuccessAsync(AppUser user, long id)
+        {
+            Mock<IAppUserService> serviceMock = new(MockBehavior.Strict);
+            serviceMock
+                .Setup(s => s.GetByIdAsync(id))
+                .ReturnsAsync(user);
+            AppUserController controller = new(serviceMock.Object, _headerData, _paginationData);
+            OkObjectResult? result = await controller.GetById(id) as OkObjectResult;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.StatusCode, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void GetByIdFailedAsync()
+        {
+            Mock<IAppUserService> serviceMock = new(MockBehavior.Strict);
+            serviceMock
+                .Setup(s => s.GetByIdAsync(It.IsAny<long>()))
+                .ReturnsAsync(value: null);
+            AppUserController controller = new(serviceMock.Object, _headerData, _paginationData);
+            SprmException? ex = Assert.ThrowsAsync<SprmException>(() => controller.GetById(1));
+            Assert.That(ex, Is.Not.Null);
+            Assert.That(ex.Code, Is.EqualTo(ErrorCode.UserNotExist));
+        }
+
         private static readonly object[] s_fuzzySearchCase =
         {
             new object[]

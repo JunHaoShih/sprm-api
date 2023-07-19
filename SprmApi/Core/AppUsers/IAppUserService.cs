@@ -26,9 +26,16 @@ namespace SprmApi.Core.AppUsers
         /// <summary>
         /// Get AppUser by username
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="username">Username</param>
         /// <returns></returns>
         Task<AppUser?> GetByUsernameAsync(string username);
+
+        /// <summary>
+        /// Get AppUser by id
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns></returns>
+        Task<AppUser?> GetByIdAsync(long id);
 
         /// <summary>
         /// Create default admin

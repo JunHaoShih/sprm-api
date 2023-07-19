@@ -41,7 +41,7 @@ namespace SprmApi.Core.AppUsers
         /// Get current user
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="SprmException"></exception>
+        /// <exception cref="SprmAuthException"></exception>
         /// <response code="200">成功取得當前使用者資訊</response>
         /// <response code="500">存取發生錯誤</response>
         /// <response code="401">驗證失敗</response>
@@ -55,6 +55,30 @@ namespace SprmApi.Core.AppUsers
             if (appUser == null)
             {
                 throw new SprmAuthException(ErrorCode.Error, "Cannot find current user");
+            }
+            return Ok(GenericResponse<AppUserDto>.Success(AppUserDto.Parse(appUser)));
+        }
+
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns></returns>
+        /// <exception cref="SprmException"></exception>
+        /// <response code="200">成功取得當前使用者資訊</response>
+        /// <response code="500">存取發生錯誤</response>
+        /// <response code="401">驗證失敗</response>
+        [ProducesResponseType(typeof(GenericResponse<AppUserDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequireAdmin]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(long id)
+        {
+            AppUser? appUser = await _appUserService.GetByIdAsync(id);
+            if (appUser == null)
+            {
+                throw new SprmException(ErrorCode.UserNotExist, "Cannot find user");
             }
             return Ok(GenericResponse<AppUserDto>.Success(AppUserDto.Parse(appUser)));
         }
