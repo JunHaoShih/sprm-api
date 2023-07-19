@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.AppUsers.Dto
 {
@@ -12,6 +13,7 @@ namespace SprmApi.Core.AppUsers.Dto
         /// 使用者名稱
         /// </summary>
         [JsonRequired]
+        [UsernameValidation]
         public string Username { get; set; } = null!;
         /// <summary>
         /// 使用者名稱
