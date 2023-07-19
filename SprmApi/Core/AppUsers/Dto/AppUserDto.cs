@@ -9,11 +9,6 @@ namespace SprmApi.Core.AppUsers.Dto
     public class AppUserDto : BaseReturnDto
     {
         /// <summary>
-        /// 使用者id
-        /// </summary>
-        public long Id { get; set; }
-
-        /// <summary>
         /// 使用者名稱
         /// </summary>
         public string Username { get; set; } = null!;
@@ -42,7 +37,6 @@ namespace SprmApi.Core.AppUsers.Dto
         {
             AppUserDto dto = new AppUserDto
             {
-                Id = appUser.Id,
                 Username = appUser.Username,
                 FullName = appUser.FullName,
                 IsAdmin = appUser.IsAdmin,
