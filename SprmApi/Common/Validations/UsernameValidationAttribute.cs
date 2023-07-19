@@ -8,7 +8,7 @@ namespace SprmApi.Common.Validations
     /// </summary>
     public class UsernameValidationAttribute : ValidationAttribute
     {
-        private readonly List<Validator> Validators = new List<Validator>
+        private readonly List<Validator> _validators = new()
         {
             new Validator
             {
@@ -17,23 +17,8 @@ namespace SprmApi.Common.Validations
             },
             new Validator
             {
-                Validate = str => new Regex(@"^[a-zA-Z0-9]+$", RegexOptions.None, TimeSpan.FromMilliseconds(100)).IsMatch(str),
+                Validate = str => new Regex(@"^[a-zA-Z0-9_]+$", RegexOptions.None, TimeSpan.FromMilliseconds(100)).IsMatch(str),
                 Message = "Cannot contains invalid characters"
-            },
-            new Validator
-            {
-                Validate = str => !str.StartsWith('_') && !str.StartsWith('-'),
-                Message = "Username cannot start with hyphen or underscore"
-            },
-            new Validator
-            {
-                Validate = str => !str.EndsWith('_') && !str.EndsWith('-'),
-                Message = "Username cannot end with hyphen or underscore"
-            },
-            new Validator
-            {
-                Validate = str => new Regex(@"^(?!.*[_-]{2}).+$", RegexOptions.None, TimeSpan.FromMilliseconds(100)).IsMatch(str),
-                Message = "Username cannot contains two or more consecutive special characters"
             },
         };
 
@@ -49,10 +34,10 @@ namespace SprmApi.Common.Validations
             {
                 return new ValidationResult(ErrorMessage ?? $"{value} is not a string");
             }
-            var username = (string)value;
-            foreach (var validator in Validators)
+            string username = (string)value;
+            foreach (Validator validator in _validators)
             {
-                var isValid = validator.Validate(username);
+                bool isValid = validator.Validate(username);
                 if (!isValid)
                 {
                     return new ValidationResult(ErrorMessage ?? $"{validator.Message}");
