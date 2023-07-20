@@ -19,12 +19,14 @@ namespace SprmApi.Core.AppUsers.Dto
         /// 使用者名稱
         /// </summary>
         [JsonRequired]
+        [PasswordValidation]
         public string Password { get; set; } = null!;
 
         /// <summary>
         /// 使用者全名
         /// </summary>
         [JsonRequired]
+        [NameValidation]
         public string FullName { get; set; } = null!;
 
         /// <summary>

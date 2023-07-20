@@ -25,8 +25,7 @@ namespace SprmApi.Core.AppUsers
         /// Password hash
         /// </summary>
         [Required]
-        [Column("password", TypeName = "varchar(50)")]
-        [MaxLength(100)]
+        [Column("password", TypeName = "text")]
         [Comment("Password hash")]
         public string Password { get; set; } = null!;
 
