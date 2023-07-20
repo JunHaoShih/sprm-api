@@ -1,11 +1,13 @@
 ﻿using Jose;
-using Newtonsoft.Json;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Extensions;
 using SprmApi.Core.AppUsers;
+using SprmApi.Core.Permissions;
+using SprmApi.Core.Permissions.Dto;
 using SprmApi.Settings;
 using System.Text;
+using System.Text.Json;
 
 namespace SprmApi.Core.Auth
 {
@@ -16,29 +18,39 @@ namespace SprmApi.Core.Auth
     {
         private readonly ApiSettings _apiSettings;
 
+        private readonly IPermissionService _permissionService;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="apiSettings"></param>
-        public JwtService(ApiSettings apiSettings) => _apiSettings = apiSettings;
+        /// <param name="permissionService"></param>
+        public JwtService(ApiSettings apiSettings, IPermissionService permissionService)
+        {
+            _apiSettings = apiSettings;
+            _permissionService = permissionService;
+        }
 
         /// <summary>
         /// Generate JWT for a user
         /// </summary>
         /// <param name="appUser"></param>
         /// <returns></returns>
-        public string GenerateToken(AppUser appUser)
+        public async Task<string> GenerateToken(AppUser appUser)
         {
             DateTime iat = DateTime.Now;
             DateTime exp = iat.AddHours(4);
+            IEnumerable<PermissionDto> permissions = await _permissionService.GetByUserIdAsync(appUser.Id);
             var payload = new JwtPayload
             {
                 Subject = appUser.Username,
                 Issuer = _apiSettings.JwtSettings.Issuer,
                 IssuedAt = iat.GetUnixTimestamp(),
                 Expiration = exp.GetUnixTimestamp(),
+                IsAdmin = appUser.IsAdmin,
+                Permissions = permissions,
             };
-            string json = JsonConvert.SerializeObject(payload);
+            string json = JsonSerializer.Serialize(payload);
             string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
             return jwtToken;
         }
@@ -51,7 +63,7 @@ namespace SprmApi.Core.Auth
         public JwtPayload DecryptToken(string token)
         {
             string json = JWT.Decode(token, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
-            JwtPayload? payload = JsonConvert.DeserializeObject<JwtPayload>(json);
+            JwtPayload? payload = JsonSerializer.Deserialize<JwtPayload>(json);
             if (payload == null)
             {
                 throw new InvalidOperationException("Token is null");

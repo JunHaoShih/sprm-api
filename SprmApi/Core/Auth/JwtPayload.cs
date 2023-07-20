@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using SprmApi.Core.Permissions.Dto;
 
 namespace SprmApi.Core.Auth
 {
@@ -10,25 +11,35 @@ namespace SprmApi.Core.Auth
         /// <summary>
         /// JWT用戶
         /// </summary>
-        [JsonProperty("sub")]
+        [JsonPropertyName("sub")]
         public string Subject { get; set; } = null!;
 
         /// <summary>
         /// JWT簽發者
         /// </summary>
-        [JsonProperty("iss")]
+        [JsonPropertyName("iss")]
         public string Issuer { get; set; } = null!;
 
         /// <summary>
         /// JWT簽發時間
         /// </summary>
-        [JsonProperty("iat")]
+        [JsonPropertyName("iat")]
         public long IssuedAt { get; set; }
 
         /// <summary>
         /// JWT過期時間
         /// </summary>
-        [JsonProperty("exp")]
+        [JsonPropertyName("exp")]
         public long Expiration { get; set; }
+
+        /// <summary>
+        /// 是否為管理員
+        /// </summary>
+        public bool IsAdmin { get; set; }
+
+        /// <summary>
+        /// 權限
+        /// </summary>
+        public IEnumerable<PermissionDto> Permissions { get; set; } = new List<PermissionDto>();
     }
 }

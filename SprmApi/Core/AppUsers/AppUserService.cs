@@ -2,6 +2,7 @@
 using System.Text;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
+using SprmApi.Common.Paginations;
 using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
 using SprmApi.Settings;
@@ -13,7 +14,7 @@ namespace SprmApi.Core.AppUsers
     /// </summary>
     public class AppUserService : IAppUserService
     {
-        private readonly IAppUserDao _appUserDAO;
+        private readonly IAppUserDao _appUserD;
 
         private readonly ApiSettings _apiSettings;
 
@@ -22,12 +23,12 @@ namespace SprmApi.Core.AppUsers
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="appUserDAO"></param>
+        /// <param name="appUserDao"></param>
         /// <param name="apiSettings"></param>
         /// <param name="headerData"></param>
-        public AppUserService(IAppUserDao appUserDAO, ApiSettings apiSettings, HeaderData headerData)
+        public AppUserService(IAppUserDao appUserDao, ApiSettings apiSettings, HeaderData headerData)
         {
-            _appUserDAO = appUserDAO;
+            _appUserD = appUserDao;
             _apiSettings = apiSettings;
             _headerData = headerData;
         }
@@ -35,29 +36,31 @@ namespace SprmApi.Core.AppUsers
         /// <inheritdoc/>
         public async Task<AppUser> CreateAppUserAsync(CreateAppUserDto createAppUserDTO)
         {
-            AppUser? creator = await _appUserDAO.GetByUsernameAsync(_headerData.JWTPayload!.Subject);
+            AppUser? creator = await _appUserD.GetByUsernameAsync(_headerData.JWTPayload!.Subject);
             if (creator == null)
             {
                 throw new SprmException(ErrorCode.UserNotExist, $"{_headerData.JWTPayload!.Subject} does not exist");
             }
             createAppUserDTO.Password = EncryptPassword(createAppUserDTO.Password);
-            return await _appUserDAO.InsertAsync(createAppUserDTO, creator);
+            return await _appUserD.InsertAsync(createAppUserDTO, creator);
         }
 
         /// <inheritdoc/>
         public async Task<bool> CreateDefaultAdminAsync()
         {
-            AppUser? defaultAdmin = await _appUserDAO.GetByUsernameAsync(_apiSettings.DefaultAdmin);
+            AppUser? defaultAdmin = await _appUserD.GetByUsernameAsync(_apiSettings.DefaultAdmin);
             if (defaultAdmin != null)
             {
                 return false;
             }
             string passwordHash = EncryptPassword(_apiSettings.DefaultPassword);
-            await _appUserDAO.InsertDefaultAsync(new CreateAppUserDto
+            await _appUserD.InsertDefaultAsync(new CreateAppUserDto
             {
                 Username = _apiSettings.DefaultAdmin,
                 Password = passwordHash,
+                IsAdmin = true,
                 FullName = "System administrator",
+                Remarks = "Created by system",
             });
             return true;
         }
@@ -65,12 +68,24 @@ namespace SprmApi.Core.AppUsers
         /// <inheritdoc/>
         public async Task<AppUser?> GetByAuthenticateAsync(string username, string password)
         {
-            var passwordHash = EncryptPassword(password);
-            return await _appUserDAO.GetByAuthenticateAsync(username, passwordHash);
+            string passwordHash = EncryptPassword(password);
+            return await _appUserD.GetByAuthenticateAsync(username, passwordHash);
         }
 
         /// <inheritdoc/>
-        public async Task<AppUser?> GetByUsernameAsync(string username) => await _appUserDAO.GetByUsernameAsync(username);
+        public OffsetPagination<AppUserDto> GetByPattern(string? pattern, OffsetPaginationInput input)
+        {
+            IQueryable<AppUser> users = _appUserD.GetByPattern(pattern);
+            IQueryable<AppUserDto> dtos = users.Select(user => AppUserDto.Parse(user));
+            OffsetPagination<AppUserDto> offsetPagination = new(dtos, input);
+            return offsetPagination;
+        }
+
+        /// <inheritdoc/>
+        public async Task<AppUser?> GetByUsernameAsync(string username) => await _appUserD.GetByUsernameAsync(username);
+
+        /// <inheritdoc/>
+        public async Task<AppUser?> GetByIdAsync(long id) => await _appUserD.GetAsync(id);
 
         /// <summary>
         /// Encrypt user password

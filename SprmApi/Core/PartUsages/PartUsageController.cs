@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.PartUsages.Dto;
 
 namespace SprmApi.Core.PartUsages
@@ -36,6 +38,7 @@ namespace SprmApi.Core.PartUsages
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartUsageUsesDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartUsage, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> Post(CreatePartUsagesDto usagesDTO)
         {
@@ -55,6 +58,7 @@ namespace SprmApi.Core.PartUsages
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartUsageUsesDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartUsage, Crud.Read)]
         [HttpGet("ByParent/{id}")]
         public async Task<IActionResult> GetByParentId(long id)
         {
@@ -74,6 +78,7 @@ namespace SprmApi.Core.PartUsages
         [ProducesResponseType(typeof(GenericResponse<PartUsageUsesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartUsage, Crud.Read)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
@@ -92,6 +97,7 @@ namespace SprmApi.Core.PartUsages
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartUsage, Crud.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(long id)
         {
@@ -110,6 +116,7 @@ namespace SprmApi.Core.PartUsages
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartUsage, Crud.Update)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateById(long id, UpdatePartUsageDto updateDto)
         {

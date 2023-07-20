@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Parts.Dto;
 
 namespace SprmApi.Core.Parts
@@ -33,6 +35,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<PartVersionDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Read)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
@@ -52,6 +55,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Update)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, UpdatePartVersionDto versionDTO)
         {
@@ -77,6 +81,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartVersionDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Read)]
         [HttpGet("~/api/Part/{partId}/PartVersion")]
         public async Task<IActionResult> GetPartVersions(long partId, [FromQuery] OffsetPaginationInput input)
         {

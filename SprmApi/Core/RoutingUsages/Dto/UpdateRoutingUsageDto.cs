@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.RoutingUsages.Dto
@@ -39,7 +40,7 @@ namespace SprmApi.Core.RoutingUsages.Dto
         {
             usage.Remarks = Remarks;
             usage.Number = Number;
-            usage.CustomValues = System.Text.Json.JsonSerializer.SerializeToDocument(CustomValues);
+            usage.CustomValues = JsonSerializer.SerializeToDocument(CustomValues);
             return usage;
         }
     }

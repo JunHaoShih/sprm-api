@@ -13,6 +13,7 @@ using SprmApi.EFs;
 using SprmApi.MiddleWares;
 using SprmApi.Settings;
 using System.Text;
+using System.Text.Json;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +35,10 @@ try
 
     builder.Services
         .AddControllers()
-        .AddNewtonsoftJson()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        })
         .ConfigureApiBehaviorOptions(options =>
         {
             //自訂Model Binding 錯誤訊息

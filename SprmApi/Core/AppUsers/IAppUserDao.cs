@@ -36,5 +36,19 @@ namespace SprmApi.Core.AppUsers
         /// <param name="newAppUser"></param>
         /// <returns></returns>
         Task<AppUser> InsertDefaultAsync(CreateAppUserDto newAppUser);
+
+        /// <summary>
+        /// Get app user by user id
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns></returns>
+        Task<AppUser?> GetAsync(long id);
+
+        /// <summary>
+        /// Get by pattern
+        /// </summary>
+        /// <param name="pattern">Search pattern</param>
+        /// <returns></returns>
+        IQueryable<AppUser> GetByPattern(string? pattern);
     }
 }

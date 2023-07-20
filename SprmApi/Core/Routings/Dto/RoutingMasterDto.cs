@@ -18,6 +18,11 @@ namespace SprmApi.Core.Routings.Dto
         public bool Checkout { get; set; }
 
         /// <summary>
+        /// 工藝路徑所屬零件
+        /// </summary>
+        public long PartId { get; set; }
+
+        /// <summary>
         /// Parse entity to DTO
         /// </summary>
         /// <param name="routing"></param>
@@ -29,6 +34,7 @@ namespace SprmApi.Core.Routings.Dto
                 Id = routing.Id,
                 Name = routing.Name,
                 Checkout = routing.Checkout,
+                PartId = routing.PartId,
             };
             dto.Populate(routing);
             return dto;

@@ -49,6 +49,14 @@ namespace SprmApi.Migrations
                         .HasColumnOrder(1)
                         .HasComment("Creator");
 
+                    b.Property<JsonDocument>("CustomValues")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("jsonb")
+                        .HasDefaultValue(System.Text.Json.JsonDocument.Parse("{}", new System.Text.Json.JsonDocumentOptions()))
+                        .HasColumnName("custom_values")
+                        .HasComment("自訂屬性值");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -56,10 +64,14 @@ namespace SprmApi.Migrations
                         .HasColumnName("full_name")
                         .HasComment("App使用者姓名");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_admin")
+                        .HasComment("是否為系統管理員");
+
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("text")
                         .HasColumnName("password")
                         .HasComment("Password hash");
 
@@ -345,27 +357,27 @@ namespace SprmApi.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3176),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9149),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "自製",
                             Number = "SPRM_SELF_MADE",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3178),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9152),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3183),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9159),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "外包",
                             Number = "SPRM_OUTSOURCE",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3183),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9160),
                             UpdateUser = "system"
                         });
                 });
@@ -441,67 +453,100 @@ namespace SprmApi.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3287),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9205),
                             CreateUser = "system",
                             Name = "料件",
                             Number = "PartVersion",
                             Remarks = "料件",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3287),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9206),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3294),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9210),
                             CreateUser = "system",
                             Name = "料件使用關係",
                             Number = "PartUsage",
                             Remarks = "料件使用關係",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3294),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9211),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3295),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9212),
                             CreateUser = "system",
                             Name = "工藝路徑",
                             Number = "Routing",
                             Remarks = "工藝路徑",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3295),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9212),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3296),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9213),
                             CreateUser = "system",
                             Name = "工藝路徑版本",
                             Number = "RoutingVersion",
                             Remarks = "工藝路徑版本",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3297),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9213),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 5L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3300),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9215),
                             CreateUser = "system",
                             Name = "製程",
                             Number = "Process",
                             Remarks = "製程",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3300),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9215),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 6L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3303),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9218),
                             CreateUser = "system",
                             Name = "工藝路徑使用關係",
                             Number = "RoutingUsage",
                             Remarks = "工藝路徑使用關係",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3303),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9218),
+                            UpdateUser = "system"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9219),
+                            CreateUser = "system",
+                            Name = "自訂屬性",
+                            Number = "CustomAttribute",
+                            Remarks = "自訂屬性",
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9219),
+                            UpdateUser = "system"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9221),
+                            CreateUser = "system",
+                            Name = "屬性連結",
+                            Number = "AttributeLink",
+                            Remarks = "屬性連結",
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9222),
+                            UpdateUser = "system"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9223),
+                            CreateUser = "system",
+                            Name = "App使用者",
+                            Number = "AppUser",
+                            Remarks = "App使用者",
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9223),
                             UpdateUser = "system"
                         });
                 });
@@ -741,6 +786,92 @@ namespace SprmApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SprmApi.Core.Permissions.Permission", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id")
+                        .HasColumnOrder(0)
+                        .HasComment("system id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("create_date")
+                        .HasColumnOrder(2)
+                        .HasComment("Create date");
+
+                    b.Property<bool>("CreatePermitted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("create_permitted")
+                        .HasComment("允許建立");
+
+                    b.Property<string>("CreateUser")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("create_user")
+                        .HasColumnOrder(1)
+                        .HasComment("Creator");
+
+                    b.Property<bool>("DeletePermitted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("delete_permitted")
+                        .HasComment("允許刪除");
+
+                    b.Property<long>("ObjectTypeId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("object_type_id")
+                        .HasComment("物件類型id");
+
+                    b.Property<bool>("ReadPermitted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("read_permitted")
+                        .HasComment("允許讀取");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("text")
+                        .HasColumnName("remarks")
+                        .HasColumnOrder(5)
+                        .HasComment("Remarks");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_date")
+                        .HasColumnOrder(4)
+                        .HasComment("Update date");
+
+                    b.Property<bool>("UpdatePermitted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("update_permitted")
+                        .HasComment("允許修改");
+
+                    b.Property<string>("UpdateUser")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("update_user")
+                        .HasColumnOrder(3)
+                        .HasComment("Updator");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id")
+                        .HasComment("App使用者id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjectTypeId");
+
+                    b.HasIndex("UserId", "ObjectTypeId")
+                        .IsUnique();
+
+                    b.ToTable("permissions", "sprm", t =>
+                        {
+                            t.HasComment("權限");
+                        });
+                });
+
             modelBuilder.Entity("SprmApi.Core.ProcessTypes.ProcessType", b =>
                 {
                     b.Property<long>("Id")
@@ -823,53 +954,53 @@ namespace SprmApi.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3212),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9182),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "加工製程",
                             Number = "SPRM_PROCESSING",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3212),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9182),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3262),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9184),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "檢驗製程",
                             Number = "SPRM_QUALITY_CONTROL",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3262),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9184),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3264),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9185),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "組裝製程",
                             Number = "SPRM_ASSEMBLE",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3264),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9185),
                             UpdateUser = "system"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3265),
+                            CreateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9186),
                             CreateUser = "system",
                             IsSystemDefault = true,
                             Languages = new Dictionary<string, string>(),
                             Name = "運輸製程",
                             Number = "SPRM_TRANSPORT",
                             Remarks = "System default, do not modify it",
-                            UpdateDate = new DateTime(2023, 7, 6, 7, 57, 37, 360, DateTimeKind.Utc).AddTicks(3266),
+                            UpdateDate = new DateTime(2023, 7, 20, 7, 52, 51, 591, DateTimeKind.Utc).AddTicks(9186),
                             UpdateUser = "system"
                         });
                 });
@@ -1260,6 +1391,25 @@ namespace SprmApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Master");
+                });
+
+            modelBuilder.Entity("SprmApi.Core.Permissions.Permission", b =>
+                {
+                    b.HasOne("SprmApi.Core.ObjectTypes.ObjectType", "ObjectType")
+                        .WithMany()
+                        .HasForeignKey("ObjectTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SprmApi.Core.AppUsers.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ObjectType");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SprmApi.Core.Processes.Process", b =>

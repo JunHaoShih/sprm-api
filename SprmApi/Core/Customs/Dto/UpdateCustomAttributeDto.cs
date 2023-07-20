@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.Customs.Dto
@@ -26,14 +26,14 @@ namespace SprmApi.Core.Customs.Dto
         /// 自訂屬性類型
         /// </summary>
         [EnumValidation]
-        [JsonProperty(Required = Required.Always)]
+        [JsonRequired]
         public AttributeType AttributeType { get; set; }
 
         /// <summary>
         /// 自訂屬性顯示類型
         /// </summary>
         [EnumValidation]
-        [JsonProperty(Required = Required.Always)]
+        [JsonRequired]
         public DisplayType DisplayType { get; set; }
 
         /// <summary>

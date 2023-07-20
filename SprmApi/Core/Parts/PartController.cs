@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
 using SprmApi.Common.Response;
+using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Parts.Dto;
 
 namespace SprmApi.Core.Parts
@@ -33,6 +35,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> Create(CreatePartDto createPartDTO)
         {
@@ -58,6 +61,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<PartDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Read)]
         [HttpGet("Search")]
         public async Task<IActionResult> FuzzySearch([FromQuery] string? pattern, [FromQuery] OffsetPaginationInput input)
         {
@@ -77,6 +81,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Read)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
@@ -95,6 +100,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
@@ -113,6 +119,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Update)]
         [HttpPost("{id}/CheckOut")]
         public async Task<IActionResult> CheckOut(long id)
         {
@@ -131,6 +138,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Update)]
         [HttpPost("{id}/CheckIn")]
         public async Task<IActionResult> CheckIn(long id)
         {
@@ -149,6 +157,7 @@ namespace SprmApi.Core.Parts
         [ProducesResponseType(typeof(GenericResponse<PartDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.PartVersion, Crud.Delete)]
         [HttpDelete("{id}/Discard")]
         public async Task<IActionResult> Discard(long id)
         {

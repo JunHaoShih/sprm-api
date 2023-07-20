@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SprmApi.Core.Routings.Dto
 {
@@ -26,7 +27,7 @@ namespace SprmApi.Core.Routings.Dto
         public RoutingVersion ApplyUpdate(RoutingVersion version)
         {
             version.Remarks = Remarks;
-            version.CustomValues = System.Text.Json.JsonSerializer.SerializeToDocument(CustomValues);
+            version.CustomValues = JsonSerializer.SerializeToDocument(CustomValues);
             return version;
         }
     }

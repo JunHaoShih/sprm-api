@@ -280,5 +280,61 @@ namespace SprmUnitTest.Core.AppUsers
                 Assert.That(user.FullName, Is.EqualTo(dto.FullName));
             });
         }
+
+        private static readonly object[] s_userGetByIdSuccessCase =
+        {
+            new object[]
+            {
+                new List<AppUser>
+                {
+                    new AppUser
+                    {
+                        Id = 1,
+                        Username = "asdfgh",
+                        Password = "12ewrewf",
+                        FullName = "AAA",
+                    }
+                },
+               1
+            },
+        };
+
+        [TestCaseSource(nameof(s_userGetByIdSuccessCase))]
+        public async Task GetByIdSuccessAsync(List<AppUser> users, long id)
+        {
+            Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
+            mock.Setup(x => x.AppUsers).Returns(users.BuildMock().BuildMockDbSet().Object);
+            AppUserDao dao = new(mock.Object);
+            AppUser? user = await dao.GetAsync(id);
+            Assert.That(user, Is.Not.Null);
+        }
+
+        private static readonly object[] s_userGetByIdFailedCase =
+        {
+            new object[]
+            {
+                new List<AppUser>
+                {
+                    new AppUser
+                    {
+                        Id = 1,
+                        Username = "asdfgh",
+                        Password = "12ewrewf",
+                        FullName = "AAA",
+                    }
+                },
+                2
+            },
+        };
+
+        [TestCaseSource(nameof(s_userGetByIdFailedCase))]
+        public async Task GetByIdFailedAsync(List<AppUser> users, long id)
+        {
+            Mock<SprmContext> mock = new(new DbContextOptions<SprmContext>());
+            mock.Setup(x => x.AppUsers).Returns(users.BuildMock().BuildMockDbSet().Object);
+            AppUserDao dao = new(mock.Object);
+            AppUser? user = await dao.GetAsync(id);
+            Assert.That(user, Is.Null);
+        }
     }
 }

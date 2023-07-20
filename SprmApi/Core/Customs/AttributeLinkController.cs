@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Response;
 using SprmApi.Common.Validations;
 using SprmApi.Core.Customs.Dto;
@@ -35,6 +36,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<AttributeLinksDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.AttributeLink, Crud.Read)]
         [HttpGet("ByObjectType")]
         public async Task<IActionResult> GetByObjectType([Required][EnumValidation] SprmObjectType objectTypeId)
         {
@@ -53,6 +55,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<AttributeLinksDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.AttributeLink, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> Post(CreateAttributeLinksDto createDTO)
         {
@@ -71,6 +74,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.AttributeLink, Crud.Delete)]
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteAttributeLinksDto deleteDTO)
         {

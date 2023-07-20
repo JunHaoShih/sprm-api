@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Authorizations;
 using SprmApi.Common.Response;
 using SprmApi.Core.Customs.Dto;
+using SprmApi.Core.ObjectTypes;
 
 namespace SprmApi.Core.Customs
 {
@@ -31,6 +33,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<IEnumerable<CustomAttributeDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.CustomAttribute, Crud.Read)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -50,6 +53,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<CustomAttributeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.CustomAttribute, Crud.Create)]
         [HttpPost]
         public async Task<IActionResult> Create(CreateCustomAttributeDto createDTO)
         {
@@ -69,6 +73,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.CustomAttribute, Crud.Update)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, UpdateCustomAttributeDto updateDTO)
         {
@@ -87,6 +92,7 @@ namespace SprmApi.Core.Customs
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [RequirePermission(SprmObjectType.CustomAttribute, Crud.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
