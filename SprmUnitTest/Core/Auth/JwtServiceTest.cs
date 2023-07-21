@@ -46,14 +46,38 @@ namespace SprmUnitTest.Core.Auth
         };
 
         [TestCaseSource(nameof(s_jwtEncryptCase))]
-        public async Task GenerateToken(AppUser appUser, List<PermissionDto> permissions)
+        public async Task GenerateAccessToken(AppUser appUser, List<PermissionDto> permissions)
         {
             Mock<IPermissionService> mock = new(MockBehavior.Strict);
             mock.Setup(x => x.GetByUserIdAsync(appUser.Id))
                 .ReturnsAsync(permissions);
             JwtService jwtService = new(_apiSettings, mock.Object);
-            string token = await jwtService.GenerateToken(appUser);
-            JwtPayload payload = jwtService.DecryptToken(token);
+            string token = await jwtService.GenerateAccessToken(appUser);
+            JwtAccessPayload payload = jwtService.DecryptToken<JwtAccessPayload>(token);
+            Assert.That(appUser.Username, Is.EqualTo(payload.Subject));
+        }
+
+        private static readonly object[] s_jwtEncryptRefreshTokenCase =
+        {
+            new object[]
+            {
+                new AppUser
+                {
+                    Id = 1,
+                    Username = "username",
+                    Password = "password",
+                    FullName = "AAA",
+                },
+            },
+        };
+
+        [TestCaseSource(nameof(s_jwtEncryptRefreshTokenCase))]
+        public void GenerateRefreshToken(AppUser appUser)
+        {
+            Mock<IPermissionService> mock = new(MockBehavior.Strict);
+            JwtService jwtService = new(_apiSettings, mock.Object);
+            string token = jwtService.GenerateRefreshToken(appUser);
+            JwtBasePayload payload = jwtService.DecryptToken<JwtBasePayload>(token);
             Assert.That(appUser.Username, Is.EqualTo(payload.Subject));
         }
     }

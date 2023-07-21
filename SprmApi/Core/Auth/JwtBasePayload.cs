@@ -1,12 +1,11 @@
 ﻿using System.Text.Json.Serialization;
-using SprmApi.Core.Permissions.Dto;
 
 namespace SprmApi.Core.Auth
 {
     /// <summary>
-    /// JWT Payload物件
+    /// JWT base token payload
     /// </summary>
-    public class JwtPayload
+    public class JwtBasePayload
     {
         /// <summary>
         /// JWT用戶
@@ -31,15 +30,5 @@ namespace SprmApi.Core.Auth
         /// </summary>
         [JsonPropertyName("exp")]
         public long Expiration { get; set; }
-
-        /// <summary>
-        /// 是否為管理員
-        /// </summary>
-        public bool IsAdmin { get; set; }
-
-        /// <summary>
-        /// 權限
-        /// </summary>
-        public IEnumerable<PermissionDto> Permissions { get; set; } = new List<PermissionDto>();
     }
 }

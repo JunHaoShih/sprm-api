@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Http;
-using SprmApi.Common.Error;
+﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Response;
 using SprmApi.Core.Auth;
@@ -41,7 +39,7 @@ namespace SprmApi.MiddleWares
                 {
                     httpHeader.Bearer = bearerToken.Split(' ')[1];
                 }
-                JwtPayload payload = jWTService.DecryptToken(httpHeader.Bearer);
+                JwtAccessPayload payload = jWTService.DecryptToken<JwtAccessPayload>(httpHeader.Bearer);
                 httpHeader.JWTPayload = payload;
             }
             catch (SprmAuthException e)

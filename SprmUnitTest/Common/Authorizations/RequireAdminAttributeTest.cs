@@ -21,7 +21,7 @@ namespace SprmUnitTest.Common.Authorizations
                 new HeaderData
                 {
                     Bearer = string.Empty,
-                    JWTPayload = new SprmApi.Core.Auth.JwtPayload
+                    JWTPayload = new SprmApi.Core.Auth.JwtAccessPayload
                     {
                         IsAdmin = false,
                     }

@@ -1,15 +1,10 @@
 ﻿namespace SprmApi.Core.Auth.Dto
 {
     /// <summary>
-    /// Authentication success data
+    /// 更新Access token DTO
     /// </summary>
-    public class AuthenticateResponseDto
+    public class RefreshTokenDto
     {
-        /// <summary>
-        /// JWT
-        /// </summary>
-        public string Token { get; set; } = null!;
-
         /// <summary>
         /// Refresh token
         /// </summary>

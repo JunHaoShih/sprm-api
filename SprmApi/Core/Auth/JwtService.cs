@@ -36,12 +36,12 @@ namespace SprmApi.Core.Auth
         /// </summary>
         /// <param name="appUser"></param>
         /// <returns></returns>
-        public async Task<string> GenerateToken(AppUser appUser)
+        public async Task<string> GenerateAccessToken(AppUser appUser)
         {
             DateTime iat = DateTime.Now;
-            DateTime exp = iat.AddHours(4);
+            DateTime exp = iat.AddMinutes(30);
             IEnumerable<PermissionDto> permissions = await _permissionService.GetByUserIdAsync(appUser.Id);
-            var payload = new JwtPayload
+            var payload = new JwtAccessPayload
             {
                 Subject = appUser.Username,
                 Issuer = _apiSettings.JwtSettings.Issuer,
@@ -56,14 +56,35 @@ namespace SprmApi.Core.Auth
         }
 
         /// <summary>
+        /// Generate JWT for a user
+        /// </summary>
+        /// <param name="appUser"></param>
+        /// <returns></returns>
+        public string GenerateRefreshToken(AppUser appUser)
+        {
+            DateTime iat = DateTime.Now;
+            DateTime exp = iat.AddDays(1);
+            JwtBasePayload payload = new()
+            {
+                Subject = appUser.Username,
+                Issuer = _apiSettings.JwtSettings.Issuer,
+                IssuedAt = iat.GetUnixTimestamp(),
+                Expiration = exp.GetUnixTimestamp(),
+            };
+            string json = JsonSerializer.Serialize(payload);
+            string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
+            return jwtToken;
+        }
+
+        /// <summary>
         /// Decrypt token and return payload
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public JwtPayload DecryptToken(string token)
+        public T DecryptToken<T>(string token) where T: JwtBasePayload
         {
             string json = JWT.Decode(token, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
-            JwtPayload? payload = JsonSerializer.Deserialize<JwtPayload>(json);
+            T? payload = JsonSerializer.Deserialize<T>(json);
             if (payload == null)
             {
                 throw new InvalidOperationException("Token is null");
