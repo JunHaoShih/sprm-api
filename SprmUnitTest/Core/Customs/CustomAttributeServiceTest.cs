@@ -1,7 +1,6 @@
 ﻿using Moq;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.AppUsers;
 using SprmApi.Core.Customs;
 using SprmApi.Core.Customs.Dto;
 using SprmApi.MiddleWares;

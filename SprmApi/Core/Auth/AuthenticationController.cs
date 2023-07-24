@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Response;
-using SprmApi.Core.AppUsers;
 using SprmApi.Core.Auth.Dto;
 
 namespace SprmApi.Core.Auth
@@ -16,19 +14,15 @@ namespace SprmApi.Core.Auth
     [OpenApiTag("Authentication", Description = "使用者驗證")]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IAppUserService _appUserService;
-
-        private readonly JwtService _jwtService;
+        private readonly IAuthenticationService _authenticationService;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="jwtService"></param>
-        /// <param name="appUserService"></param>
-        public AuthenticationController(JwtService jwtService, IAppUserService appUserService)
+        /// <param name="authenticationService"></param>
+        public AuthenticationController(IAuthenticationService authenticationService)
         {
-            _jwtService = jwtService;
-            _appUserService = appUserService;
+            _authenticationService = authenticationService;
         }
 
         /// <summary>
@@ -42,21 +36,10 @@ namespace SprmApi.Core.Auth
         [ProducesResponseType(typeof(GenericResponse<AuthenticateResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> Authenticate(AuthenticateDto authDTO)
+        public async Task<IActionResult> Authenticate(AuthenticateRequestDto authDTO)
         {
-            AppUser? appUser = await _appUserService.GetByAuthenticateAsync(authDTO.Username, authDTO.Password);
-            if (appUser == null)
-            {
-                throw new SprmException(ErrorCode.IncorrectUsernameOrPassword, "");
-            }
-            string token = await _jwtService.GenerateAccessToken(appUser);
-            string refreshToken = _jwtService.GenerateRefreshToken(appUser);
-            AuthenticateResponseDto responseDTO = new()
-            {
-                Token = token,
-                RefreshToken = refreshToken,
-            };
-            return Ok(GenericResponse<AuthenticateResponseDto>.Success(responseDTO));
+            AuthenticateResponseDto response = await _authenticationService.Authenticate(authDTO);
+            return Ok(GenericResponse<AuthenticateResponseDto>.Success(response));
         }
 
         /// <summary>
@@ -74,19 +57,8 @@ namespace SprmApi.Core.Auth
         [HttpPost("Refresh")]
         public async Task<IActionResult> Refresh(RefreshTokenDto refreshDto)
         {
-            JwtBasePayload payload = _jwtService.DecryptToken<JwtBasePayload>(refreshDto.RefreshToken);
-            AppUser? appUser = await _appUserService.GetByUsernameAsync(payload.Subject);
-            if (appUser == null)
-            {
-                throw new SprmAuthException(ErrorCode.UserNotExist, "");
-            }
-            string token = await _jwtService.GenerateAccessToken(appUser);
-            AuthenticateResponseDto responseDTO = new()
-            {
-                Token = token,
-                RefreshToken = refreshDto.RefreshToken,
-            };
-            return Ok(GenericResponse<AuthenticateResponseDto>.Success(responseDTO));
+            AuthenticateResponseDto response = await _authenticationService.Refresh(refreshDto);
+            return Ok(GenericResponse<AuthenticateResponseDto>.Success(response));
         }
     }
 }

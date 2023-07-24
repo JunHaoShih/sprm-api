@@ -14,7 +14,7 @@ namespace SprmApi.Core.Auth
     /// <summary>
     /// 專門處理JWT的服務
     /// </summary>
-    public class JwtService
+    public class JwtService : IJwtService
     {
         private readonly ApiSettings _apiSettings;
 
@@ -31,11 +31,7 @@ namespace SprmApi.Core.Auth
             _permissionService = permissionService;
         }
 
-        /// <summary>
-        /// Generate JWT for a user
-        /// </summary>
-        /// <param name="appUser"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<string> GenerateAccessToken(AppUser appUser)
         {
             DateTime iat = DateTime.Now;
@@ -55,11 +51,7 @@ namespace SprmApi.Core.Auth
             return jwtToken;
         }
 
-        /// <summary>
-        /// Generate JWT for a user
-        /// </summary>
-        /// <param name="appUser"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public string GenerateRefreshToken(AppUser appUser)
         {
             DateTime iat = DateTime.Now;
@@ -76,11 +68,7 @@ namespace SprmApi.Core.Auth
             return jwtToken;
         }
 
-        /// <summary>
-        /// Decrypt token and return payload
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public T DecryptToken<T>(string token) where T: JwtBasePayload
         {
             string json = JWT.Decode(token, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
