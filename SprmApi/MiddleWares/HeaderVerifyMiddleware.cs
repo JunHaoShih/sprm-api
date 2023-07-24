@@ -25,7 +25,7 @@ namespace SprmApi.MiddleWares
         /// <param name="httpHeader"></param>
         /// <param name="jWTService"></param>
         /// <returns></returns>
-        public async Task InvokeAsync(HttpContext context, HeaderData httpHeader, JwtService jWTService)
+        public async Task InvokeAsync(HttpContext context, HeaderData httpHeader, IJwtService jWTService)
         {
             try
             {
