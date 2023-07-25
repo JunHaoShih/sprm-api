@@ -19,7 +19,7 @@ namespace SprmUnitTest.Core.Permissions
             _headerData = new HeaderData
             {
                 Bearer = string.Empty,
-                JWTPayload = new SprmApi.Core.Auth.JwtPayload
+                JWTPayload = new SprmApi.Core.Auth.JwtAccessPayload
                 {
                     Subject = s_requestUsername
                 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using SprmApi.Common.Exceptions;
 using SprmApi.Common.Response;
-using SprmApi.Core.AppUsers;
 using SprmApi.Core.Auth.Dto;
 
 namespace SprmApi.Core.Auth
@@ -16,16 +16,12 @@ namespace SprmApi.Core.Auth
     {
         private readonly IAuthenticationService _authenticationService;
 
-        private readonly JwtService _jwtService;
-
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="jwtService"></param>
         /// <param name="authenticationService"></param>
-        public AuthenticationController(JwtService jwtService, IAuthenticationService authenticationService)
+        public AuthenticationController(IAuthenticationService authenticationService)
         {
-            _jwtService = jwtService;
             _authenticationService = authenticationService;
         }
 
@@ -34,20 +30,35 @@ namespace SprmApi.Core.Auth
         /// </summary>
         /// <param name="authDTO"></param>
         /// <returns></returns>
+        /// <exception cref="SprmException"></exception>
         /// <response code="200">登入成功</response>
         /// <response code="500">登入失敗</response>
         [ProducesResponseType(typeof(GenericResponse<AuthenticateResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> Authenticate(AuthenticateDto authDTO)
+        public async Task<IActionResult> Authenticate(AuthenticateRequestDto authDTO)
         {
-            AppUser appUser = await _authenticationService.Authenticate(authDTO);
-            string token = await _jwtService.GenerateToken(appUser);
-            AuthenticateResponseDto responseDTO = new AuthenticateResponseDto
-            {
-                Token = token,
-            };
-            return Ok(GenericResponse<AuthenticateResponseDto>.Success(responseDTO));
+            AuthenticateResponseDto response = await _authenticationService.Authenticate(authDTO);
+            return Ok(GenericResponse<AuthenticateResponseDto>.Success(response));
+        }
+
+        /// <summary>
+        /// Refresh access token
+        /// </summary>
+        /// <param name="refreshDto"></param>
+        /// <returns></returns>
+        /// <exception cref="SprmException"></exception>
+        /// <response code="200">Refresh成功</response>
+        /// <response code="500">Refresh失敗</response>
+        /// <response code="401">驗證失敗</response>
+        [ProducesResponseType(typeof(GenericResponse<AuthenticateResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [HttpPost("Refresh")]
+        public async Task<IActionResult> Refresh(RefreshTokenDto refreshDto)
+        {
+            AuthenticateResponseDto response = await _authenticationService.Refresh(refreshDto);
+            return Ok(GenericResponse<AuthenticateResponseDto>.Success(response));
         }
     }
 }

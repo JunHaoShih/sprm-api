@@ -45,7 +45,7 @@ namespace SprmApi
             builder.RegisterType<HeaderData>().InstancePerLifetimeScope();
             builder.RegisterType<PaginationData>().InstancePerLifetimeScope();
 
-            builder.RegisterType<JwtService>();
+            builder.RegisterType<JwtService>().As<IJwtService>();
 
             // Register AppUser related
             builder.RegisterType<AppUserDao>().As<IAppUserDao>().InstancePerLifetimeScope();

@@ -1,7 +1,6 @@
 ﻿using Moq;
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
-using SprmApi.Core.AppUsers;
 using SprmApi.Core.Customs;
 using SprmApi.Core.Customs.Dto;
 using SprmApi.MiddleWares;
@@ -20,7 +19,7 @@ namespace SprmUnitTest.Core.Customs
             _headerData = new HeaderData
             {
                 Bearer = string.Empty,
-                JWTPayload = new SprmApi.Core.Auth.JwtPayload
+                JWTPayload = new SprmApi.Core.Auth.JwtAccessPayload
                 {
                     Subject = s_requestUsername
                 }
