@@ -5,6 +5,7 @@ using SprmApi.Common.Exceptions;
 using SprmApi.Core.Parts;
 using SprmApi.Core.Routings;
 using SprmApi.Core.Routings.Dto;
+using SprmApi.Core.RoutingUsages;
 using SprmApi.MiddleWares;
 
 namespace SprmUnitTest.Core.Routings
@@ -97,17 +98,21 @@ namespace SprmUnitTest.Core.Routings
                 })
                 .ReturnsAsync(newVersion);
 
+            Mock<IRoutingUsageDao> usageDaoMock = new(MockBehavior.Strict);
+
             RoutingService service = new(
                 routingDaoMock.Object,
                 routingVersionDaoMock.Object,
-                null,
+                usageDaoMock.Object,
                 partDaoMock.Object,
                 _headerData);
             RoutingDto result = await service.InsertAsync(dto);
-
-            Assert.That(result, Is.Not.Null);
-            Assert.That(inputDto, Is.Not.Null);
-            Assert.That(inputVersion, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(inputDto, Is.Not.Null);
+                Assert.That(inputVersion, Is.Not.Null);
+            });
             Assert.Multiple(() =>
             {
                 Assert.That(routingCreater, Is.Not.Null);
@@ -143,10 +148,14 @@ namespace SprmUnitTest.Core.Routings
                 .Setup(x => x.GetByIdAsync(1))
                 .ReturnsAsync(value: null);
 
+            Mock<IRoutingDao> routingDaoMock = new(MockBehavior.Strict);
+            Mock<IRoutingVersionDao> routingVersionDaoMock = new(MockBehavior.Strict);
+            Mock<IRoutingUsageDao> usageDaoMock = new(MockBehavior.Strict);
+
             RoutingService service = new(
-                null,
-                null,
-                null,
+                routingDaoMock.Object,
+                routingVersionDaoMock.Object,
+                usageDaoMock.Object,
                 partDaoMock.Object,
                 _headerData);
             SprmException? ex = Assert.ThrowsAsync<SprmException>(() => service.InsertAsync(dto));
