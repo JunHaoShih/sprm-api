@@ -2,6 +2,7 @@
 using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
+using SprmApi.Core.Parts;
 using SprmApi.Core.Routings.Dto;
 using SprmApi.Core.RoutingUsages;
 using SprmApi.Core.RoutingUsages.Dto;
@@ -21,6 +22,8 @@ namespace SprmApi.Core.Routings
 
         private readonly IRoutingUsageDao _routingUsageDAO;
 
+        private readonly IPartDao _partDAO;
+
         private readonly HeaderData _headerData;
 
         /// <summary>
@@ -29,16 +32,19 @@ namespace SprmApi.Core.Routings
         /// <param name="routingDAO"></param>
         /// <param name="routingVersionDAO"></param>
         /// <param name="routingUsageDAO"></param>
+        /// <param name="partDAO"></param>
         /// <param name="headerData"></param>
         public RoutingService(
             IRoutingDao routingDAO,
             IRoutingVersionDao routingVersionDAO,
             IRoutingUsageDao routingUsageDAO,
+            IPartDao partDAO,
             HeaderData headerData)
         {
             _routingDAO = routingDAO;
             _routingVersionDAO = routingVersionDAO;
             _routingUsageDAO = routingUsageDAO;
+            _partDAO = partDAO;
             _headerData = headerData;
         }
 
@@ -85,8 +91,13 @@ namespace SprmApi.Core.Routings
             };
             using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
             {
+                Part? targetPart = await _partDAO.GetByIdAsync(createDTO.PartId);
+                if (targetPart == null)
+                {
+                    throw new SprmException(ErrorCode.DbDataNotFound, $"Part id: ${createDTO.PartId} does not exist!");
+                }
                 Routing newRouting = await _routingDAO.InsertAsync(createDTO, _headerData.JWTPayload.Subject);
-                CreateRoutingVersionDto firstVersion = new CreateRoutingVersionDto
+                CreateRoutingVersionDto firstVersion = new()
                 {
                     MasterId = newRouting.Id,
                     Version = 1,
