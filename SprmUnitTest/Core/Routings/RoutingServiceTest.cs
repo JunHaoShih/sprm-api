@@ -1,5 +1,7 @@
 ﻿using System.Text.Json;
 using Moq;
+using SprmApi.Common.Error;
+using SprmApi.Common.Exceptions;
 using SprmApi.Core.Parts;
 using SprmApi.Core.Routings;
 using SprmApi.Core.Routings.Dto;
@@ -119,6 +121,37 @@ namespace SprmUnitTest.Core.Routings
                 Assert.That(result.Name, Is.EqualTo(dto.Name));
                 Assert.That(result.Version.Id, Is.EqualTo(newVersion.Id));
             });
+        }
+
+        private static readonly object[] s_routingInsertFailedPartNotExistCase =
+        {
+            new object[]
+            {
+                new CreateRoutingDto
+                {
+                    PartId = 1,
+                    Name = "1",
+                },
+            }
+        };
+
+        [TestCaseSource(nameof(s_routingInsertFailedPartNotExistCase))]
+        public void InsertPartNotExist(CreateRoutingDto dto)
+        {
+            Mock<IPartDao> partDaoMock = new(MockBehavior.Strict);
+            partDaoMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(value: null);
+
+            RoutingService service = new(
+                null,
+                null,
+                null,
+                partDaoMock.Object,
+                _headerData);
+            SprmException? ex = Assert.ThrowsAsync<SprmException>(() => service.InsertAsync(dto));
+            Assert.That(ex, Is.Not.Null);
+            Assert.That(ex.Code, Is.EqualTo(ErrorCode.DbDataNotFound));
         }
     }
 }
