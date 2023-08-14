@@ -8,7 +8,7 @@ namespace SprmApi.Core.Permissions.Dto
     /// <summary>
     /// 權限DTO
     /// </summary>
-    public class PermissionDto : BaseReturnDto
+    public class PermissionDto
     {
         /// <summary>
         /// 物件類型
@@ -56,7 +56,6 @@ namespace SprmApi.Core.Permissions.Dto
                 UpdatePermitted = entity.UpdatePermitted,
                 DeletePermitted = entity.DeletePermitted
             };
-            dto.Populate(entity);
             return dto;
         }
     }

@@ -61,7 +61,7 @@ namespace SprmUnitTest.Core.Permissions
             Assert.Multiple(() =>
             {
                 Assert.That(targetPermissions, Is.Not.Empty);
-                Assert.That(targetPermissions.Select(p => p.Id), Is.EquivalentTo(permissions.Select(p => p.Id)));
+                Assert.That(targetPermissions.Select(p => (long)p.ObjectType), Is.EquivalentTo(permissions.Select(p => p.Id)));
             });
         }
 
@@ -114,7 +114,7 @@ namespace SprmUnitTest.Core.Permissions
             Assert.Multiple(() =>
             {
                 Assert.That(targetPermissions, Is.Not.Empty);
-                Assert.That(targetPermissions.Select(p => p.Id), Is.EquivalentTo(permissions.Select(p => p.Id)));
+                Assert.That(targetPermissions.Select(p => (long)p.ObjectType), Is.EquivalentTo(permissions.Select(p => p.Id)));
             });
         }
 
