@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprmUnitTest", "SprmUnitTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprmAuthentication", "SprmAuthentication\SprmAuthentication.csproj", "{41C2C194-52F3-4348-A2D9-8D26DABEAFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{42EB7836-E502-4898-BF06-3B78620B72EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprmCommon", "SprmCommon\SprmCommon.csproj", "{42EB7836-E502-4898-BF06-3B78620B72EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
