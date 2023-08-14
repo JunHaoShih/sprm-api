@@ -1,5 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using SprmCommon.Error;
+using SprmCommon.Response;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Serilog;
@@ -7,6 +10,7 @@ using Serilog.Sinks.Elasticsearch;
 using SprmAuthentication;
 using SprmAuthentication.EFs;
 using SprmAuthentication.Settings;
+using System.Text;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,7 +48,31 @@ try
         })
         .ConfigureApiBehaviorOptions(options =>
         {
-            // TODO ¦Û­qModel Binding ¿ù»~°T®§
+            //¦Û­qModel Binding ¿ù»~°T®§
+            options.InvalidModelStateResponseFactory = context =>
+            {
+                var errors = context.ModelState.Keys
+                    .SelectMany(key => context.ModelState[key]!.Errors
+                    .Select(x =>
+                    {
+                        if (string.IsNullOrEmpty(x.ErrorMessage))
+                            return x.Exception?.Message;
+                        else
+                            return x.ErrorMessage;
+                    }))
+                    .ToList();
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine(error!.ToString());
+                }
+                return new BadRequestObjectResult(new GenericResponse<string>
+                {
+                    Code = ErrorCode.ModelBindingError,
+                    Message = ErrorCode.ModelBindingError.GetMessage(),
+                    Content = stringBuilder.ToString(),
+                });
+            };
         });
 
     // NLog: Setup Serilog for Dependency injection
@@ -63,6 +91,14 @@ try
     );
 
     var app = builder.Build();
+
+    // Entity Framework migrate on startup
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<AuthenticationContext>();
+        context.Database.Migrate();
+    }
 
     // Configure the HTTP request pipeline.
 
