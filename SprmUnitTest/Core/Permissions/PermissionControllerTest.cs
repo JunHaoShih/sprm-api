@@ -34,7 +34,6 @@ namespace SprmUnitTest.Core.Permissions
                 {
                     new PermissionDto
                     {
-                        Id = 1,
                         ObjectType = SprmObjectType.PartVersion,
                         CreatePermitted = true,
                         ReadPermitted = true,
@@ -43,7 +42,6 @@ namespace SprmUnitTest.Core.Permissions
                     },
                     new PermissionDto
                     {
-                        Id = 2,
                         ObjectType = SprmObjectType.PartUsage,
                         CreatePermitted = true,
                         ReadPermitted = true,
