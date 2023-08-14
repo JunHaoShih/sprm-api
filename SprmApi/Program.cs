@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using NSwag;
 using Serilog;
+using Serilog.Sinks.Elasticsearch;
 using SprmApi;
 using SprmApi.Common.Error;
 using SprmApi.Common.Response;
@@ -23,7 +24,18 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 builder.Configuration.AddJsonFile($"appsettings.{env}.json", optional: true);
 builder.Configuration.AddEnvironmentVariables();
 
+string formattedEnv = string.IsNullOrWhiteSpace(env)
+    ? "production"
+    : env.ToLower().Replace(".", "-");
+
 Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .Enrich.WithMachineName()
+    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration["ElasticConfiguration:Uri"]))
+    {
+        AutoRegisterTemplate = true,
+        IndexFormat = $"sprm-api-{formattedEnv}-{DateTime.UtcNow:yyyy-MM}"
+    })
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 Log.Debug("init main");
