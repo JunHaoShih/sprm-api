@@ -107,21 +107,36 @@ namespace SprmUnitTest.Core.Routings
                 partDaoMock.Object,
                 _headerData);
             RoutingDto result = await service.InsertAsync(dto);
+
+            Assert.That(inputDto, Is.Not.Null);
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.Not.Null);
-                Assert.That(inputDto, Is.Not.Null);
-                Assert.That(inputVersion, Is.Not.Null);
+                Assert.That(inputDto.PartId, Is.EqualTo(dto.PartId));
+                Assert.That(inputDto.Name, Is.EqualTo(dto.Name));
             });
+
+            Assert.That(inputVersion, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(inputVersion.MasterId, Is.EqualTo(newVersion.MasterId));
+                Assert.That(inputVersion.IsLatest, Is.False);
+                Assert.That(inputVersion.IsDraft, Is.True);
+            });
+
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Id, Is.EqualTo(newRouting.Id));
+                Assert.That(result.Name, Is.EqualTo(dto.Name));
+                Assert.That(result.Version.Id, Is.EqualTo(newVersion.Id));
+            });
+
             Assert.Multiple(() =>
             {
                 Assert.That(routingCreater, Is.Not.Null);
                 Assert.That(routingVersionCreater, Is.Not.Null);
                 Assert.That(routingCreater, Is.EqualTo(_headerData.JWTPayload.Subject));
                 Assert.That(routingVersionCreater, Is.EqualTo(_headerData.JWTPayload.Subject));
-                Assert.That(inputDto.PartId, Is.EqualTo(dto.PartId));
-                Assert.That(inputDto.Name, Is.EqualTo(dto.Name));
-                Assert.That(inputVersion.MasterId, Is.EqualTo(newVersion.MasterId));
                 Assert.That(result.Id, Is.EqualTo(newRouting.Id));
                 Assert.That(result.Name, Is.EqualTo(dto.Name));
                 Assert.That(result.Version.Id, Is.EqualTo(newVersion.Id));
