@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
+using SprmCommon.MiddleWares;
 
-namespace SprmApi.MiddleWares
+namespace SprmAuthentication.MiddleWares
 {
     /// <summary>
-    /// 
+    /// Middleware used to handle pagination
     /// </summary>
     public class PaginationMiddleWare
     {
@@ -44,7 +45,7 @@ namespace SprmApi.MiddleWares
     /// <summary>
     /// 將UseHeaderVerify extend 到 IApplicationBuilder
     /// </summary>
-    public static class PaginationMiddlewareExtensions
+    public static class PaginationMiddleWareExtensions
     {
         /// <summary>
         /// 使用驗證Header資料的middleware

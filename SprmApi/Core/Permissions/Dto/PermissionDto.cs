@@ -1,5 +1,4 @@
-﻿using SprmApi.Common.Dto;
-using SprmApi.Common.Error;
+﻿using SprmApi.Common.Error;
 using SprmApi.Common.Exceptions;
 using SprmApi.Core.ObjectTypes;
 

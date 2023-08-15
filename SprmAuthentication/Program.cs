@@ -12,6 +12,9 @@ using SprmAuthentication.EFs;
 using SprmAuthentication.Settings;
 using System.Text;
 using System.Text.Json;
+using SprmAuthentication.MiddleWares;
+using NSwag;
+using SprmAuthentication.Core.AppUsers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,6 +87,29 @@ try
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
     builder.Host.ConfigureContainer<ContainerBuilder>(cb => cb.RegisterModule(new ServiceModule(builder.Configuration)));
 
+    // NSwag
+    builder.Services.AddEndpointsApiExplorer();
+
+    builder.Services.AddOpenApiDocument(settings =>
+    {
+        settings.Title = "SPRM authentication service";
+        settings.Version = "1.0.0";
+        settings.Description = "Service for handling user authentication and permissions";
+        settings.AddSecurity("Bearer Token", Enumerable.Empty<string>(),
+            new OpenApiSecurityScheme()
+            {
+                Type = OpenApiSecuritySchemeType.Http,
+                In = OpenApiSecurityApiKeyLocation.Header,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                Description = "Put your inner JWT token here"
+            }
+        );
+    });
+
+    // Add hosted service
+    builder.Services.AddHostedService<EnsureAdminHostedService>();
+
     var apiSettings = builder.Configuration.GetSection("ApiSettings").Get<ApiSettings>(c => c.BindNonPublicProperties = true)!;
     // Set Entity Framework
     builder.Services.AddDbContext<AuthenticationContext>(opt =>
@@ -100,7 +126,28 @@ try
         context.Database.Migrate();
     }
 
+    // Add swagger
+    app.UseOpenApi(p => p.Path = "/swagger/{documentName}/swagger.yaml");
+    app.UseSwaggerUi3(p => p.DocumentPath = "/swagger/{documentName}/swagger.yaml");
+    app.UseReDoc();
+
     // Configure the HTTP request pipeline.
+
+    app.UseHttpsRedirection();
+
+    app.UseRouting();
+    app.UseExceptionHandler("/api/Error");
+    app.UseWhen(
+        httpContext => (
+            !httpContext.Request.Path.StartsWithSegments("/api/Authentication") &&
+            !httpContext.Request.Path.StartsWithSegments("/api/Error")
+        ),
+        subApp =>
+        {
+            subApp.UseTokenVerify();
+            subApp.UsePagination();
+        }
+    );
 
     app.UseAuthorization();
 

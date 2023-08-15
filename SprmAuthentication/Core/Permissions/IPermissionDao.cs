@@ -1,4 +1,4 @@
-﻿namespace SprmApi.Core.Permissions
+﻿namespace SprmAuthentication.Core.Permissions
 {
     /// <summary>
     /// User permission DAO interface

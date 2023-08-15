@@ -10,7 +10,7 @@ namespace SprmAuthentication.Core.AppUsers
     /// <summary>
     /// App使用者
     /// </summary>
-    [Table("app_users", Schema = "sprm")]
+    [Table("app_users", Schema = "sprm-auth")]
     [Comment("App使用者")]
     public class AppUser : SprmObject, IDisposable
     {

@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using SprmAuthentication.Core.AppUsers;
+using SprmAuthentication.Core.Permissions;
 
 namespace SprmAuthentication.EFs
 {
@@ -19,6 +20,10 @@ namespace SprmAuthentication.EFs
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Permission>()
+                .HasIndex(c => new { c.UserId, c.ObjectTypeId })
+                .IsUnique();
+
             modelBuilder.Entity<AppUser>()
                 .Property(user => user.CustomValues)
                 .HasDefaultValue(JsonSerializer.SerializeToDocument(new Dictionary<string, string>()));
@@ -28,5 +33,10 @@ namespace SprmAuthentication.EFs
         /// AppUser
         /// </summary>
         public virtual DbSet<AppUser> AppUsers => Set<AppUser>();
+
+        /// <summary>
+        /// 權限
+        /// </summary>
+        public virtual DbSet<Permission> Permissions => Set<Permission>();
     }
 }
