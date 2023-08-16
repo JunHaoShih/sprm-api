@@ -26,16 +26,6 @@
         public string DefaultPassword { get; private set; } = null!;
 
         /// <summary>
-        /// JWT settings
-        /// </summary>
-        public JwtSettings JwtSettings { get; private set; } = null!;
-
-        /// <summary>
-        /// AMQP settings
-        /// </summary>
-        public AmqpSettings AmqpSettings { get; private set; } = null!;
-
-        /// <summary>
         /// Default constructor
         /// </summary>
         public ApiSettings() { }
@@ -47,22 +37,17 @@
         /// <param name="signKey"></param>
         /// <param name="defaultAdmin"></param>
         /// <param name="defaultPassword"></param>
-        /// <param name="jwtSettings"></param>
-        /// <param name="amqpSettings"></param>
         public ApiSettings(
             string connectionString,
             string signKey,
             string defaultAdmin,
-            string defaultPassword,
-            JwtSettings jwtSettings,
-            AmqpSettings amqpSettings
+            string defaultPassword
         )
         {
             ConnectionString = connectionString;
             SignKey = signKey;
             DefaultAdmin = defaultAdmin;
             DefaultPassword = defaultPassword;
-            JwtSettings = jwtSettings;
         }
     }
 }

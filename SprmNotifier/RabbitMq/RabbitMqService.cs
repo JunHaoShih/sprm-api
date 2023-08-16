@@ -1,7 +1,7 @@
 ﻿using RabbitMQ.Client;
-using SprmApi.Settings;
+using SprmNotifier.Settings;
 
-namespace SprmApi.Core.RabbitMq
+namespace SprmNotifier.RabbitMq
 {
     /// <summary>
     /// RabbitMq service

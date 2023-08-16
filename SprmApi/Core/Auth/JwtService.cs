@@ -16,18 +16,18 @@ namespace SprmApi.Core.Auth
     /// </summary>
     public class JwtService : IJwtService
     {
-        private readonly ApiSettings _apiSettings;
+        private readonly Settings.JwtSettings _settings;
 
         private readonly IPermissionService _permissionService;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="apiSettings"></param>
+        /// <param name="settings"></param>
         /// <param name="permissionService"></param>
-        public JwtService(ApiSettings apiSettings, IPermissionService permissionService)
+        public JwtService(Settings.JwtSettings settings, IPermissionService permissionService)
         {
-            _apiSettings = apiSettings;
+            _settings = settings;
             _permissionService = permissionService;
         }
 
@@ -40,14 +40,14 @@ namespace SprmApi.Core.Auth
             var payload = new JwtAccessPayload
             {
                 Subject = appUser.Username,
-                Issuer = _apiSettings.JwtSettings.Issuer,
+                Issuer = _settings.Issuer,
                 IssuedAt = iat.GetUnixTimestamp(),
                 Expiration = exp.GetUnixTimestamp(),
                 IsAdmin = appUser.IsAdmin,
                 Permissions = permissions,
             };
             string json = JsonSerializer.Serialize(payload);
-            string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
+            string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_settings.SignKey), JwsAlgorithm.HS256);
             return jwtToken;
         }
 
@@ -59,19 +59,19 @@ namespace SprmApi.Core.Auth
             JwtBasePayload payload = new()
             {
                 Subject = appUser.Username,
-                Issuer = _apiSettings.JwtSettings.Issuer,
+                Issuer = _settings.Issuer,
                 IssuedAt = iat.GetUnixTimestamp(),
                 Expiration = exp.GetUnixTimestamp(),
             };
             string json = JsonSerializer.Serialize(payload);
-            string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
+            string jwtToken = JWT.Encode(json, Encoding.UTF8.GetBytes(_settings.SignKey), JwsAlgorithm.HS256);
             return jwtToken;
         }
 
         /// <inheritdoc/>
         public T DecryptToken<T>(string token) where T : JwtBasePayload
         {
-            string json = JWT.Decode(token, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
+            string json = JWT.Decode(token, Encoding.UTF8.GetBytes(_settings.SignKey), JwsAlgorithm.HS256);
             T? payload = JsonSerializer.Deserialize<T>(json);
             if (payload == null)
             {

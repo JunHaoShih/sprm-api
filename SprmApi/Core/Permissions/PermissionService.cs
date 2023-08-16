@@ -37,13 +37,13 @@ namespace SprmApi.Core.Permissions
             IPermissionDao permissionDao,
             IAppUserDao appUserDao,
             IRabbitMqService mqService,
-            ApiSettings apiSettings
+            AmqpSettings apiSettings
         )
         {
             _permissionDao = permissionDao;
             _appUserDao = appUserDao;
             _rabbitMqService = mqService;
-            _amqpSettings = apiSettings.AmqpSettings;
+            _amqpSettings = apiSettings;
         }
 
         /// <inheritdoc/>

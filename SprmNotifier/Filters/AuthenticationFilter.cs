@@ -1,6 +1,5 @@
 ﻿using Jose;
 using Microsoft.AspNetCore.SignalR;
-using SprmNotifier.Settings;
 using System.Text;
 using System.Text.Json;
 
@@ -8,9 +7,9 @@ namespace SprmNotifier.Filters
 {
     public class AuthenticationFilter : IHubFilter
     {
-        private readonly ServiceSettings _settings;
+        private readonly Settings.JwtSettings _settings;
 
-        public AuthenticationFilter(ServiceSettings settings)
+        public AuthenticationFilter(Settings.JwtSettings settings)
         {
             _settings = settings;
         }
@@ -33,7 +32,7 @@ namespace SprmNotifier.Filters
             try
             {
                 string token = bearer.Split(' ')[1];
-                JwtBasePayload payload = DecryptToken<JwtBasePayload>(token, _settings.JwtSettings.SignKey);
+                JwtBasePayload payload = DecryptToken<JwtBasePayload>(token, _settings.SignKey);
                 httpCtx.Request.Headers["Subject"] = payload.Subject;
             }
             catch (Exception ex)

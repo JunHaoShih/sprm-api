@@ -42,6 +42,12 @@ namespace SprmApi
             // Load settings file to object
             var apiSettings = _configurationManager.GetSection("ApiSettings").Get<ApiSettings>(c => c.BindNonPublicProperties = true);
             builder.Register(c => apiSettings).SingleInstance();
+            
+            var amqpSettings = _configurationManager.GetSection("AmqpSettings").Get<AmqpSettings>(c => c.BindNonPublicProperties = true)!;
+            builder.Register(c => amqpSettings).SingleInstance();
+
+            var jwtSettings = _configurationManager.GetSection("JwtSettings").Get<JwtSettings>(c => c.BindNonPublicProperties = true)!;
+            builder.Register(c => jwtSettings).SingleInstance();
 
             builder.RegisterType<HeaderData>().InstancePerLifetimeScope();
             builder.RegisterType<PaginationData>().InstancePerLifetimeScope();
