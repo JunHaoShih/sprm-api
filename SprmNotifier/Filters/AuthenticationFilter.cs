@@ -1,9 +1,8 @@
-﻿using System.Text.Json;
-using System.Text;
+﻿using Jose;
 using Microsoft.AspNetCore.SignalR;
-using Jose;
 using SprmNotifier.Settings;
-using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
 
 namespace SprmNotifier.Filters
 {
@@ -36,7 +35,8 @@ namespace SprmNotifier.Filters
                 string token = bearer.Split(' ')[1];
                 JwtBasePayload payload = DecryptToken<JwtBasePayload>(token, _settings.JwtSettings.SignKey);
                 httpCtx.Request.Headers["Subject"] = payload.Subject;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 context.Hub.Clients.Client(context.Context.ConnectionId).SendAsync("Error", "So buggy~~~").Wait();
                 context.Context.Abort();

@@ -1,10 +1,10 @@
-using Serilog.Sinks.Elasticsearch;
-using Serilog;
-using Microsoft.AspNetCore.SignalR;
-using SprmNotifier.Filters;
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.SignalR;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 using SprmNotifier;
+using SprmNotifier.Filters;
 using SprmNotifier.Notifiers;
 
 var builder = WebApplication.CreateBuilder(args);
