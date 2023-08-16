@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmCommon.Response;
 using SprmApi.Core.Permissions.Dto;
 using SprmApi.MiddleWares;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.Permissions
 {

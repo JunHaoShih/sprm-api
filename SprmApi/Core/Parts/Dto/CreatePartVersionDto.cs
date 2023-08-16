@@ -66,7 +66,7 @@ namespace SprmApi.Core.Parts.Dto
                 MasterId = version.MasterId,
                 Version = version.Version,
                 IsLatest = version.IsLatest,
-                IsDraft= version.IsDraft,
+                IsDraft = version.IsDraft,
                 Remarks = version.Remarks,
                 CustomValues = JsonSerializer.Deserialize<Dictionary<string, string>>(version.CustomValues)!,
             };

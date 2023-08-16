@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using SprmApi.Common.Validations;
+﻿using SprmApi.Common.Validations;
+using System.Text.Json.Serialization;
 
 namespace SprmApi.Core.Customs.Dto
 {

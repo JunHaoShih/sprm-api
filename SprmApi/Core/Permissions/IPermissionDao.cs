@@ -1,6 +1,4 @@
-﻿using SprmApi.Core.Permissions.Dto;
-
-namespace SprmApi.Core.Permissions
+﻿namespace SprmApi.Core.Permissions
 {
     /// <summary>
     /// User permission DAO interface

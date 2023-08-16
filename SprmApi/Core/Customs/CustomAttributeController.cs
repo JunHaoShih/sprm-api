@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmCommon.Response;
 using SprmApi.Core.Customs.Dto;
 using SprmApi.Core.ObjectTypes;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.Customs
 {
@@ -78,7 +78,7 @@ namespace SprmApi.Core.Customs
         public async Task<IActionResult> Put(long id, UpdateCustomAttributeDto updateDTO)
         {
             await _customAttributeService.UpdateAsync(id, updateDTO);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace SprmApi.Core.Customs
         public async Task<IActionResult> Delete(long id)
         {
             await _customAttributeService.DeleteAsync(id);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
     }
 }

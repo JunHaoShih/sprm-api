@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmCommon.Response;
 using SprmApi.Core.MakeTypes.Dto;
 using SprmApi.Core.ObjectTypes;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.MakeTypes
 {

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 using System.Text.Json;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 

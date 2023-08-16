@@ -2,10 +2,10 @@
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
-using SprmCommon.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Processes.Dto;
 using SprmApi.MiddleWares;
+using SprmCommon.Response;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -99,7 +99,7 @@ namespace SprmApi.Core.Processes
         public async Task<IActionResult> Delete(long id)
         {
             await _processService.DeleteAsync(id);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace SprmApi.Core.Processes
         public async Task<IActionResult> Put(long id, UpdateProcessDto updateDTO)
         {
             await _processService.UpdateAsync(id, updateDTO);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
 
         /// <summary>

@@ -1,11 +1,11 @@
 ﻿using Jose;
-using SprmCommon.Error;
-using SprmCommon.Exceptions;
-using SprmCommon.Extensions;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.Permissions;
 using SprmApi.Core.Permissions.Dto;
 using SprmApi.Settings;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
+using SprmCommon.Extensions;
 using System.Text;
 using System.Text.Json;
 
@@ -69,7 +69,7 @@ namespace SprmApi.Core.Auth
         }
 
         /// <inheritdoc/>
-        public T DecryptToken<T>(string token) where T: JwtBasePayload
+        public T DecryptToken<T>(string token) where T : JwtBasePayload
         {
             string json = JWT.Decode(token, Encoding.UTF8.GetBytes(_apiSettings.JwtSettings.SignKey), JwsAlgorithm.HS256);
             T? payload = JsonSerializer.Deserialize<T>(json);

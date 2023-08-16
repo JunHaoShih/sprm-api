@@ -1,7 +1,7 @@
-﻿using SprmCommon.Error;
+﻿using SprmApi.Core.Auth;
+using SprmCommon.Error;
 using SprmCommon.Exceptions;
 using SprmCommon.Response;
-using SprmApi.Core.Auth;
 
 namespace SprmApi.MiddleWares
 {

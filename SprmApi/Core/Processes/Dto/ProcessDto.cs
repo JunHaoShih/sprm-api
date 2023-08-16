@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-using SprmApi.Common.Dto;
+﻿using SprmApi.Common.Dto;
 using SprmApi.Core.MakeTypes.Dto;
 using SprmApi.Core.ProcessTypes.Dto;
+using System.Text.Json;
 
 namespace SprmApi.Core.Processes.Dto
 {

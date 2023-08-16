@@ -1,6 +1,6 @@
-﻿using System.Text.Json;
+﻿using SprmApi.Common.Validations;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using SprmApi.Common.Validations;
 
 namespace SprmApi.Core.Parts.Dto
 {

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using SprmApi.Core.ObjectTypes;
+﻿using SprmApi.Core.ObjectTypes;
+using System.ComponentModel.DataAnnotations;
 
 namespace SprmApi.Common.Validations
 {

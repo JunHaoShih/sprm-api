@@ -28,7 +28,8 @@ namespace SprmApi.Common.Paginations
         /// <returns></returns>
         public async Task<List<T>> GetPagedListAsync()
         {
-            if (_input.Page < 1) {
+            if (_input.Page < 1)
+            {
                 _input.Page = 1;
             }
             return await _items.Skip((_input.Page - 1) * _input.PerPage).Take(_input.PerPage).ToListAsync();

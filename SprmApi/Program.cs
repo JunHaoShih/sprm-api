@@ -7,12 +7,12 @@ using NSwag;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using SprmApi;
-using SprmCommon.Error;
-using SprmCommon.Response;
 using SprmApi.Core.Auth;
 using SprmApi.EFs;
 using SprmApi.MiddleWares;
 using SprmApi.Settings;
+using SprmCommon.Error;
+using SprmCommon.Response;
 using System.Text;
 using System.Text.Json;
 

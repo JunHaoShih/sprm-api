@@ -1,8 +1,8 @@
-﻿using SprmCommon.Exceptions;
-using SprmApi.Common.Paginations;
+﻿using SprmApi.Common.Paginations;
 using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
 using SprmCommon.Error;
+using SprmCommon.Exceptions;
 
 namespace SprmApi.Core.Routings
 {

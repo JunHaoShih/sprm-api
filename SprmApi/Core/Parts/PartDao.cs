@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using SprmCommon.Error;
-using SprmCommon.Exceptions;
 using SprmApi.Core.Parts.Dto;
 using SprmApi.EFs;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 
 namespace SprmApi.Core.Parts
 {
