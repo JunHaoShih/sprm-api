@@ -2,7 +2,7 @@
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
-using SprmApi.Common.Response;
+using SprmCommon.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Processes.Dto;
 using SprmApi.MiddleWares;

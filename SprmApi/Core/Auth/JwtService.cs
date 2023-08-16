@@ -1,7 +1,7 @@
 ﻿using Jose;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
-using SprmApi.Common.Extensions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
+using SprmCommon.Extensions;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.Permissions;
 using SprmApi.Core.Permissions.Dto;

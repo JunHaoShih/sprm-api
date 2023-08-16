@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmApi.Common.Response;
+using SprmCommon.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.ProcessTypes.Dto;
 

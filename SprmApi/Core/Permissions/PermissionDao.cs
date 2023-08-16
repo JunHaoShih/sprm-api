@@ -1,5 +1,5 @@
-﻿using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+﻿using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.EFs;
 
 namespace SprmApi.Core.Permissions

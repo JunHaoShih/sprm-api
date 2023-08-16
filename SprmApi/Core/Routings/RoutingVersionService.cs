@@ -1,7 +1,8 @@
-﻿using SprmApi.Common.Exceptions;
+﻿using SprmCommon.Exceptions;
 using SprmApi.Common.Paginations;
 using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
+using SprmCommon.Error;
 
 namespace SprmApi.Core.Routings
 {
@@ -50,7 +51,7 @@ namespace SprmApi.Core.Routings
             Routing? targetRouting = await _routingDAO.GetByIdAsync(masterId);
             if (targetRouting == null)
             {
-                throw new SprmException(Common.Error.ErrorCode.DbDataNotFound, $@"Routing id: {masterId} not found!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $@"Routing id: {masterId} not found!");
             }
             IQueryable<RoutingVersion> versions = _routingVersionDAO.GetByMasterId(masterId);
             var dtos = versions.Select(version => RoutingVersionDto.Parse(version));
@@ -64,7 +65,7 @@ namespace SprmApi.Core.Routings
             RoutingVersion? targetVersion = await _routingVersionDAO.GetAsync(id);
             if (targetVersion == null)
             {
-                throw new SprmException(Common.Error.ErrorCode.DbDataNotFound, $@"Routing version id: {id} not found!");
+                throw new SprmException(ErrorCode.DbDataNotFound, $@"Routing version id: {id} not found!");
             }
             RoutingVersion updatedVersion = update.ApplyUpdate(targetVersion);
             await _routingVersionDAO.UpdateAsync(updatedVersion, _headerData.JWTPayload.Subject);

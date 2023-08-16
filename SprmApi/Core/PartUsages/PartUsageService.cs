@@ -1,6 +1,6 @@
 ﻿using System.Transactions;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Core.Parts;
 using SprmApi.Core.PartUsages.Dto;
 using SprmApi.MiddleWares;

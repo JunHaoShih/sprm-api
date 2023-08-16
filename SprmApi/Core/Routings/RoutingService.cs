@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Common.Paginations;
 using SprmApi.Core.Parts;
 using SprmApi.Core.Routings.Dto;

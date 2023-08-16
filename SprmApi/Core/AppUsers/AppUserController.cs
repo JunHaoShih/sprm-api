@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Common.Paginations;
-using SprmApi.Common.Response;
+using SprmCommon.Response;
 using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
 

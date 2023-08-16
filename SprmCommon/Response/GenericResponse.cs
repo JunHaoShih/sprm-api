@@ -1,13 +1,25 @@
-﻿using SprmApi.Common.Error;
+﻿using SprmCommon.Error;
+using System;
+using System.Linq;
 
-namespace SprmApi.Common.Response
+namespace SprmCommon.Response
 {
     /// <summary>
     /// Generic response type
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class GenericResponse<T> : ResponseBase
+    public class GenericResponse<T>
     {
+        /// <summary>
+        /// Error code
+        /// </summary>
+        public ErrorCode Code { get; set; }
+
+        /// <summary>
+        /// Error message
+        /// </summary>
+        public string Message { get; set; } = null!;
+
         /// <summary>
         /// Return content
         /// </summary>

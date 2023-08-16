@@ -1,7 +1,9 @@
-﻿using System.Runtime.Serialization;
-using SprmApi.Common.Error;
+﻿using SprmCommon.Error;
+using System;
+using System.Linq;
+using System.Runtime.Serialization;
 
-namespace SprmApi.Common.Exceptions
+namespace SprmCommon.Exceptions
 {
     /// <summary>
     /// Custom generic exception
@@ -17,7 +19,7 @@ namespace SprmApi.Common.Exceptions
         /// <summary>
         /// Error content
         /// </summary>
-        public string Content { get; set; } = "";
+        public string Content { get; set; } = string.Empty;
 
         /// <summary>
         /// Basic exception constructor, don't use this

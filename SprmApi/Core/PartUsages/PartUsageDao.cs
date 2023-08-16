@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Core.PartUsages.Dto;
 using SprmApi.EFs;
 using System.Text.Json;

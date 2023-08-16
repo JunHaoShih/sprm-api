@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
-using SprmApi.Common.Error;
+using SprmCommon.Error;
 
-namespace SprmApi.Common.Exceptions
+namespace SprmCommon.Exceptions
 {
     /// <summary>
     /// Authentication exception

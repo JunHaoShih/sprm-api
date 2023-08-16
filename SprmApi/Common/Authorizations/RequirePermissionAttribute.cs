@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SprmApi.Common.Error;
-using SprmApi.Common.Response;
+using SprmCommon.Error;
+using SprmCommon.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Permissions.Dto;
 using SprmApi.MiddleWares;
