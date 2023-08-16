@@ -109,7 +109,7 @@ namespace SprmApi.Core.Permissions
                 autoDelete: false
             );
 
-            MqPayload<long> payload = new MqPayload<long>
+            MqPayload<long> payload = new()
             {
                 NotifyLevel = level,
                 NotifyType = notifyType,
