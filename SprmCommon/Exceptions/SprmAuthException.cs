@@ -1,5 +1,5 @@
-﻿using System.Runtime.Serialization;
-using SprmCommon.Error;
+﻿using SprmCommon.Error;
+using System.Runtime.Serialization;
 
 namespace SprmCommon.Exceptions
 {
