@@ -1,8 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.Permissions.Dto;
+using SprmApi.Core.RabbitMq;
+using SprmApi.Settings;
+using SprmCommon.Amqp;
 using SprmCommon.Error;
 using SprmCommon.Exceptions;
+using System.Text;
+using System.Text.Json;
 using System.Transactions;
 
 namespace SprmApi.Core.Permissions
@@ -16,15 +22,28 @@ namespace SprmApi.Core.Permissions
 
         private readonly IAppUserDao _appUserDao;
 
+        private readonly IRabbitMqService _rabbitMqService;
+
+        private readonly AmqpSettings _amqpSettings;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="permissionDao"></param>
         /// <param name="appUserDao"></param>
-        public PermissionService(IPermissionDao permissionDao, IAppUserDao appUserDao)
+        /// <param name="mqService"></param>
+        /// <param name="apiSettings"></param>
+        public PermissionService(
+            IPermissionDao permissionDao,
+            IAppUserDao appUserDao,
+            IRabbitMqService mqService,
+            ApiSettings apiSettings
+        )
         {
             _permissionDao = permissionDao;
             _appUserDao = appUserDao;
+            _rabbitMqService = mqService;
+            _amqpSettings = apiSettings.AmqpSettings;
         }
 
         /// <inheritdoc/>
@@ -75,6 +94,40 @@ namespace SprmApi.Core.Permissions
 
                 scope.Complete();
             }
+
+            SendNotify(userId, NotifyType.PermissionChanged, NotifyLevel.WarningNotify);
+        }
+
+        private void SendNotify(long userId, NotifyType notifyType, NotifyLevel level)
+        {
+            IModel channel = _rabbitMqService.CreateChannel();
+
+            channel.QueueDeclare(
+                queue: _amqpSettings.NotifyQueueName,
+                durable: true,
+                exclusive: false,
+                autoDelete: false
+            );
+
+            MqPayload<long> payload = new MqPayload<long>
+            {
+                NotifyLevel = level,
+                NotifyType = notifyType,
+                Content = userId
+            };
+
+            string json = JsonSerializer.Serialize(payload);
+
+            byte[] body = Encoding.UTF8.GetBytes(json);
+
+            channel.BasicPublish(
+                exchange: string.Empty,
+                routingKey: _amqpSettings.NotifyQueueName,
+                basicProperties: null,
+                body: body
+            );
+
+            channel.Close();
         }
 
         private async Task ValidateUser(long userId)

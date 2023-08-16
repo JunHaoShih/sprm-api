@@ -9,6 +9,7 @@ using SprmApi.Core.PartUsages;
 using SprmApi.Core.Permissions;
 using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
+using SprmApi.Core.RabbitMq;
 using SprmApi.Core.Routings;
 using SprmApi.Core.RoutingUsages;
 using SprmApi.MiddleWares;
@@ -100,6 +101,9 @@ namespace SprmApi
             // Permission
             builder.RegisterType<PermissionDao>().As<IPermissionDao>();
             builder.RegisterType<PermissionService>().As<IPermissionService>();
+
+            // RabbitMq
+            builder.RegisterType<RabbitMqService>().As<IRabbitMqService>().SingleInstance();
         }
     }
 }
