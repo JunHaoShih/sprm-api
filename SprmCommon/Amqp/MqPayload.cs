@@ -6,12 +6,24 @@
     /// <typeparam name="T"></typeparam>
     public class MqPayload<T>
     {
+        /// <summary>
+        /// Determine how severe your notify should be
+        /// </summary>
         public NotifyLevel NotifyLevel { get; set; }
 
+        /// <summary>
+        /// Your notification type
+        /// </summary>
         public NotifyType NotifyType { get; set; }
 
         /// <summary>
-        /// Payload content
+        /// Groups you want to notify
+        /// </summary>
+        /// <remarks>Username is also a group, which only contains that user</remarks>
+        public List<string> TargetGroups { get; set; } = new();
+
+        /// <summary>
+        /// Payload content. Contains any message you want to pass
         /// </summary>
         public T? Content { get; set; }
     }

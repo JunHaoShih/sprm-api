@@ -71,7 +71,7 @@ namespace SprmApi.Core.Permissions
         /// <inheritdoc/>
         public async Task SaveAsync(IEnumerable<SavePermissionDto> permissionDtos, long userId, string requestUser)
         {
-            await ValidateUser(userId);
+            AppUser targetUser = await ValidateUser(userId);
             TransactionOptions transactionOptions = new TransactionOptions()
             {
                 IsolationLevel = IsolationLevel.ReadCommitted,
@@ -95,10 +95,10 @@ namespace SprmApi.Core.Permissions
                 scope.Complete();
             }
 
-            SendNotify(userId, NotifyType.PermissionChanged, NotifyLevel.WarningNotify);
+            SendNotify(targetUser.Username, NotifyType.PermissionChanged, NotifyLevel.WarningNotify);
         }
 
-        private void SendNotify(long userId, NotifyType notifyType, NotifyLevel level)
+        private void SendNotify(string targetUsername, NotifyType notifyType, NotifyLevel level)
         {
             IModel channel = _rabbitMqService.CreateChannel();
 
@@ -109,12 +109,13 @@ namespace SprmApi.Core.Permissions
                 autoDelete: false
             );
 
-            MqPayload<long> payload = new()
+            MqPayload<string> payload = new()
             {
                 NotifyLevel = level,
                 NotifyType = notifyType,
-                Content = userId
+                Content = string.Empty
             };
+            payload.TargetGroups.Add(targetUsername);
 
             string json = JsonSerializer.Serialize(payload);
 
@@ -130,13 +131,14 @@ namespace SprmApi.Core.Permissions
             channel.Close();
         }
 
-        private async Task ValidateUser(long userId)
+        private async Task<AppUser> ValidateUser(long userId)
         {
-            AppUser? creator = await _appUserDao.GetAsync(userId);
-            if (creator == null)
+            AppUser? user = await _appUserDao.GetAsync(userId);
+            if (user == null)
             {
                 throw new SprmException(ErrorCode.UserNotExist, $"User id {userId} does not exist");
             }
+            return user;
         }
     }
 }
