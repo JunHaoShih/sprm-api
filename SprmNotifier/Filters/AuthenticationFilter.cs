@@ -19,25 +19,27 @@ namespace SprmNotifier.Filters
             HttpContext? httpCtx = context.Context.GetHttpContext();
             if (httpCtx == null)
             {
+                context.Hub.Clients.Client(context.Context.ConnectionId).SendAsync("error", "No context!").Wait();
                 context.Context.Abort();
                 return Task.CompletedTask;
             }
 
-            string? bearer = httpCtx.Request.Headers["Authorization"];
-            if (string.IsNullOrWhiteSpace(bearer))
+            string? accessToken = httpCtx.Request.Query["access_token"];
+
+            if (string.IsNullOrWhiteSpace(accessToken))
             {
+                context.Hub.Clients.Client(context.Context.ConnectionId).SendAsync("error", "No token!").Wait();
                 context.Context.Abort();
                 return Task.CompletedTask;
             }
             try
             {
-                string token = bearer.Split(' ')[1];
-                JwtBasePayload payload = DecryptToken<JwtBasePayload>(token, _settings.SignKey);
+                JwtBasePayload payload = DecryptToken<JwtBasePayload>(accessToken, _settings.SignKey);
                 httpCtx.Request.Headers["Subject"] = payload.Subject;
             }
             catch (Exception ex)
             {
-                context.Hub.Clients.Client(context.Context.ConnectionId).SendAsync("Error", "So buggy~~~").Wait();
+                context.Hub.Clients.Client(context.Context.ConnectionId).SendAsync("error", "So buggy~~~").Wait();
                 context.Context.Abort();
                 return Task.CompletedTask;
             }
