@@ -25,7 +25,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration["ElasticConfiguration:Uri"]))
     {
         AutoRegisterTemplate = true,
-        IndexFormat = $"sprm-api-{formattedEnv}-{DateTime.UtcNow:yyyy-MM}"
+        IndexFormat = $"sprm-notifier-{formattedEnv}-{DateTime.UtcNow:yyyy-MM}"
     })
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
