@@ -62,6 +62,9 @@ try
         );
     });
 
+    // Add hosted service
+    builder.Services.AddHostedService<NotifyReceiver>();
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
