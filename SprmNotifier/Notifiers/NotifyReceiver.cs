@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.SignalR;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using SprmCommon.Amqp;
@@ -14,33 +15,44 @@ namespace SprmNotifier.Notifiers
 
         private readonly IRabbitMqService _mqService;
 
+        private IHubContext<NotifierHub> _hubContext;
+
         private readonly AmqpSettings _settings;
+
+        private readonly IModel _channel;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="rabbitMqService"></param>
+        /// <param name="hubContext"></param>
         /// <param name="settings"></param>
-        public NotifyReceiver(ILogger<NotifyReceiver> logger, IRabbitMqService rabbitMqService, AmqpSettings settings)
+        public NotifyReceiver(
+            ILogger<NotifyReceiver> logger,
+            IRabbitMqService rabbitMqService,
+            IHubContext<NotifierHub> hubContext,
+            AmqpSettings settings
+        )
         {
             _logger = logger;
             _mqService = rabbitMqService;
+            _hubContext = hubContext;
             _settings = settings;
+            _channel = _mqService.CreateChannel();
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            IModel channel = _mqService.CreateChannel();
 
-            channel.QueueDeclare(
+            _channel.QueueDeclare(
                 queue: _settings.NotifyQueueName,
                 durable: true,
                 exclusive: false,
                 autoDelete: false
             );
 
-            EventingBasicConsumer consumer = new(channel);
+            EventingBasicConsumer consumer = new(_channel);
 
             consumer.Received += (sender, ea) =>
             {
@@ -52,7 +64,7 @@ namespace SprmNotifier.Notifiers
                 {
                     _logger.LogError("Amqp payload is null!");
                     // TODO handle exception
-                    channel.BasicNack(
+                    _channel.BasicNack(
                         deliveryTag: ea.DeliveryTag,
                         multiple: false,
                         requeue: true
@@ -60,17 +72,26 @@ namespace SprmNotifier.Notifiers
                     return;
                 }
 
-                // TODO use SignalR to send message
-                channel.BasicAck(
+                payload.TargetGroups.ForEach(group =>
+                {
+                    _hubContext.Clients.Group(group).SendAsync("notify", payload);
+                });
+                _logger.LogInformation("Signalr send complete!");
+                _channel.BasicAck(
                     deliveryTag: ea.DeliveryTag,
                     multiple: false
                 );
             };
 
-            channel.BasicConsume(_settings.NotifyQueueName, false, consumer);
+            _channel.BasicConsume(_settings.NotifyQueueName, false, consumer);
 
             return Task.CompletedTask;
         }
-        public Task StopAsync(CancellationToken cancellationToken) => throw new NotImplementedException();
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _channel.Close();
+
+            return Task.CompletedTask;
+        }
     }
 }
