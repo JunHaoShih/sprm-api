@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MockQueryable.Moq;
 using Moq;
-using SprmApi.Common.Response;
+using SprmCommon.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.ObjectTypes.Dto;
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Core.Customs;
 using SprmApi.Core.Customs.Dto;
 using SprmApi.EFs;

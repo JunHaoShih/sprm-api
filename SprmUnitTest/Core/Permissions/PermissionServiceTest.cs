@@ -1,7 +1,7 @@
 ﻿using MockQueryable.Moq;
 using Moq;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Permissions;
