@@ -13,9 +13,7 @@ namespace SprmNotifier.Notifiers
     {
         private readonly ILogger _logger;
 
-        private readonly IRabbitMqService _mqService;
-
-        private IHubContext<NotifierHub> _hubContext;
+        private readonly IHubContext<NotifierHub> _hubContext;
 
         private readonly AmqpSettings _settings;
 
@@ -36,10 +34,9 @@ namespace SprmNotifier.Notifiers
         )
         {
             _logger = logger;
-            _mqService = rabbitMqService;
             _hubContext = hubContext;
             _settings = settings;
-            _channel = _mqService.CreateChannel();
+            _channel = rabbitMqService.CreateChannel();
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -63,7 +60,6 @@ namespace SprmNotifier.Notifiers
                 if (payload == null)
                 {
                     _logger.LogError("Amqp payload is null!");
-                    // TODO handle exception
                     _channel.BasicNack(
                         deliveryTag: ea.DeliveryTag,
                         multiple: false,

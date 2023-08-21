@@ -8,8 +8,6 @@ namespace SprmApi.Core.RabbitMq
     /// </summary>
     public class RabbitMqService : IRabbitMqService
     {
-        private readonly AmqpSettings _settings;
-
         private readonly IConnection _connection;
 
         /// <summary>
@@ -18,12 +16,11 @@ namespace SprmApi.Core.RabbitMq
         /// <param name="settings"></param>
         public RabbitMqService(AmqpSettings settings)
         {
-            _settings = settings;
             var factory = new ConnectionFactory
             {
-                HostName = _settings.Host,
-                UserName = _settings.Account,
-                Password = _settings.Password,
+                HostName = settings.Host,
+                UserName = settings.Account,
+                Password = settings.Password,
             };
             _connection = factory.CreateConnection();
         }

@@ -1,5 +1,6 @@
 ﻿using Jose;
 using Microsoft.AspNetCore.SignalR;
+using SprmCommon.Extensions;
 using System.Text;
 using System.Text.Json;
 
@@ -54,11 +55,11 @@ namespace SprmNotifier.Filters
             {
                 throw new InvalidOperationException("Token is null");
             }
-            /* long nowUnixTimestamp = DateTime.Now.GetUnixTimestamp();
+            long nowUnixTimestamp = DateTime.Now.GetUnixTimestamp();
             if (payload.Expiration < nowUnixTimestamp)
             {
                 throw new InvalidOperationException("Token expired!");
-            } */
+            }
             return payload;
         }
     }
