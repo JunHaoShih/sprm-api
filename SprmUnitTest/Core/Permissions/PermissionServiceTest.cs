@@ -6,14 +6,23 @@ using SprmApi.Core.AppUsers;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Permissions;
 using SprmApi.Core.Permissions.Dto;
+using SprmApi.Settings;
+using SprmApi.Core.RabbitMq;
+using RabbitMQ.Client;
 
 namespace SprmUnitTest.Core.Permissions
 {
     internal class PermissionServiceTest
     {
+        private AmqpSettings _amqpSettings;
+
         [SetUp]
         public void Setup()
         {
+            _amqpSettings = new AmqpSettings
+            {
+                NotifyQueueName = "test"
+            };
         }
 
         private static readonly object[] s_permissionsCase =
@@ -56,7 +65,8 @@ namespace SprmUnitTest.Core.Permissions
                 .Returns(permissions.BuildMock().AsQueryable());
             userDaoMock.Setup(dao => dao.GetAsync(userId))
                 .ReturnsAsync(new AppUser { Id = userId });
-            PermissionService service = new(daoMock.Object, userDaoMock.Object);
+            Mock<IRabbitMqService> mqServiceMock = new(MockBehavior.Strict);
+            PermissionService service = new(daoMock.Object, userDaoMock.Object, mqServiceMock.Object, _amqpSettings);
             IEnumerable<PermissionDto> targetPermissions = await service.GetByUserIdAsync(userId);
             Assert.Multiple(() =>
             {
@@ -109,7 +119,8 @@ namespace SprmUnitTest.Core.Permissions
                 .Returns(permissions.BuildMock().AsQueryable());
             userDaoMock.Setup(dao => dao.GetByUsernameAsync(user.Username))
                 .ReturnsAsync(new AppUser { Id = user.Id, Username = user.Username });
-            PermissionService service = new(daoMock.Object, userDaoMock.Object);
+            Mock<IRabbitMqService> mqServiceMock = new(MockBehavior.Strict);
+            PermissionService service = new(daoMock.Object, userDaoMock.Object, mqServiceMock.Object, _amqpSettings);
             IEnumerable<PermissionDto> targetPermissions = await service.GetByUserNameAsync(user.Username);
             Assert.Multiple(() =>
             {
@@ -126,7 +137,8 @@ namespace SprmUnitTest.Core.Permissions
             Mock<IAppUserDao> userDaoMock = new(MockBehavior.Strict);
             userDaoMock.Setup(dao => dao.GetByUsernameAsync(nonExistUsername))
                 .ReturnsAsync(value: null);
-            PermissionService service = new(daoMock.Object, userDaoMock.Object);
+            Mock<IRabbitMqService> mqServiceMock = new(MockBehavior.Strict);
+            PermissionService service = new(daoMock.Object, userDaoMock.Object, mqServiceMock.Object, _amqpSettings);
             SprmException? ex = Assert.ThrowsAsync<SprmException>(() => service.GetByUserNameAsync(nonExistUsername));
             Assert.That(ex, Is.Not.Null);
             Assert.That(ex.Code, Is.EqualTo(ErrorCode.UserNotExist));
@@ -182,6 +194,7 @@ namespace SprmUnitTest.Core.Permissions
                 .Returns(permissions.BuildMock().AsQueryable());
             userDaoMock.Setup(dao => dao.GetAsync(userId))
                 .ReturnsAsync(new AppUser { Id = userId });
+
             int insertCount = 0;
             int updateCount = 0;
             List<Permission> savePermissions = new();
@@ -194,6 +207,7 @@ namespace SprmUnitTest.Core.Permissions
                     requesters.Add(userName);
                 })
                 .ReturnsAsync(new Permission());
+
             daoMock.Setup(dao => dao.UpdateAsync(It.IsAny<Permission>(), It.IsAny<string>()))
                 .Callback<Permission, string>((p, userName) =>
                 {
@@ -202,7 +216,15 @@ namespace SprmUnitTest.Core.Permissions
                     requesters.Add(userName);
                 })
                 .Returns(Task.CompletedTask);
-            PermissionService service = new(daoMock.Object, userDaoMock.Object);
+
+            Mock<IModel> channelMock = new(MockBehavior.Loose);
+
+            Mock<IRabbitMqService> mqServiceMock = new(MockBehavior.Strict);
+            mqServiceMock
+                .Setup(service => service.CreateChannel())
+                .Returns(channelMock.Object);
+
+            PermissionService service = new(daoMock.Object, userDaoMock.Object, mqServiceMock.Object, _amqpSettings);
             await service.SaveAsync(dtos, userId, requester);
             Assert.Multiple(() =>
             {
