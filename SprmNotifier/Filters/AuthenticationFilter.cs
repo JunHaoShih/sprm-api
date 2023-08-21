@@ -39,7 +39,7 @@ namespace SprmNotifier.Filters
             }
             catch (Exception ex)
             {
-                context.Hub.Clients.Client(context.Context.ConnectionId).SendAsync("error", "So buggy~~~").Wait();
+                context.Hub.Clients.Client(context.Context.ConnectionId).SendAsync("error", ex.Message).Wait();
                 context.Context.Abort();
                 return Task.CompletedTask;
             }
