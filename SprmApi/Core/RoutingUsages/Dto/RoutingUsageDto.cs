@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-using SprmApi.Common.Dto;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+﻿using SprmApi.Common.Dto;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
+using System.Text.Json;
 
 namespace SprmApi.Core.RoutingUsages.Dto
 {

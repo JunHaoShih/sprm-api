@@ -10,14 +10,12 @@ namespace SprmUnitTest.Core.Auth
 {
     internal class JwtServiceTest
     {
-        private static readonly string s_signedKey = "123";
-
-        private ApiSettings _apiSettings;
+        private JwtSettings _jwtSettings;
 
         [SetUp]
         public void Setup()
         {
-            _apiSettings = new ApiSettings("", s_signedKey, "admin", "password", new JwtSettings("TestIssuer", ""));
+            _jwtSettings = new JwtSettings("TestIssuer", "");
         }
 
         private static readonly object[] s_jwtEncryptCase =
@@ -51,7 +49,7 @@ namespace SprmUnitTest.Core.Auth
             Mock<IPermissionService> mock = new(MockBehavior.Strict);
             mock.Setup(x => x.GetByUserIdAsync(appUser.Id))
                 .ReturnsAsync(permissions);
-            JwtService jwtService = new(_apiSettings, mock.Object);
+            JwtService jwtService = new(_jwtSettings, mock.Object);
             string token = await jwtService.GenerateAccessToken(appUser);
             JwtAccessPayload payload = jwtService.DecryptToken<JwtAccessPayload>(token);
             Assert.That(appUser.Username, Is.EqualTo(payload.Subject));
@@ -75,7 +73,7 @@ namespace SprmUnitTest.Core.Auth
         public void GenerateRefreshToken(AppUser appUser)
         {
             Mock<IPermissionService> mock = new(MockBehavior.Strict);
-            JwtService jwtService = new(_apiSettings, mock.Object);
+            JwtService jwtService = new(_jwtSettings, mock.Object);
             string token = jwtService.GenerateRefreshToken(appUser);
             JwtBasePayload payload = jwtService.DecryptToken<JwtBasePayload>(token);
             Assert.That(appUser.Username, Is.EqualTo(payload.Subject));

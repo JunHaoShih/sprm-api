@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmApi.Common.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.RoutingUsages.Dto;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.RoutingUsages
 {
@@ -80,7 +80,7 @@ namespace SprmApi.Core.RoutingUsages
         public async Task<IActionResult> Delete(long id)
         {
             await _routingUsageService.DeleteAsync(id);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace SprmApi.Core.RoutingUsages
         public async Task<IActionResult> UpdateById(long id, UpdateRoutingUsageDto dto)
         {
             await _routingUsageService.UpdateById(id, dto);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
     }
 }

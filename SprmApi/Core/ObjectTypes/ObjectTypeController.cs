@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmApi.Common.Response;
 using SprmApi.Core.ObjectTypes.Dto;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.ObjectTypes
 {

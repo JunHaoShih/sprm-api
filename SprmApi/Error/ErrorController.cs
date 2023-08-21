@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
-using SprmApi.Common.Response;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
+using SprmCommon.Response;
 
 namespace SprmApi.Error
 {

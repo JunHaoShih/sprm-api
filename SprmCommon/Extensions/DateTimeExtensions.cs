@@ -1,4 +1,4 @@
-﻿namespace SprmApi.Common.Extensions
+﻿namespace SprmCommon.Extensions
 {
     /// <summary>
     /// DateTime extension for better quality of life

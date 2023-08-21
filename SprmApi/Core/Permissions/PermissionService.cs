@@ -1,8 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using RabbitMQ.Client;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.Permissions.Dto;
+using SprmApi.Core.RabbitMq;
+using SprmApi.Settings;
+using SprmCommon.Amqp;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
+using System.Text;
+using System.Text.Json;
 using System.Transactions;
 
 namespace SprmApi.Core.Permissions
@@ -16,15 +22,28 @@ namespace SprmApi.Core.Permissions
 
         private readonly IAppUserDao _appUserDao;
 
+        private readonly IRabbitMqService _rabbitMqService;
+
+        private readonly AmqpSettings _amqpSettings;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="permissionDao"></param>
         /// <param name="appUserDao"></param>
-        public PermissionService(IPermissionDao permissionDao, IAppUserDao appUserDao)
+        /// <param name="mqService"></param>
+        /// <param name="apiSettings"></param>
+        public PermissionService(
+            IPermissionDao permissionDao,
+            IAppUserDao appUserDao,
+            IRabbitMqService mqService,
+            AmqpSettings apiSettings
+        )
         {
             _permissionDao = permissionDao;
             _appUserDao = appUserDao;
+            _rabbitMqService = mqService;
+            _amqpSettings = apiSettings;
         }
 
         /// <inheritdoc/>
@@ -52,7 +71,7 @@ namespace SprmApi.Core.Permissions
         /// <inheritdoc/>
         public async Task SaveAsync(IEnumerable<SavePermissionDto> permissionDtos, long userId, string requestUser)
         {
-            await ValidateUser(userId);
+            AppUser targetUser = await ValidateUser(userId);
             TransactionOptions transactionOptions = new TransactionOptions()
             {
                 IsolationLevel = IsolationLevel.ReadCommitted,
@@ -75,15 +94,51 @@ namespace SprmApi.Core.Permissions
 
                 scope.Complete();
             }
+
+            SendNotify(targetUser.Username, NotifyType.PermissionChanged, NotifyLevel.WarningNotify);
         }
 
-        private async Task ValidateUser(long userId)
+        private void SendNotify(string targetUsername, NotifyType notifyType, NotifyLevel level)
         {
-            AppUser? creator = await _appUserDao.GetAsync(userId);
-            if (creator == null)
+            IModel channel = _rabbitMqService.CreateChannel();
+
+            channel.QueueDeclare(
+                queue: _amqpSettings.NotifyQueueName,
+                durable: true,
+                exclusive: false,
+                autoDelete: false
+            );
+
+            MqPayload<string> payload = new()
+            {
+                NotifyLevel = level,
+                NotifyType = notifyType,
+                Content = string.Empty
+            };
+            payload.TargetGroups.Add(targetUsername);
+
+            string json = JsonSerializer.Serialize(payload);
+
+            byte[] body = Encoding.UTF8.GetBytes(json);
+
+            channel.BasicPublish(
+                exchange: string.Empty,
+                routingKey: _amqpSettings.NotifyQueueName,
+                basicProperties: null,
+                body: body
+            );
+
+            channel.Close();
+        }
+
+        private async Task<AppUser> ValidateUser(long userId)
+        {
+            AppUser? user = await _appUserDao.GetAsync(userId);
+            if (user == null)
             {
                 throw new SprmException(ErrorCode.UserNotExist, $"User id {userId} does not exist");
             }
+            return user;
         }
     }
 }

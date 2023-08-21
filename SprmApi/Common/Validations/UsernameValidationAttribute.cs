@@ -43,8 +43,6 @@ namespace SprmApi.Common.Validations
                     return new ValidationResult(ErrorMessage ?? $"{validator.Message}");
                 }
             }
-            
-
             return ValidationResult.Success;
         }
     }

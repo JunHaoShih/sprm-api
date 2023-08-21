@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MockQueryable.Moq;
 using Moq;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
 using SprmApi.Common.Paginations;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.AppUsers.Dto;
 using SprmApi.MiddleWares;
-using SprmApi.Settings;
-using System;
-using System.Linq;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using System.Text.Json;
 
 namespace SprmUnitTest.Core.AppUsers

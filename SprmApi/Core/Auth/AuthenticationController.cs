@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using SprmApi.Common.Exceptions;
-using SprmApi.Common.Response;
 using SprmApi.Core.Auth.Dto;
+using SprmCommon.Exceptions;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.Auth
 {

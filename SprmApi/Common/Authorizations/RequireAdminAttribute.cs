@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SprmApi.Common.Error;
-using SprmApi.Common.Response;
 using SprmApi.MiddleWares;
+using SprmCommon.Error;
+using SprmCommon.Response;
 
 namespace SprmApi.Common.Authorizations
 {

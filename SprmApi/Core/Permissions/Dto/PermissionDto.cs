@@ -1,7 +1,6 @@
-﻿using SprmApi.Common.Dto;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
-using SprmApi.Core.ObjectTypes;
+﻿using SprmApi.Core.ObjectTypes;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 
 namespace SprmApi.Core.Permissions.Dto
 {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
 using SprmApi.Core.Routings.Dto;
 using SprmApi.EFs;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 
 namespace SprmApi.Core.Routings
 {

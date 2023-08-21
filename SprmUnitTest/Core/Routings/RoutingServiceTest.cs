@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Moq;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Core.Parts;
 using SprmApi.Core.Routings;
 using SprmApi.Core.Routings.Dto;

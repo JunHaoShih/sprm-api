@@ -1,7 +1,7 @@
-﻿using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
-using SprmApi.Core.AppUsers;
+﻿using SprmApi.Core.AppUsers;
 using SprmApi.Core.Auth.Dto;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 
 namespace SprmApi.Core.Auth
 {
@@ -31,7 +31,7 @@ namespace SprmApi.Core.Auth
             AppUser? appUser = await _appUserService.GetByAuthenticateAsync(authDto.Username, authDto.Password);
             if (appUser == null)
             {
-                throw new SprmException(ErrorCode.IncorrectUsernameOrPassword, "");
+                throw new SprmException(ErrorCode.IncorrectUsernameOrPassword, string.Empty);
             }
             string token = await _jwtService.GenerateAccessToken(appUser);
             string refreshToken = _jwtService.GenerateRefreshToken(appUser);
@@ -49,7 +49,7 @@ namespace SprmApi.Core.Auth
             AppUser? appUser = await _appUserService.GetByUsernameAsync(payload.Subject);
             if (appUser == null)
             {
-                throw new SprmAuthException(ErrorCode.UserNotExist, "");
+                throw new SprmAuthException(ErrorCode.UserNotExist, string.Empty);
             }
             string token = await _jwtService.GenerateAccessToken(appUser);
             return new()

@@ -1,10 +1,10 @@
-﻿using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
-using SprmApi.Common.Paginations;
+﻿using SprmApi.Common.Paginations;
 using SprmApi.Core.Parts.Dto;
 using SprmApi.Core.PartUsages;
 using SprmApi.Core.PartUsages.Dto;
 using SprmApi.MiddleWares;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using System.Transactions;
 
 namespace SprmApi.Core.Parts

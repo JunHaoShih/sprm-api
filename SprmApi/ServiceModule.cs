@@ -9,6 +9,7 @@ using SprmApi.Core.PartUsages;
 using SprmApi.Core.Permissions;
 using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
+using SprmApi.Core.RabbitMq;
 using SprmApi.Core.Routings;
 using SprmApi.Core.RoutingUsages;
 using SprmApi.MiddleWares;
@@ -41,6 +42,12 @@ namespace SprmApi
             // Load settings file to object
             var apiSettings = _configurationManager.GetSection("ApiSettings").Get<ApiSettings>(c => c.BindNonPublicProperties = true);
             builder.Register(c => apiSettings).SingleInstance();
+            
+            var amqpSettings = _configurationManager.GetSection("AmqpSettings").Get<AmqpSettings>(c => c.BindNonPublicProperties = true)!;
+            builder.Register(c => amqpSettings).SingleInstance();
+
+            var jwtSettings = _configurationManager.GetSection("JwtSettings").Get<JwtSettings>(c => c.BindNonPublicProperties = true)!;
+            builder.Register(c => jwtSettings).SingleInstance();
 
             builder.RegisterType<HeaderData>().InstancePerLifetimeScope();
             builder.RegisterType<PaginationData>().InstancePerLifetimeScope();
@@ -100,6 +107,9 @@ namespace SprmApi
             // Permission
             builder.RegisterType<PermissionDao>().As<IPermissionDao>();
             builder.RegisterType<PermissionService>().As<IPermissionService>();
+
+            // RabbitMq
+            builder.RegisterType<RabbitMqService>().As<IRabbitMqService>().SingleInstance();
         }
     }
 }

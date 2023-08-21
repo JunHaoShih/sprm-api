@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-using SprmApi.Common.Dto;
+﻿using SprmApi.Common.Dto;
+using System.Text.Json;
 
 namespace SprmApi.Core.Routings.Dto
 {

@@ -2,10 +2,10 @@
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
-using SprmApi.Common.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Routings.Dto;
 using SprmApi.MiddleWares;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.Routings
 {
@@ -90,7 +90,7 @@ namespace SprmApi.Core.Routings
         public async Task<IActionResult> Put(long id, UpdateRoutingVersionDto updateDto)
         {
             await _routingVersionService.UpdateAsync(id, updateDto);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
     }
 }

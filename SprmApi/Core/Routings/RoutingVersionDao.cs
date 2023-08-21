@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SprmApi.Core.Parts;
 using SprmApi.EFs;
 
 namespace SprmApi.Core.Routings

@@ -1,8 +1,8 @@
-﻿using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
-using SprmApi.Common.Paginations;
+﻿using SprmApi.Common.Paginations;
 using SprmApi.Core.Parts.Dto;
 using SprmApi.MiddleWares;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using System;
 
 namespace SprmApi.Core.Parts

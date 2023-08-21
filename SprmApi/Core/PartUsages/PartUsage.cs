@@ -58,7 +58,8 @@ namespace SprmApi.Core.PartUsages
         public Part? Child { get; set; }
 
         /// <inheritdoc/>
-        public void Dispose() {
+        public void Dispose()
+        {
             Dispose(true);
             GC.SuppressFinalize(this);
         }

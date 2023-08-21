@@ -1,7 +1,7 @@
-﻿using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
-using SprmApi.Core.Customs.Dto;
+﻿using SprmApi.Core.Customs.Dto;
 using SprmApi.MiddleWares;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 
 namespace SprmApi.Core.Customs
 {
@@ -40,7 +40,8 @@ namespace SprmApi.Core.Customs
         public async Task UpdateAsync(long id, UpdateCustomAttributeDto attribute)
         {
             var targetAttribute = await _attributeDAO.GetByIdAsync(id);
-            if (targetAttribute == null) {
+            if (targetAttribute == null)
+            {
                 throw new SprmException(ErrorCode.DbDataNotFound, $"Custom attribute id: {id} does not exist!");
             }
             targetAttribute = attribute.ApplyUpdate(targetAttribute);

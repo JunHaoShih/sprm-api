@@ -2,9 +2,9 @@
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
 using SprmApi.Common.Paginations;
-using SprmApi.Common.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Parts.Dto;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.Parts
 {
@@ -60,7 +60,7 @@ namespace SprmApi.Core.Parts
         public async Task<IActionResult> Put(long id, UpdatePartVersionDto versionDTO)
         {
             await _partVersionService.UpdateAsync(id, versionDTO);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
 
         /// <summary>

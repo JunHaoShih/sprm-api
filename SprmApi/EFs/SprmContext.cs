@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.Customs;
 using SprmApi.Core.MakeTypes;
@@ -11,6 +10,7 @@ using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
 using SprmApi.Core.Routings;
 using SprmApi.Core.RoutingUsages;
+using System.Text.Json;
 
 namespace SprmApi.EFs
 {
@@ -80,7 +80,7 @@ namespace SprmApi.EFs
 
             modelBuilder.Entity<Permission>()
                 .HasIndex(c => new { c.UserId, c.ObjectTypeId })
-                .IsUnique ();
+                .IsUnique();
 
             // Set constraints
 

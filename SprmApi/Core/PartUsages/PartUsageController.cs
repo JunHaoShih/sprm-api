@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmApi.Common.Response;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.PartUsages.Dto;
+using SprmCommon.Response;
 
 namespace SprmApi.Core.PartUsages
 {
@@ -102,7 +102,7 @@ namespace SprmApi.Core.PartUsages
         public async Task<IActionResult> DeleteById(long id)
         {
             await _partUsageService.DeleteById(id);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
         /// <summary>
         /// 更新使用關係
@@ -121,7 +121,7 @@ namespace SprmApi.Core.PartUsages
         public async Task<IActionResult> UpdateById(long id, UpdatePartUsageDto updateDto)
         {
             await _partUsageService.UpdateById(id, updateDto);
-            return Ok(GenericResponse<string>.Success(""));
+            return Ok(GenericResponse<string>.Success(string.Empty));
         }
     }
 }

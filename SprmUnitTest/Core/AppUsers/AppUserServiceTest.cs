@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using MockQueryable.Moq;
 using Moq;
-using SprmApi.Common.Error;
-using SprmApi.Common.Exceptions;
+using SprmCommon.Error;
+using SprmCommon.Exceptions;
 using SprmApi.Common.Paginations;
 using SprmApi.Core.AppUsers;
 using SprmApi.Core.AppUsers.Dto;
@@ -31,7 +31,7 @@ namespace SprmUnitTest.Core.AppUsers
                     Subject = s_requestUsername
                 }
             };
-            _apiSettings = new ApiSettings("", s_signedKey, "admin", "password", new JwtSettings("TestIssuer", ""));
+            _apiSettings = new ApiSettings("", s_signedKey, "admin", "password");
         }
 
         private static readonly object[] s_createUserCase =

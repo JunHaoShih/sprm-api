@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using SprmApi.Common.Authorizations;
-using SprmApi.Common.Response;
 using SprmApi.Common.Validations;
 using SprmApi.Core.Customs.Dto;
 using SprmApi.Core.ObjectTypes;
+using SprmCommon.Response;
+using System.ComponentModel.DataAnnotations;
 
 namespace SprmApi.Core.Customs
 {

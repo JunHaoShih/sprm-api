@@ -14,7 +14,7 @@ namespace SprmApi.Core.ObjectTypes
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public ObjectTypeDao( SprmContext context )
+        public ObjectTypeDao(SprmContext context)
         {
             _context = context;
         }
