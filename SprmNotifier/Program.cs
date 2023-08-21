@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SignalR;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
+using SprmCommon;
 using SprmNotifier;
 using SprmNotifier.Filters;
 using SprmNotifier.Notifiers;
@@ -98,11 +99,4 @@ finally
 {
     // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
     Log.CloseAndFlush();
-}
-
-internal class ServiceInformation
-{
-    public string Name { get; set; } = null!;
-
-    public string Version { get; set; } = null!;
 }
