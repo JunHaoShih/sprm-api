@@ -8,7 +8,7 @@
         /// <summary>
         /// Encrypted key
         /// </summary>
-        public string SignKey { get; private set; } = null!;
+        public string SignKey { get; init; } = null!;
 
         /// <summary>
         /// Default constructor

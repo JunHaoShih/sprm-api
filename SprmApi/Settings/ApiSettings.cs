@@ -8,22 +8,22 @@
         /// <summary>
         /// Database connection string
         /// </summary>
-        public string ConnectionString { get; private set; } = null!;
+        public string ConnectionString { get; init; } = null!;
 
         /// <summary>
         /// Password sign key
         /// </summary>
-        public string SignKey { get; private set; } = null!;
+        public string SignKey { get; init; } = null!;
 
         /// <summary>
         /// 預設Admin
         /// </summary>
-        public string DefaultAdmin { get; private set; } = null!;
+        public string DefaultAdmin { get; init; } = null!;
 
         /// <summary>
         /// 預設Admin password
         /// </summary>
-        public string DefaultPassword { get; private set; } = null!;
+        public string DefaultPassword { get; init; } = null!;
 
         /// <summary>
         /// Default constructor

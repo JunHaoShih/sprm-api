@@ -8,12 +8,12 @@
         /// <summary>
         /// Issuer
         /// </summary>
-        public string Issuer { get; private set; } = null!;
+        public string Issuer { get; init; } = null!;
 
         /// <summary>
         /// Encrypted key
         /// </summary>
-        public string SignKey { get; private set; } = null!;
+        public string SignKey { get; init; } = null!;
 
         /// <summary>
         /// Default constructor
