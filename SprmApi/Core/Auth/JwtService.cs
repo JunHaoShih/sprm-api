@@ -75,7 +75,7 @@ namespace SprmApi.Core.Auth
             T? payload = JsonSerializer.Deserialize<T>(json);
             if (payload == null)
             {
-                throw new InvalidOperationException("Token is null");
+                throw new SprmAuthException(ErrorCode.InvalidToken, "Token is null");
             }
             long nowUnixTimestamp = DateTime.Now.GetUnixTimestamp();
             if (payload.Expiration < nowUnixTimestamp)
