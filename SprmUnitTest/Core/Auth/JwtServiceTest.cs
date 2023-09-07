@@ -4,7 +4,9 @@ using SprmApi.Core.Auth;
 using SprmApi.Core.ObjectTypes;
 using SprmApi.Core.Permissions;
 using SprmApi.Core.Permissions.Dto;
+using SprmApi.Core.Redis;
 using SprmApi.Settings;
+using StackExchange.Redis;
 
 namespace SprmUnitTest.Core.Auth
 {
@@ -49,7 +51,10 @@ namespace SprmUnitTest.Core.Auth
             Mock<IPermissionService> mock = new(MockBehavior.Strict);
             mock.Setup(x => x.GetByUserIdAsync(appUser.Id))
                 .ReturnsAsync(permissions);
-            JwtService jwtService = new(_jwtSettings, mock.Object);
+
+            Mock<IRedisService> redisMock = new(MockBehavior.Loose);
+
+            JwtService jwtService = new(_jwtSettings, mock.Object, redisMock.Object);
             string token = await jwtService.GenerateAccessToken(appUser);
             JwtAccessPayload payload = jwtService.DecryptToken<JwtAccessPayload>(token);
             Assert.That(appUser.Username, Is.EqualTo(payload.Subject));
@@ -73,7 +78,14 @@ namespace SprmUnitTest.Core.Auth
         public void GenerateRefreshToken(AppUser appUser)
         {
             Mock<IPermissionService> mock = new(MockBehavior.Strict);
-            JwtService jwtService = new(_jwtSettings, mock.Object);
+
+            Mock<IDatabase> redisDbMock = new(MockBehavior.Loose);
+
+            Mock<IRedisService> redisMock = new(MockBehavior.Strict);
+            redisMock.Setup(x => x.GetDatabase())
+                .Returns(redisDbMock.Object);
+
+            JwtService jwtService = new(_jwtSettings, mock.Object, redisMock.Object);
             string token = jwtService.GenerateRefreshToken(appUser);
             JwtBasePayload payload = jwtService.DecryptToken<JwtBasePayload>(token);
             Assert.That(appUser.Username, Is.EqualTo(payload.Subject));

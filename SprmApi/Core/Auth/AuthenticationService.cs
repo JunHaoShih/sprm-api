@@ -51,12 +51,32 @@ namespace SprmApi.Core.Auth
             {
                 throw new SprmAuthException(ErrorCode.UserNotExist, string.Empty);
             }
+
+            if (!_jwtService.IsRefreshTokenWhiteList(appUser, refreshDto.RefreshToken))
+            {
+                throw new SprmAuthException(ErrorCode.InvalidToken, string.Empty);
+            }
+
             string token = await _jwtService.GenerateAccessToken(appUser);
+            string refreshToken = _jwtService.GenerateRefreshToken(appUser);
+            _jwtService.RemoveRefreshToken(appUser, refreshDto.RefreshToken);
             return new()
             {
                 Token = token,
-                RefreshToken = refreshDto.RefreshToken,
+                RefreshToken = refreshToken,
             };
+        }
+
+        /// <inheritdoc/>
+        public async Task Logout(RefreshTokenDto refreshDto)
+        {
+            JwtBasePayload payload = _jwtService.DecryptToken<JwtBasePayload>(refreshDto.RefreshToken);
+            AppUser? appUser = await _appUserService.GetByUsernameAsync(payload.Subject);
+            if (appUser == null)
+            {
+                throw new SprmAuthException(ErrorCode.UserNotExist, string.Empty);
+            }
+            _jwtService.RemoveRefreshToken(appUser, refreshDto.RefreshToken);
         }
     }
 }

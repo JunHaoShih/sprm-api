@@ -20,5 +20,12 @@ namespace SprmApi.Core.Auth
         /// <param name="refreshDto"></param>
         /// <returns></returns>
         Task<AuthenticateResponseDto> Refresh(RefreshTokenDto refreshDto);
+
+        /// <summary>
+        /// Logout and invalidate refresh token
+        /// </summary>
+        /// <param name="refreshDto"></param>
+        /// <returns></returns>
+        Task Logout(RefreshTokenDto refreshDto);
     }
 }
