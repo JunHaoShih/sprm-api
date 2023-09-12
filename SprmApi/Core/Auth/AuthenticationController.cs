@@ -60,5 +60,24 @@ namespace SprmApi.Core.Auth
             AuthenticateResponseDto response = await _authenticationService.Refresh(refreshDto);
             return Ok(GenericResponse<AuthenticateResponseDto>.Success(response));
         }
+
+        /// <summary>
+        /// Logout and invalidate refresh token
+        /// </summary>
+        /// <param name="refreshDto"></param>
+        /// <returns></returns>
+        /// <exception cref="SprmException"></exception>
+        /// <response code="200">Logout成功</response>
+        /// <response code="500">Logout失敗</response>
+        /// <response code="401">驗證失敗</response>
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(GenericResponse<string>), StatusCodes.Status401Unauthorized)]
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout(RefreshTokenDto refreshDto)
+        {
+            await _authenticationService.Logout(refreshDto);
+            return Ok(GenericResponse<string>.Success(string.Empty));
+        }
     }
 }

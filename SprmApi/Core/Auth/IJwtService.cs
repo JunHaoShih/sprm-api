@@ -28,5 +28,20 @@ namespace SprmApi.Core.Auth
         /// <param name="token">Token you want to decrypt</param>
         /// <returns></returns>
         T DecryptToken<T>(string token) where T : JwtBasePayload;
+
+        /// <summary>
+        /// Remove refresh token from user whitelist
+        /// </summary>
+        /// <param name="appUser"></param>
+        /// <param name="refreshToken"></param>
+        void RemoveRefreshToken(AppUser appUser, string refreshToken);
+
+        /// <summary>
+        /// Find if refresh token is in whitelist
+        /// </summary>
+        /// <param name="appUser"></param>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        bool IsRefreshTokenWhiteList(AppUser appUser, string refreshToken);
     }
 }

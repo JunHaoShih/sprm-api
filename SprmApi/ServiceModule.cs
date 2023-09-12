@@ -10,6 +10,7 @@ using SprmApi.Core.Permissions;
 using SprmApi.Core.Processes;
 using SprmApi.Core.ProcessTypes;
 using SprmApi.Core.RabbitMq;
+using SprmApi.Core.Redis;
 using SprmApi.Core.Routings;
 using SprmApi.Core.RoutingUsages;
 using SprmApi.MiddleWares;
@@ -48,6 +49,9 @@ namespace SprmApi
 
             var jwtSettings = _configurationManager.GetSection("JwtSettings").Get<JwtSettings>(c => c.BindNonPublicProperties = true)!;
             builder.Register(c => jwtSettings).SingleInstance();
+
+            var redisSettings = _configurationManager.GetSection("RedisSettings").Get<RedisSettings>(c => c.BindNonPublicProperties = true)!;
+            builder.Register(c => redisSettings).SingleInstance();
 
             builder.RegisterType<HeaderData>().InstancePerLifetimeScope();
             builder.RegisterType<PaginationData>().InstancePerLifetimeScope();
@@ -110,6 +114,9 @@ namespace SprmApi
 
             // RabbitMq
             builder.RegisterType<RabbitMqService>().As<IRabbitMqService>().SingleInstance();
+
+            // Redis
+            builder.RegisterType<RedisService>().As<IRedisService>().SingleInstance();
         }
     }
 }
