@@ -8,8 +8,6 @@ namespace SprmApi.Core.Redis
     /// </summary>
     public class RedisService : IRedisService
     {
-        private readonly RedisSettings _settings;
-
         private readonly Lazy<ConnectionMultiplexer> _lazyConnection;
 
         /// <summary>
@@ -18,15 +16,14 @@ namespace SprmApi.Core.Redis
         /// <param name="settings"></param>
         public RedisService(RedisSettings settings)
         {
-            _settings = settings;
             ConfigurationOptions options = new()
             {
-                User = _settings.User,
-                Password = _settings.Password,
+                User = settings.User,
+                Password = settings.Password,
                 AbortOnConnectFail = false,
                 EndPoints = new()
                 {
-                    { _settings.Host, 6379 }
+                    { settings.Host, 6379 }
                 }
             };
             _lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
