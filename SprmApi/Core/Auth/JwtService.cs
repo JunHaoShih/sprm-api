@@ -82,7 +82,7 @@ namespace SprmApi.Core.Auth
             return jwtToken;
         }
 
-        private string GetRefreshTokenKey(string username, string refreshToken)
+        private static string GetRefreshTokenKey(string username, string refreshToken)
         {
             return $"{username}@@refreshTokens@@{refreshToken}";
         }
