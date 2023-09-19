@@ -131,7 +131,11 @@ try
     // Add swagger
     app.UseOpenApi(p => p.Path = "/swagger/{documentName}/swagger.yaml");
     app.UseSwaggerUi3(p => p.DocumentPath = "/swagger/{documentName}/swagger.yaml");
-    app.UseReDoc();
+    app.UseReDoc(p =>
+    {
+        p.Path = "/redoc";
+        p.DocumentPath = "/swagger/{documentName}/swagger.yaml";
+    });
 
     // Configure the HTTP request pipeline.
 
