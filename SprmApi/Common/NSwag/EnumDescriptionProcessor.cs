@@ -78,7 +78,7 @@ namespace SprmApi.Common.NSwag
                 {
                     continue;
                 }
-                MemberInfo memberInfo = enumType.GetMember(valueString).First();
+                MemberInfo memberInfo = enumType.GetMember(valueString).ElementAt(0);
 
                 DescriptionAttribute? attribute = memberInfo.GetCustomAttribute<DescriptionAttribute>();
                 if (attribute == null)
