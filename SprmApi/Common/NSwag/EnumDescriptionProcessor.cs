@@ -43,15 +43,15 @@ namespace SprmApi.Common.NSwag
             }
 
             JsonSchema actualSchema = schema.ActualSchema;
-            if (actualSchema != null && actualSchema.Enumeration != null && actualSchema.Enumeration.Count > 0)
+            if (actualSchema != null &&
+                actualSchema.Enumeration != null &&
+                actualSchema.Enumeration.Count > 0 &&
+                !string.IsNullOrEmpty(actualSchema.Description))
             {
-                if (!string.IsNullOrEmpty(actualSchema.Description))
+                string description = $"【{actualSchema.Description}】";
+                if (string.IsNullOrEmpty(schema.Description) || !schema.Description.EndsWith(description))
                 {
-                    string description = $"【{actualSchema.Description}】";
-                    if (string.IsNullOrEmpty(schema.Description) || !schema.Description.EndsWith(description))
-                    {
-                        schema.Description += description;
-                    }
+                    schema.Description += description;
                 }
             }
 
