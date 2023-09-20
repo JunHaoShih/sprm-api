@@ -1,4 +1,5 @@
 ﻿using SprmCommon.Exceptions;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace SprmCommon.Error
@@ -11,86 +12,86 @@ namespace SprmCommon.Error
         /// <summary>
         /// Success
         /// </summary>
-        [ErrorMessage("Success")]
+        [Description("Success")]
         Success = 0,
         /// <summary>
         /// Generic error
         /// </summary>
-        [ErrorMessage("Unknown Error")]
+        [Description("Unknown Error")]
         Error = 1,
 
         /// <summary>
         /// Invalid token
         /// </summary>
-        [ErrorMessage("Invalid token")]
+        [Description("Invalid token")]
         InvalidToken = 100,
         /// <summary>
         /// Username or password error
         /// </summary>
-        [ErrorMessage("Username or password error")]
+        [Description("Username or password error")]
         IncorrectUsernameOrPassword = 101,
         /// <summary>
         /// Model binding error
         /// </summary>
-        [ErrorMessage("Model binding error, please check your parameters")]
+        [Description("Model binding error, please check your parameters")]
         ModelBindingError = 102,
         /// <summary>
         /// Access denied
         /// </summary>
-        [ErrorMessage("Access denied")]
+        [Description("Access denied")]
         AccessDenied = 103,
 
         /// <summary>
         /// Username already exist
         /// </summary>
-        [ErrorMessage("Username already exist")]
+        [Description("Username already exist")]
         UsernameExist = 200,
         /// <summary>
         /// User not exist
         /// </summary>
-        [ErrorMessage("User not exist")]
+        [Description("User not exist")]
         UserNotExist = 201,
 
         /// <summary>
         /// Database error occured
         /// </summary>
-        [ErrorMessage("Database error occured")]
+        [Description("Database error occured")]
         DbError = 300,
         /// <summary>
         /// Duplicate data found when insert data to database
         /// </summary>
-        [ErrorMessage("Duplicate data found when insert data to database")]
+        [Description("Duplicate data found when insert data to database")]
         DbInsertDuplicate = 301,
         /// <summary>
         /// Data does not exist inside database
         /// </summary>
-        [ErrorMessage("Data does not exist inside database")]
+        [Description("Data does not exist inside database")]
         DbDataNotFound = 302,
         /// <summary>
         /// Foreign key violation
         /// </summary>
-        [ErrorMessage("Foreign key violation")]
+        [Description("Foreign key violation")]
         DbForeignKeyViolation = 303,
 
         /// <summary>
         /// Data already checkout
         /// </summary>
-        [ErrorMessage("Data already checkout")]
+        [Description("Data already checkout")]
         DataAlreadyCheckout = 400,
         /// <summary>
         /// Data does not checkout
         /// </summary>
-        [ErrorMessage("Data does not checkout")]
+        [Description("Data does not checkout")]
         DataDoesNotCheckout = 401,
         /// <summary>
         /// Cannot found latest version
         /// </summary>
-        [ErrorMessage("Cannot found latest version")]
+        [Description("Cannot found latest version")]
         LatestVersionNotFound = 402,
         /// <summary>
         /// Cannot found draft version
         /// </summary>
-        [ErrorMessage("Cannot found draft version")]
+        [Description("Cannot found draft version")]
         DraftVersionNotFound = 403,
     }
 
@@ -112,26 +113,8 @@ namespace SprmCommon.Error
             {
                 throw new SprmException(ErrorCode.Error, "Error occured while getting error code message");
             }
-            var attr = enumType.GetField(enumName)!.GetCustomAttributes<ErrorMessageAttribute>().First();
-            return attr.Message;
+            DescriptionAttribute attr = enumType.GetField(enumName)!.GetCustomAttributes<DescriptionAttribute>().First();
+            return attr.Description;
         }
-    }
-
-    /// <summary>
-    /// Error message attribute, purely for ErrorCode
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Field)]
-    public class ErrorMessageAttribute : Attribute
-    {
-        /// <summary>
-        /// Error code message
-        /// </summary>
-        public string Message { get; private set; }
-
-        /// <summary>
-        /// Set error message attribute
-        /// </summary>
-        /// <param name="message"></param>
-        public ErrorMessageAttribute(string message) => Message = message;
     }
 }
