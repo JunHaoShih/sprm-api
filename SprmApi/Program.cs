@@ -7,6 +7,7 @@ using NSwag;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using SprmApi;
+using SprmApi.Common.NSwag;
 using SprmApi.Core.Auth;
 using SprmApi.EFs;
 using SprmApi.MiddleWares;
@@ -107,6 +108,7 @@ try
                 Description = "Put your JWT token here"
             }
         );
+        settings.SchemaProcessors.Add(new EnumDescriptionProcessor());
     });
 
     // Add hosted service
