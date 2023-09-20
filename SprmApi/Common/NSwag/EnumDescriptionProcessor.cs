@@ -62,7 +62,7 @@ namespace SprmApi.Common.NSwag
             }
         }
 
-        private Tuple<string, object>[] GetTextValueItems(Type enumType)
+        private static Tuple<string, object>[] GetTextValueItems(Type enumType)
         {
             if (s_dict.TryGetValue(enumType, out Tuple<string, object>[]? tuples) && tuples != null)
             {
