@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -73,6 +74,7 @@ namespace SprmApi.Core.Customs
         /// <summary>
         /// 字串
         /// </summary>
+        [Description("字串")]
         String = 0,
     }
 
@@ -84,11 +86,13 @@ namespace SprmApi.Core.Customs
         /// <summary>
         /// 顯示值
         /// </summary>
+        [Description("顯示值")]
         Value = 0,
 
         /// <summary>
         /// 單選
         /// </summary>
+        [Description("單選")]
         SingleSelect = 1,
     }
 }

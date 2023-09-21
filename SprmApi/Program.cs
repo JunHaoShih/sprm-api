@@ -7,6 +7,7 @@ using NSwag;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using SprmApi;
+using SprmApi.Common.NSwag;
 using SprmApi.Core.Auth;
 using SprmApi.EFs;
 using SprmApi.MiddleWares;
@@ -107,6 +108,7 @@ try
                 Description = "Put your JWT token here"
             }
         );
+        settings.SchemaProcessors.Add(new EnumDescriptionProcessor());
     });
 
     // Add hosted service
@@ -131,7 +133,11 @@ try
     // Add swagger
     app.UseOpenApi(p => p.Path = "/swagger/{documentName}/swagger.yaml");
     app.UseSwaggerUi3(p => p.DocumentPath = "/swagger/{documentName}/swagger.yaml");
-    app.UseReDoc();
+    app.UseReDoc(p =>
+    {
+        p.Path = "/redoc";
+        p.DocumentPath = "/swagger/{documentName}/swagger.yaml";
+    });
 
     // Configure the HTTP request pipeline.
 
